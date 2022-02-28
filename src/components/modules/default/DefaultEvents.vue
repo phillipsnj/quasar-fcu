@@ -1,7 +1,7 @@
 <template>
-  <q-page-container>
+  <div class="q-pa-md row">
     <component v-bind:is="store.state.events_component"></component>
-  </q-page-container>
+  </div>
 </template>
 
 <script>

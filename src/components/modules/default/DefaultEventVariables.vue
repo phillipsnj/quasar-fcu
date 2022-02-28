@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md">
-    <h5>Event Variables</h5>
+  <h5>Event Variables</h5>
+  <div class="q-pa-md row">
     <EventVariable :eventVariableIndex="n"
                    :eventIndex = store.state.selected_event_index
                    :nodeNumber="store.state.selected_node"

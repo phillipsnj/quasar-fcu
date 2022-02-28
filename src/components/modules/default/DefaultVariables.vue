@@ -18,11 +18,10 @@ export default {
   components: {NodeVariable},
   setup() {
     const store = inject('store')
-    const label = "Label"
     onBeforeMount(() => {
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, NodeVariable, label}
+    return {store, NodeVariable}
   }
 }
 </script>

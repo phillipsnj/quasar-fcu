@@ -23,6 +23,14 @@ const methods = {
     console.log(`Update Layout Details : `+state.title)
     socket.emit('UPDATE_LAYOUT_DETAILS', state.layout)
   },
+  update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue){
+    console.log(`Update Node Variable`)
+    state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
+  },
+  update_event_variable(nodeNumber, eventIndex, eventVariableIndex, eventVariableValue){
+    //console.log(`Update Event Variable : `+eventVariableValue)
+    state.nodes[nodeNumber].consumedEvents[eventIndex].variables[eventVariableIndex] = eventVariableValue
+  },
   update_display_component(component) {
     console.log(`Display Component`)
     state.display_component = component

@@ -1,8 +1,8 @@
 <template>
   <div class="bg-primary">
-    <div class="q-pa-md q-gutter-sm">
+<!--    <div class="q-pa-md q-gutter-sm">
       <q-btn color="negative" label="Check Nodes" @click="store.methods.QNN()" no-caps/>
-    </div>
+    </div>-->
     <div class="q-pa-md">
       <q-table
         title="Nodes"
@@ -10,6 +10,11 @@
         :columns="columns"
         row-key="nodeNumber"
       >
+        <template v-slot:top="">
+          <div class="col-2 q-table__title">Nodes</div>
+          <q-space />
+          <q-btn color="negative" label="Check Nodes" @click="store.methods.QNN()" no-caps/>
+        </template>
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="nodeNumber" :props="props">{{ props.row.nodeNumber }}</q-td>
@@ -60,7 +65,5 @@ export default {
 </script>
 
 <style scoped>
-.node-page {
-  background: #1976d2;
-}
+
 </style>

@@ -5,63 +5,81 @@
       :hint="hint"
       v-model="variableValue"
       outlined
-      :rules="[value => value <= props.max || 'Number to High',
-            value => value >= props.min || 'Number to Low']"
-      @change="update_node_variable">
+      :error-message="error_message"
+      :error="error"
+      @change = "update_variable"
+    >
     </q-input>
   </q-card>
 </template>
 
-<script>
-import {inject, ref, onMounted} from "vue";
+<script setup>
+import {inject, ref, onMounted, computed} from "vue";
 
-export default {
-  name: "NodeVariable",
-  props: {
-    "nodeNumber":{
-      type:Number,
-      required:true
-    },
-    "nodeVariableIndex":{
-      type:Number,
-      required:true
-    },
-    "name":{
-      type:String,
-      required:false
-    },
-    "max":{
-      type:Number,
-      default:255
-    },
-    "min":{
-      type:Number,
-      default:0
-    },
-    "hint":{
-      type:String,
-      default:""
-    }
+const props = defineProps({
+  "nodeNumber": {
+    type: Number,
+    required: true
   },
-  setup(props){
-    console.log(props.nodeNumber)
-    //var variableValue = ref(29)
-    const label = props.name? props.name : "Variable"+props.nodeVariableIndex
-    const store = inject('store')
-    let variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
-    const update_node_variable = () => {
-      if (variableValue.value >= props.min && variableValue.value <= props.max) {
-        console.log("Variable has been updated " + variableValue.value)
-      } else {
-        console.log("Variable has not been updated " + variableValue.value)
-      }
-    }
-    onMounted(() =>{
-      const variableValue = store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
-    })
-    return {variableValue, props, update_node_variable, label}
+  "nodeVariableIndex": {
+    type: Number,
+    required: true
+  },
+  "name": {
+    type: String,
+    required: false
+  },
+  "max": {
+    type: Number,
+    default: 255
+  },
+  "min": {
+    type: Number,
+    default: 0
+  },
+  "hint": {
+    type: String,
+    default: ""
+  }
+})
+
+console.log(`Node Variable : ` + props.nodeNumber)
+//var variableValue = ref(29)
+const label = props.name ? props.name : "Variable" + props.nodeVariableIndex
+const store = inject('store')
+const error = ref(false)
+const error_message = ref('')
+
+
+
+const variableValue = computed({
+  get() {
+    return store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
+  },
+  set(newValue) {
+    console.log(`NewValue : ${newValue}`)
+  }
+})
+
+const update_variable = (newValue) => {
+  if (newValue <= props.max && newValue >= props.min) {
+    console.log(`update_variable : ${newValue}`)
+    error.value = false
+    error_message.value = ''
+    store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
+  } else {
+    console.log(`Invalid Value : ${newValue}`)
+    error_message.value = 'Invalid Value'
+    error.value = true
   }
 }
+
+onMounted(() => {
+  console.log(`NodeVariable`)
+  //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
+})
+
+
 </script>
 
 <style scoped>
