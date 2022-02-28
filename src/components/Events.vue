@@ -4,8 +4,18 @@
       title="Events"
       :rows=Object.values(store.state.events)
       :columns="columns"
+      :filter="filter"
       row-key="id"
     >
+      <template v-slot:top="">
+        <div class="col-2 q-table__title">Events</div>
+        <q-space />
+        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="eventIdentifier" :props="props">{{ props.row.id }}</q-td>
@@ -33,7 +43,7 @@
 </template>
 
 <script setup>
-import {inject} from "vue";
+import {inject, ref } from "vue";
 
 const columns = [
   {name: 'eventIdentifier', field: 'id', required: true, label: 'Event Identifier', align: 'left', sortable: true},
@@ -44,6 +54,7 @@ const columns = [
   {name: 'count', field: 'count', required: true, label: 'Count', align: 'left', sortable: true}
 ]
 const store = inject('store')
+const filter = ref('')
 </script>
 
 <style scoped>

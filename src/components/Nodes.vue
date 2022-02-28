@@ -8,10 +8,17 @@
         title="Nodes"
         :rows=Object.values(store.state.nodes)
         :columns="columns"
+        :filter="filter"
         row-key="nodeNumber"
       >
         <template v-slot:top="">
           <div class="col-2 q-table__title">Nodes</div>
+          <q-space />
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
           <q-space />
           <q-btn color="negative" label="Check Nodes" @click="store.methods.QNN()" no-caps/>
         </template>
@@ -40,7 +47,7 @@
 </template>
 
 <script>
-import {inject} from 'vue'
+import { inject, ref } from 'vue'
 
 const columns = [
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node Number', align: 'left', sortable: true},
@@ -53,12 +60,13 @@ export default {
   name: "Nodes",
   setup() {
     const store = inject('store')
+    const filter = ref('')
     const editNode = (nodeId, component) => {
       store.state.selected_node = nodeId
       store.state.display_component = "node"
     }
     return {
-      store, columns, editNode
+      store, columns, editNode, filter
     }
   }
 }
