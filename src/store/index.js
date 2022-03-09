@@ -19,6 +19,12 @@ const state = reactive({
 })
 
 const methods = {
+  remove_node(nodeNumber){
+    socket.emit('REMOVE_NODE', {"nodeId":nodeNumber})
+  },
+  remove_event(eventIdentifier){
+    socket.emit('REMOVE_NODE', {"eventId":eventIdentifier})
+  },
   update_layout() {
     console.log(`Update Layout Details : `+state.title)
     socket.emit('UPDATE_LAYOUT_DETAILS', state.layout)

@@ -10,7 +10,7 @@
       <template v-slot:top="">
         <div class="col-2 q-table__title">Events</div>
         <q-space />
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+        <q-input outlined dense debounce="300" v-model="filter" placeholder="Search">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
