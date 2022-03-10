@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-primary text-white">
+    <q-header class="bg-primary text-white">
       <q-toolbar>
         <q-btn
           flat
@@ -13,7 +13,7 @@
 
         <q-toolbar-title>
           <span class="page-title">{{ store.state.layout.layoutDetails.title }}</span>
-          <span class="page-sub-title">{{store.state.layout.layoutDetails.subTitle }}</span>
+          <span class="page-sub-title">{{ store.state.layout.layoutDetails.subTitle }}</span>
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -32,15 +32,17 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container class="main-page">
-      <!--      <p>{{ store.state.display_component }}</p>-->
-      <div v-if="store.state.debug">
-        <p>display_component : {{ store.state.display_component }}</p>
-        <p>events_component : {{ store.state.events_component }}</p>
-        <p>selected_node : {{ store.state.selected_node }}</p>
-        <p>selected_events_index : {{ store.state.selected_event_index }}</p>
-      </div>
-      <component v-bind:is="store.state.display_component"></component>
+    <q-page-container class="main-page no-shadow">
+      <q-page>
+        <!--      <p>{{ store.state.display_component }}</p>-->
+        <div v-if="store.state.debug">
+          <p>display_component : {{ store.state.display_component }}</p>
+          <p>events_component : {{ store.state.events_component }}</p>
+          <p>selected_node : {{ store.state.selected_node }}</p>
+          <p>selected_events_index : {{ store.state.selected_event_index }}</p>
+        </div>
+        <component v-bind:is="store.state.display_component"></component>
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>

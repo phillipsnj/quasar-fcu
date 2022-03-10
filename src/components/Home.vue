@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <h1>Home Page</h1>
+  <div class="bg-primary q-pa-md">
+    <div class="q-pa-md q-mr-sm bg-white rounded-borders">
+      <div class="text-h4">Home Page</div>
+    </div>
   </div>
 </template>
 
