@@ -10,9 +10,13 @@
         :columns="columns"
         :filter="filter"
         row-key="nodeNumber"
+        virtual-scroll
+        :rows-per-page-options="[0]"
+        :pagination="pagination"
+        :virtual-scroll-sticky-size-start="48"
       >
         <template v-slot:top="">
-          <div class="col-2 q-table__title">Nodes</div>
+          <div class="col-2 q-table__title text-h4">Nodes</div>
           <q-space />
           <q-input outlined dense debounce="300" v-model="filter" placeholder="Search">
             <template v-slot:append>
@@ -72,7 +76,7 @@ export default {
       store.methods.remove_node(nodeId)
     }
     return {
-      store, columns, editNode, filter, deleteNode
+      store, columns, editNode, filter, deleteNode, pagination: { rowsPerPage: 0 }
     }
   }
 }

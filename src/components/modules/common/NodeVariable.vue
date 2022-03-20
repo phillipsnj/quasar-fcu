@@ -1,6 +1,7 @@
 <template>
   <q-card class="q-pa-md" flat style="max-width: 300px">
     <q-input
+      filled
       :label="label"
       :hint="hint"
       v-model="variableValue"
@@ -9,6 +10,7 @@
       :error="error"
       @change = "update_variable"
     >
+
     </q-input>
   </q-card>
 </template>
@@ -58,11 +60,26 @@ const variableValue = computed({
   },
   set(newValue) {
     console.log(`NewValue : ${newValue}`)
+    if (newValue <= props.max && newValue >= props.min) {
+      console.log(`update_variable : ${newValue}`)
+      error.value = false
+      error_message.value = ''
+      store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
+    } else {
+      console.log(`Invalid Value : ${newValue}`)
+      error_message.value = 'Invalid Value'
+      error.value = true
+    }
   }
 })
 
 const update_variable = (newValue) => {
-  if (newValue <= props.max && newValue >= props.min) {
+  if (error.value) {
+    console.log(`Invalid Value : ${newValue}`)
+  } else {
+    console.log(`update_variable : ${newValue}`)
+  }
+  /*if (newValue <= props.max && newValue >= props.min) {
     console.log(`update_variable : ${newValue}`)
     error.value = false
     error_message.value = ''
@@ -71,7 +88,7 @@ const update_variable = (newValue) => {
     console.log(`Invalid Value : ${newValue}`)
     error_message.value = 'Invalid Value'
     error.value = true
-  }
+  }*/
 }
 
 onMounted(() => {

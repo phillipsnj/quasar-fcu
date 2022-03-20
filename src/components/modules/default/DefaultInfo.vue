@@ -15,11 +15,8 @@
     <node-parameter parameter-name="Node Variables"
                     :parameter-value="store.state.nodes[store.state.selected_node].parameters[6]">
     </node-parameter>
-    <node-parameter parameter-name="Node Variables"
-                    :parameter-value="store.state.nodes[store.state.selected_node].parameters[7]">
-    </node-parameter>
     <node-parameter parameter-name="Event Variables"
-                    :parameter-value="store.state.nodes[store.state.selected_node].parameters[6]">
+                    :parameter-value="store.state.nodes[store.state.selected_node].parameters[5]">
     </node-parameter>
     <node-parameter parameter-name="Events Stored"
                     :parameter-value="store.state.nodes[store.state.selected_node].eventCount">

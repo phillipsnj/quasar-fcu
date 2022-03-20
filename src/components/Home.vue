@@ -1,16 +1,16 @@
 <template>
   <div class="bg-primary q-pa-md">
-    <div class="q-pa-md q-mr-sm bg-white rounded-borders">
-      <div class="text-h4">Home Page</div>
+    <div class="q-pa-md q-mr-sm rounded-borders">
+      <div class="text-h4 text-white">Home Page</div>
+      <div class="text-h5 text-white">{{ store.state.layout.layoutDetails.title }}</div>"
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 
-export default {
-  name: 'Home',
+import {inject} from "vue";
 
-  data: () => ({}),
-}
+const store = inject('store')
+
 </script>

@@ -1,10 +1,14 @@
 <template>
-  <div class="q-pa-md">
+  <div class="full-width" >
     <q-table
       title="Consumed Events"
       :rows=Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
       :columns="columns"
       row-key="eventIdentifier"
+      virtual-scroll
+      v-model:pagnation="pagnation"
+      :rows-per-page-options="[0]"
+      :virtual-scroll-sticky-size-start="48"
     >
       <template v-slot:body="props">
         <q-tr :props="props">
@@ -16,8 +20,9 @@
         </q-tr>
       </template>
     </q-table>
-
-    <p v-if="store.state.debug">
+  </div>
+  <div class="q-pa-md row" v-if="store.state.debug">
+    <p>
       {{ Object.values(store.state.events) }}
     </p>
   </div>
@@ -28,17 +33,17 @@ import {inject, onBeforeMount} from "vue";
 import DefaultEventVariables from "components/modules/default/DefaultEventVariables";
 
 const columns = [
-  {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label:'Event', align:'left', sortable: true},
-  {name: 'eventIndex', field: 'eventIndex', required: true, label:'Event Index', align:'left', sortable: true},
-  {name: 'edit', field: 'edit',required: true, label:'Edit', align:'left', sortable: true}
+  {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'Event', align: 'left', sortable: true},
+  {name: 'eventIndex', field: 'eventIndex', required: true, label: 'Event Index', align: 'left', sortable: true},
+  {name: 'edit', field: 'edit', required: true, label: 'Edit', align: 'left', sortable: true}
 ]
 
 export default {
   name: "DefaultEvents",
-  components: {  },
+  components: {},
   setup() {
     const store = inject('store')
-    onBeforeMount(()=>{
+    onBeforeMount(() => {
       store.methods.request_all_node_events(store.state.selected_node)
     })
     const editEvent = (eventIndex) => {
@@ -46,7 +51,7 @@ export default {
       store.state.selected_event_index = eventIndex
       store.methods.update_event_component("DefaultEventVariables")
     }
-    return { store, columns, editEvent }
+    return {store, columns, editEvent}
   }
 }
 </script>

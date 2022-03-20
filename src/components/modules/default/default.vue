@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <h4>{{ store.state.selected_node }}</h4>
+    <div class="text-h4 text-white">Node : {{ store.state.selected_node }} - {{ store.state.nodes[store.state.selected_node].module }}</div>
   </div>
   <div class="q-pa-md">
-    <div class="q-gutter-y-md" style="max-width: 800px">
+    <div>
       <q-card>
         <q-tabs
           v-model="tab"

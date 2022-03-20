@@ -74,6 +74,8 @@ const methods = {
   }
 }
 
+const getters = {}
+
 const socket = io('http://localhost:5552')
 
 socket.on("connect", () => {
@@ -112,5 +114,6 @@ socket.on("dccError", (data) => {
 
 export default {
   state,
-  methods
+  methods,
+  getters
 }
