@@ -4,12 +4,11 @@
   </div>
   <div class="q-pa-md">
     <div>
-      <q-card>
         <q-tabs
           v-model="tab"
           dense
-          class="text-grey"
-          active-color="primary"
+          class="text-white"
+          active-color="black"
           indicator-color="primary"
           align="justify"
           narrow-indicator
@@ -19,20 +18,19 @@
           <q-tab name="events" label="Events"/>
         </q-tabs>
         <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="info">
+          <q-tab-panel name="info" class="bg-white">
             <default-info/>
 
           </q-tab-panel>
 
-          <q-tab-panel name="variables">
+          <q-tab-panel name="variables" class="bg-white">
             <default-variables/>
           </q-tab-panel>
 
-          <q-tab-panel name="events">
+          <q-tab-panel name="events" class="bg-white">
             <default-events/>
           </q-tab-panel>
         </q-tab-panels>
-      </q-card>
     </div>
   </div>
 </template>

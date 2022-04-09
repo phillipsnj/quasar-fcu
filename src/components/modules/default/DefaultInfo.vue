@@ -1,5 +1,6 @@
 <template>
   <div class="q-pa-md row">
+    <node-details :nodeNumber="store.state.selected_node"></node-details>
     <node-parameter parameter-name="Node Number"
                     :parameter-value="store.state.nodes[store.state.selected_node].nodeNumber">
     </node-parameter>
@@ -27,10 +28,11 @@
 <script>
 import {inject, onBeforeMount} from "vue"
 import NodeParameter from "components/modules/common/NodeParameter"
+import NodeDetails from "components/modules/common/NodeDetails"
 
 export default {
   name: "DefaultInfo",
-  components: {NodeParameter},
+  components: {NodeDetails, NodeParameter},
   setup() {
     const store = inject('store')
     onBeforeMount(() => {

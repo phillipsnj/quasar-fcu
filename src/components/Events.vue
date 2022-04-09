@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-table
       title="Events"
-      :rows=Object.values(store.state.events)
+      :rows=displayEventList
       :columns="columns"
       :filter="filter"
       row-key="id"
@@ -22,21 +22,22 @@
       </template>
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td auto-width>
+          <q-td key="expand" auto-width>
             <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'" />
           </q-td>
-          <q-td key="eventName" :props="props">
-            <div class="text-pre-wrap">Event Name</div>
-          </q-td>
-          <q-td key="eventIdentifier" :props="props">{{ props.row.id }}</q-td>
-          <q-td key="nodeNumber" :props="props">{{ props.row.nodeNumber }}</q-td>
-          <q-td key="eventNumber" :props="props">{{ props.row.eventNumber }}</q-td>
+<!--          <q-td key="eventName" :props="props" :class="'text-'+event_colour(props.row.id)">
+            <div class="text-pre-wrap"  >{{ event_name(props.row.id) }}</div>
+          </q-td>-->
+          <q-td key="eventName" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.name }}</q-td>
+          <q-td key="eventIdentifier" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.id }}</q-td>
+          <q-td key="nodeNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.nodeNumber }}</q-td>
+          <q-td key="eventNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.eventNumber }}</q-td>
           <q-td key="status" :props="props">
             <q-chip color="white" text-color="green" v-if="props.row.status=='on'">ON</q-chip>
             <q-chip color="white" text-color="red" v-else>OFF</q-chip>
           </q-td>
-          <q-td key="type" :props="props">{{ props.row.type }}</q-td>
-          <q-td key="count" :props="props">{{ props.row.count }}</q-td>
+          <q-td key="type" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.type }}</q-td>
+          <q-td key="count" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.count }}</q-td>
 
 <!--          <q-td key="status" :props="props">
             <q-btn color="primary" flat rounded label="Edit"
@@ -45,7 +46,7 @@
         </q-tr>
         <q-tr v-show="props.expand" :props="props">
           <q-td colspan="100%">
-            <div class="text-left">This is expand slot for row above: {{ props.row.id }}.</div>
+            <event-details :eventIdentifier="props.row.id"></event-details>
           </q-td>
         </q-tr>
       </template>
@@ -59,9 +60,12 @@
 </template>
 
 <script setup>
-import {inject, ref } from "vue";
+import EventDetails from "components/modules/common/EventDetails.vue"
+
+import {computed, inject, ref, watch } from "vue"
 
 const columns = [
+  {name: 'expand', field: 'expand', required: true, label: 'Expand', align: 'left', sortable: false},
   {name: 'eventName', field: 'name', required: true, label: 'Event Name', align: 'left', sortable: true},
   {name: 'eventIdentifier', field: 'id', required: true, label: 'Event Identifier', align: 'left', sortable: true},
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node Number', align: 'left', sortable: true},
@@ -73,6 +77,72 @@ const columns = [
 const store = inject('store')
 const filter = ref('')
 const pagnation = { rowsPerPage: 0 }
+let displayEventList = ref()
+
+
+const eventList = computed(() => {
+  console.log(`Computed Events`)
+  return Object.values(store.state.events)
+})
+
+const eventDetails = computed(()=>{
+  return store.state.layout
+})
+
+watch(eventList, () => {
+  console.log(`WATCH Events`)
+  update_events()
+})
+
+watch(eventDetails, () => {
+  console.log(`WATCH Details`)
+  update_events()
+})
+
+const update_events = () => {
+  console.log(`Update Events`)
+  let displayEventListLocal = []
+  for (const event of Object.values(store.state.events)) {
+    console.log(`Update Event : ${event.id} - ${JSON.stringify(event)}`)
+    let output = {}
+    output['id'] = event.id
+    output['nodeNumber'] = event.nodeNumber
+    output['eventNumber'] = event.eventNumber
+    output['status'] = event.status
+    output['type'] = event.type
+    output['count'] = event.count
+    //displayEventList[i].id = i.id
+    if (event.id in store.state.layout.eventDetails) {
+      output['name'] = store.state.layout.eventDetails[event.id].name
+      output['colour'] = store.state.layout.eventDetails[event.id].colour
+    } else {
+      output['name'] = event.id
+      output['colour'] = "black"
+    }
+    displayEventListLocal.push(output)
+  }
+  displayEventList.value=displayEventListLocal
+}
+
+const event_name = (eventId) => {
+  if ( eventId in store.state.layout.eventDetails) {
+    //console.log(`Event Name`)
+    return store.state.layout.eventDetails[eventId].name
+  } else {
+    //console.log(`Event No Name ${JSON.stringify(eventId)}`)
+    return JSON.stringify(eventId)
+  }
+}
+
+const event_colour = (eventId) => {
+  if ( eventId in store.state.layout.eventDetails) {
+    //console.log(`Event Colour`)
+    return store.state.layout.eventDetails[eventId].colour
+  } else {
+    //console.log(`Event No Colour ${JSON.stringify(eventId)}`)
+    return "blue"
+  }
+}
 </script>
 
 <style scoped>

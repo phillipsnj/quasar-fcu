@@ -1,6 +1,7 @@
 <template>
   <q-card class="q-pa-md" flat style="max-width: 300px">
     <q-input
+      class="bg-white"
       filled
       :label="label"
       :hint="hint"
