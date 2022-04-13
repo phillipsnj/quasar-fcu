@@ -19,6 +19,8 @@
             <q-icon name="search" />
           </template>
         </q-input>
+        <q-space />
+        <q-btn color="negative" label="Clear Events" @click="store.methods.clear_events()" no-caps/>
       </template>
       <template v-slot:body="props">
         <q-tr :props="props">

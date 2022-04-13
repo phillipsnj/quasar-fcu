@@ -50,6 +50,14 @@ const methods = {
     console.log(`Emit QNN`)
     socket.emit('QUERY_ALL_NODES')
   },
+  clear_events: function () {
+    //console.log(`QUERY_ALL_NODES`)
+    socket.emit('CLEAR_EVENTS')
+    //console.log(`CLEAR_EVENTS_2`)
+    //socket.emit('QUERY_ALL_NODES')
+    socket.emit('CLEAR_EVENTS')
+    console.log(`CLEAR_EVENTS_3`)
+  },
   request_all_node_parameters(nodeId, parameters, delay) {
     socket.emit('REQUEST_ALL_NODE_PARAMETERS', {"nodeId": nodeId, "parameters": parameters, "delay": delay})
   },
