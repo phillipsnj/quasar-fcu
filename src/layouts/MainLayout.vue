@@ -81,6 +81,12 @@ const linksList = [
     icon: "mdi-database",
     component: "JSON",
   },
+  {
+    title: "Components",
+    caption: "Element Details",
+    icon: "mdi-database",
+    component: "Elements",
+  },
 ];
 
 import {defineComponent, ref, inject} from "vue";
@@ -90,11 +96,12 @@ import events from "components/Events.vue"
 import settings from "components/Settings.vue"
 import node from "components/Node.vue"
 import JSON from "components/json.vue"
+import Elements from "components/Elements.vue"
 
 export default defineComponent({
   name: "MainLayout",
   components: {
-    EssentialLink, Home, Nodes, JSON, events, settings, node
+    EssentialLink, Home, Nodes, JSON, events, settings, node, Elements
   },
 
   setup() {

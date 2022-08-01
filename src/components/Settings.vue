@@ -21,6 +21,7 @@
         </q-input>
         <q-checkbox v-model="store.state.debug" label="Debug"></q-checkbox>
         <q-checkbox v-model="store.state.advanced" label="Advanced"></q-checkbox>
+        <q-checkbox v-model="store.state.develop" label="Develop"></q-checkbox>
       </q-card>
     </div>
   </div>

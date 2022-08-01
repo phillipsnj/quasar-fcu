@@ -16,6 +16,7 @@ const state = reactive({
   title: "MERG Quasar FCU",
   debug: false,
   advanced: false,
+  develop: false,
   colours :["black","red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange","brown","blue-grey","grey"]
 })
 
@@ -50,13 +51,14 @@ const methods = {
     console.log(`Emit QNN`)
     socket.emit('QUERY_ALL_NODES')
   },
-  clear_events: function () {
+  clear_events() {
     //console.log(`QUERY_ALL_NODES`)
-    socket.emit('CLEAR_EVENTS')
+    //socket.emit('CLEAR_EVENTS')
     //console.log(`CLEAR_EVENTS_2`)
     //socket.emit('QUERY_ALL_NODES')
-    socket.emit('CLEAR_EVENTS')
-    console.log(`CLEAR_EVENTS_3`)
+    //socket.emit('CLEAR_EVENTS')
+    //socket.emit('CLEAR_EVENTS2')
+    console.log(`CLEAR_EVENTS`)
   },
   request_all_node_parameters(nodeId, parameters, delay) {
     socket.emit('REQUEST_ALL_NODE_PARAMETERS', {"nodeId": nodeId, "parameters": parameters, "delay": delay})
