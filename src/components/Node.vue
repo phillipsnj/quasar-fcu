@@ -5,16 +5,18 @@
 </template>
 
 <script>
-import {inject} from "vue";
-import mergDefault from "components/modules/default/default.vue"
+import {inject, onBeforeMount} from "vue";
 
+import mergDefault from "components/modules/default/default.vue"
+import Canace8c from "components/modules/canace8c/canace8c";
+import Canpan from "components/modules/canpan/canpan";
 
 export default {
   name: "node",
-  components:{mergDefault},
+  components:{mergDefault, Canace8c, Canpan},
   setup() {
     const store = inject('store')
-    const display_component = "mergDefault"
+    const display_component = store.state.nodes[store.state.selected_node].component
     return {
       store, mergDefault, display_component
     }

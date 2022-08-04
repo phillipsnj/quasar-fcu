@@ -7,58 +7,96 @@ const state = reactive({
   events: {},
   cbus_errors: {},
   dcc_sessions: {},
-  dcc_errors : {},
+  dcc_errors: {},
   layout: {},
   display_component: "home",
   events_component: "DefaultEventsList",
   selected_node: 0,
-  selected_event_index : 0,
+  selected_event_index: 0,
   title: "MERG Quasar FCU",
   debug: false,
   advanced: false,
   develop: false,
-  colours :["black","red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange","brown","blue-grey","grey"]
+  colours: ["black", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "blue-grey", "grey"]
 })
 
 const methods = {
-  remove_node(nodeNumber){
-    socket.emit('REMOVE_NODE', {"nodeId":nodeNumber})
-  },
-  remove_event(eventIdentifier){
-    socket.emit('REMOVE_NODE', {"eventId":eventIdentifier})
+  remove_node(nodeNumber) {
+    socket.emit('REMOVE_NODE', {"nodeId": nodeNumber})
   },
   update_layout() {
-    console.log(`Update Layout Details : `+state.title)
+    console.log(`Update Layout Details : ` + state.title)
     socket.emit('UPDATE_LAYOUT_DETAILS', state.layout)
   },
-  update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue){
-    console.log(`Update Node Variable`)
+  update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue) {
+    console.log(`MAIN Update Node Variable :`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
+    if (nodeVariableValue !="" ) {
+      socket.emit('UPDATE_NODE_VARIABLE', {
+        "nodeId": nodeNumber,
+        "variableId": nodeVariableIndex,
+        "variableValue": parseInt(nodeVariableValue)
+      })
+    }
   },
-  update_event_variable(nodeNumber, eventIndex, eventVariableIndex, eventVariableValue){
-    //console.log(`Update Event Variable : `+eventVariableValue)
+  update_node_variable_in_learn_mode(nodeNumber, nodeVariableIndex, nodeVariableValue) {
+    console.log(`MAIN Update Node Variable in Learn Mode:`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
+    state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
+    if (nodeVariableValue !="" ) {
+      socket.emit('UPDATE_NODE_VARIABLE_IN_LEARN_MODE', {
+        "nodeId": nodeNumber,
+        "variableId": nodeVariableIndex,
+        "variableValue": parseInt(nodeVariableValue)
+      })
+    }
+  },
+  update_event_variable(nodeNumber, eventName, eventIndex, eventVariableIndex, eventVariableValue) {
+    console.log(`MAIN Update Event Variable : ${eventVariableValue} : ${eventIndex}`)
     state.nodes[nodeNumber].consumedEvents[eventIndex].variables[eventVariableIndex] = eventVariableValue
+    if (eventVariableValue !="")
+    socket.emit('UPDATE_EVENT_VARIABLE',{
+      "nodeId": nodeNumber,
+      "eventName": eventName,
+      "eventIndex": eventIndex,
+      "eventVariableId": eventVariableIndex,
+      "eventVariableValue": parseInt(eventVariableValue)
+    })
+  },
+  remove_event(nodeNumber, eventName) {
+    socket.emit('REMOVE_EVENT', {
+        "nodeId": nodeNumber,
+        "eventName": eventName
+    })
+  },
+  teach_event(nodeNumber, eventName) {
+    socket.emit('TEACH_EVENT', {
+      "nodeId": nodeNumber,
+      "eventName": eventName
+    })
   },
   update_display_component(component) {
     console.log(`Display Component`)
     state.display_component = component
   },
   update_event_component(component) {
-    console.log(`Event Component`)
+    console.log(`Event Component ${component}`)
     state.events_component = component
   },
   QNN() {
-    console.log(`Emit QNN`)
+    console.log(`QUERY_ALL_NODES`)
     socket.emit('QUERY_ALL_NODES')
   },
   clear_events() {
-    //console.log(`QUERY_ALL_NODES`)
-    //socket.emit('CLEAR_EVENTS')
-    //console.log(`CLEAR_EVENTS_2`)
-    //socket.emit('QUERY_ALL_NODES')
-    //socket.emit('CLEAR_EVENTS')
-    //socket.emit('CLEAR_EVENTS2')
+    socket.emit('CLEAR_EVENTS')
     console.log(`CLEAR_EVENTS`)
+  },
+  clear_cbus_errors() {
+    socket.emit('CLEAR_CBUS_ERRORS')
+    console.log(`CLEAR_CBUS_ERRORS`)
+  },
+  refresh_events() {
+    socket.emit('REFRESH_EVENTS')
+    console.log(`REFRESH_EVENTS`)
   },
   request_all_node_parameters(nodeId, parameters, delay) {
     socket.emit('REQUEST_ALL_NODE_PARAMETERS', {"nodeId": nodeId, "parameters": parameters, "delay": delay})
@@ -95,31 +133,33 @@ socket.on("connect", () => {
 })
 
 socket.on("nodes", (data) => {
-  console.log(`Nodes Data`)
+  console.log(`RECEIVED Nodes Data`)
   state.nodes = data
 })
 
 socket.on("events", (data) => {
-  console.log(`Events Data`)
+  console.log(`RECEIVED Events Data`)
   state.events = data
 })
 
 socket.on('layoutDetails', (data) => {
+  console.log(`RECEIVED Layout Details`)
   state.layout = data;
 })
 
 socket.on("cbusError", (data) => {
-  console.log(`CBus Error`)
+  console.log(`RECEIVED CBus Error`)
   state.cbus_errors = data
 })
 
 socket.on('dccSessions', function (data) {
+  console.log(`RECEIVED DCC Sessions`)
   // console.log(`CBUS Errors Received:${JSON.stringify(data)}`)
   state.dcc_sessions = data;
 })
 
 socket.on("dccError", (data) => {
-  console.log(`DCC Error`)
+  console.log(`RECEIVED DCC Error`)
   state.dcc_errors = data
 })
 

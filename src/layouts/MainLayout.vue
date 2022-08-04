@@ -82,10 +82,10 @@ const linksList = [
     component: "JSON",
   },
   {
-    title: "Components",
-    caption: "Element Details",
-    icon: "mdi-database",
-    component: "Elements",
+    title: "Cbus Errors",
+    caption: "Cbus Errors",
+    icon: "mdi-alert",
+    component: "CbusErrors",
   },
 ];
 
@@ -96,12 +96,13 @@ import events from "components/Events.vue"
 import settings from "components/Settings.vue"
 import node from "components/Node.vue"
 import JSON from "components/json.vue"
+import CbusErrors from "components/CbusErrors.vue"
 import Elements from "components/Elements.vue"
 
 export default defineComponent({
   name: "MainLayout",
   components: {
-    EssentialLink, Home, Nodes, JSON, events, settings, node, Elements
+    EssentialLink, Home, Nodes, JSON, events, settings, node, Elements, CbusErrors
   },
 
   setup() {

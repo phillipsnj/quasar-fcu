@@ -1,9 +1,10 @@
 <template>
   <q-card class="q-pa-md" flat style="max-width: 300px">
     <q-input
-      :label="props.parameterName"
-      v-model="props.parameterValue"
+      :label="props.Name"
+      v-model="props.Value"
       outlined
+      readonly
     >
     </q-input>
   </q-card>
@@ -14,11 +15,11 @@ import {onMounted} from "vue";
 
 export default {
   name: "NodeParameter",
-  props: ["parameterName", "parameterValue"],
+  props: ["Name", "Value"],
   setup(props) {
-    onMounted(() => {
-      console.log(`node-parameter mounted` + props.parameterValue)
-    })
+    /*onMounted(() => {
+      console.log(`node-parameter mounted ` + props.Value)
+    })*/
     return {props}
   }
 }

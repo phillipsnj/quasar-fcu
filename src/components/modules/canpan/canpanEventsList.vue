@@ -15,8 +15,6 @@
           <q-td key="eventIndex" :props="props">{{ props.row.eventIndex }}</q-td>
           <q-td key="edit" :props="props">
             <q-btn color="primary" flat rounded label="Edit" @click="editEvent(props.row.eventIndex)" no-caps/>
-            <q-btn color="negative" flat rounded label="Delete"
-                   @click="removeEvent(store.state.selected_node, props.row.eventIdentifier)" no-caps/>
           </q-td>
         </q-tr>
       </template>
@@ -40,7 +38,7 @@ const columns = [
 ]
 
 export default {
-  name: "DefaultEvents",
+  name: "CanpanEvents",
   components: {},
   setup() {
     const store = inject('store')
@@ -52,11 +50,7 @@ export default {
       store.state.selected_event_index = eventIndex
       store.methods.update_event_component("DefaultEventVariables")
     }
-    const removeEvent = (nodeId, eventIndex) => {
-      console.log(`removeEvent`)
-      store.methods.remove_event(nodeId, eventIndex)
-    }
-    return {store, columns, editEvent, removeEvent}
+    return {store, columns, editEvent}
   }
 }
 </script>

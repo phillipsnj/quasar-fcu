@@ -1,6 +1,8 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <node-details></node-details>
+    <div class="text-h4 text-white">
+      <node-details></node-details>
+    </div>
   </div>
   <div class="q-pa-md">
     <div>
@@ -24,35 +26,28 @@
           </q-tab-panel>
 
           <q-tab-panel name="variables" class="bg-white">
-            <default-variables/>
+            <canace8c-variables/>
           </q-tab-panel>
 
           <q-tab-panel name="events" class="bg-white">
-            <default-events/>
+            <canace8c-events/>
           </q-tab-panel>
         </q-tab-panels>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import {inject, ref} from "vue";
+//import Canace8cInfo from "components/modules/canace8c/canpanInfo.vue"
 import DefaultInfo from "components/modules/default/DefaultInfo"
-import DefaultVariables from "components/modules/default/DefaultVariables"
-import DefaultEvents from "components/modules/default/DefaultEvents"
+import Canace8cVariables from "components/modules/canace8c/canace8cVariables.vue"
+import Canace8cEvents from "components/modules/canace8c/canace8cEvents.vue"
 import NodeDetails from "components/modules/common/NodeDetails"
 
-export default {
-  name: "mergDefault",
-  components: {DefaultInfo, DefaultVariables, DefaultEvents, NodeDetails},
-  setup() {
-    const store = inject('store')
-    return {
-      tab: ref('info'),
-      store
-    }
-  }
-}
+const store = inject('store')
+const tab = ref('info')
+
 </script>
 
 <style scoped>

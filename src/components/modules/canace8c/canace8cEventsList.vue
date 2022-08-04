@@ -1,5 +1,5 @@
 <template>
-  <div class="full-width" >
+  <div class="full-width">
     <q-table
       title="Consumed Events"
       :rows=Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
@@ -15,8 +15,6 @@
           <q-td key="eventIndex" :props="props">{{ props.row.eventIndex }}</q-td>
           <q-td key="edit" :props="props">
             <q-btn color="primary" flat rounded label="Edit" @click="editEvent(props.row.eventIndex)" no-caps/>
-            <q-btn color="negative" flat rounded label="Delete"
-                   @click="removeEvent(store.state.selected_node, props.row.eventIdentifier)" no-caps/>
           </q-td>
         </q-tr>
       </template>
@@ -29,9 +27,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {inject, onBeforeMount} from "vue";
-import DefaultEventVariables from "components/modules/default/DefaultEventVariables";
+import Canace8cEventVariables from "components/modules/canace8c/canace8cEventVariables";
 
 const columns = [
   {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'Event', align: 'left', sortable: true},
@@ -39,26 +37,16 @@ const columns = [
   {name: 'edit', field: 'edit', required: true, label: 'Edit', align: 'left', sortable: true}
 ]
 
-export default {
-  name: "DefaultEvents",
-  components: {},
-  setup() {
-    const store = inject('store')
-    onBeforeMount(() => {
-      store.methods.request_all_node_events(store.state.selected_node)
-    })
-    const editEvent = (eventIndex) => {
-      console.log(`editEvent`)
-      store.state.selected_event_index = eventIndex
-      store.methods.update_event_component("DefaultEventVariables")
-    }
-    const removeEvent = (nodeId, eventIndex) => {
-      console.log(`removeEvent`)
-      store.methods.remove_event(nodeId, eventIndex)
-    }
-    return {store, columns, editEvent, removeEvent}
-  }
+const store = inject('store')
+onBeforeMount(() => {
+  store.methods.request_all_node_events(store.state.selected_node)
+})
+const editEvent = (eventIndex) => {
+  console.log(`editEvent`)
+  store.state.selected_event_index = eventIndex
+  store.methods.update_event_component("Canace8cEventVariables")
 }
+
 </script>
 
 <style scoped>

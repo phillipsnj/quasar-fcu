@@ -14,6 +14,7 @@
           <q-tab name="nodes" label="Nodes"/>
           <q-tab name="events" label="Events"/>
           <q-tab name="settings" label="settings"/>
+          <q-tab name="cbusErrors" label="Cbus Errors"/>
         </q-tabs>
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="nodes">
@@ -35,6 +36,12 @@
             <div class="text-h6">Settings</div>
             <pre>
             {{ store.state.layout }}
+            </pre>
+          </q-tab-panel>
+          <q-tab-panel name="cbusErrors">
+            <div class="text-h6">Cbus Errors</div>
+            <pre>
+            {{ store.state.cbus_errors }}
             </pre>
           </q-tab-panel>
         </q-tab-panels>

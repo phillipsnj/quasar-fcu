@@ -20,6 +20,8 @@
           </template>
         </q-input>
         <q-space />
+        <q-btn color="negative" label="Refresh Events" @click="store.methods.refresh_events()" no-caps/>
+        <q-space />
         <q-btn color="negative" label="Clear Events" @click="store.methods.clear_events()" no-caps/>
       </template>
       <template v-slot:body="props">
@@ -64,7 +66,7 @@
 <script setup>
 import EventDetails from "components/modules/common/EventDetails.vue"
 
-import {computed, inject, ref, watch } from "vue"
+import {computed, inject, ref, watch, onMounted } from "vue"
 
 const columns = [
   {name: 'expand', field: 'expand', required: true, label: 'Expand', align: 'left', sortable: false},
@@ -83,7 +85,7 @@ let displayEventList = ref()
 
 
 const eventList = computed(() => {
-  console.log(`Computed Events`)
+  //console.log(`Computed Events`)
   return Object.values(store.state.events)
 })
 
@@ -114,13 +116,15 @@ const update_events = () => {
     output['type'] = event.type
     output['count'] = event.count
     //displayEventList[i].id = i.id
-    if (event.id in store.state.layout.eventDetails) {
+    output['name'] = event_name(event.id)
+    output['colour'] = event_colour(event.id)
+    /*if (event.id in store.state.layout.eventDetails) {
       output['name'] = store.state.layout.eventDetails[event.id].name
       output['colour'] = store.state.layout.eventDetails[event.id].colour
     } else {
       output['name'] = event.id
       output['colour'] = "black"
-    }
+    }*/
     displayEventListLocal.push(output)
   }
   displayEventList.value=displayEventListLocal
@@ -145,6 +149,11 @@ const event_colour = (eventId) => {
     return "blue"
   }
 }
+
+onMounted(() => {
+  store.methods.refresh_events()
+})
+
 </script>
 
 <style scoped>
