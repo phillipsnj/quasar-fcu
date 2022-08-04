@@ -130,7 +130,7 @@ onMounted(() => {
 const teach_event = () => {
   console.log(`teach_event : ${newNode.value} : ${props.eventIdentifier}`)
   if (newNode.value != "") {
-    store.methods.teach_event(newNode.value, props.eventIdentifier)
+    store.methods.teach_event(newNode.value, props.eventIdentifier, props.eventIndex)
   }
 
 }

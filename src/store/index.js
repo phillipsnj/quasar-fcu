@@ -68,10 +68,11 @@ const methods = {
         "eventName": eventName
     })
   },
-  teach_event(nodeNumber, eventName) {
+  teach_event(nodeNumber, eventName, eventIndex) {
     socket.emit('TEACH_EVENT', {
       "nodeId": nodeNumber,
-      "eventName": eventName
+      "eventName": eventName,
+      "eventIndex": eventIndex
     })
   },
   update_display_component(component) {
@@ -148,7 +149,7 @@ socket.on('layoutDetails', (data) => {
 })
 
 socket.on("cbusError", (data) => {
-  console.log(`RECEIVED CBus Error`)
+  console.log(`RECEIVED CBus Error `)
   state.cbus_errors = data
 })
 
