@@ -22,8 +22,8 @@
       :hint="hint"
       v-model="variable"
       outlined
+      readonly
     >
-
     </q-input>
   </q-card>
 </template>
@@ -36,7 +36,11 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  "nodeVariableIndex": {
+  "eventIndex": {
+    type: Number,
+    required: true
+  },
+  "eventVariableIndex": {
     type: Number,
     required: true
   },
@@ -59,19 +63,17 @@ const props = defineProps({
     type: String,
     default: ""
   },
-  "learn": {
-    type: Boolean,
-    default: false
-  }
 })
 
-console.log(`Node Variable : ` + props.nodeNumber)
-const label = props.name ? props.name : "Variable" + props.nodeVariableIndex
+console.log(`Event Variable  Variable : ${props.nodeNumber} ${props.eventIndex}`)
+//var variableValue = ref(29)
+const label = props.name ? props.name : "Variable" + props.eventVariableIndex
 const store = inject('store')
 const variable = ref()
+let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
 
 const variableValue = computed(() =>{
-  return store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
+  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 watch(variableValue, () => {
@@ -80,12 +82,12 @@ watch(variableValue, () => {
 
 const update_variable = (newValue) => {
   console.log(`NodeVariableSelect update_variable ${newValue.value}`)
-  store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue.value)
+  store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newValue.value)
 }
 
 
 onMounted(() => {
-  console.log(`NodeVariableSelect`)
+  console.log(`EventVariableSelect Mounted`)
   variable.value = variableValue.value
   //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
 })

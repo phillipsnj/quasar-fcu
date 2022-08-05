@@ -78,7 +78,7 @@ const update_event = (newValue) => {
   }
 }
 
-console.log(`EventVariable` + eventVariableValue.value)
+//console.log(`EventVariable` + eventVariableValue.value)
 
 onMounted(() => {
   console.log(`EventVariable onMounted` + props.nodeNumber + ' : ' + props.eventIndex + ' : ' + props.eventVariableIndex)

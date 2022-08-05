@@ -1,8 +1,8 @@
 <template>
-  <div class="full-width">
+  <div class="full-width" >
     <q-table
       title="Consumed Events"
-      :rows=Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
+      :rows=rows
       :columns="columns"
       row-key="eventIdentifier"
       virtual-scroll
@@ -12,9 +12,13 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="eventIdentifier" :props="props">{{ props.row.eventIdentifier }}</q-td>
+          <q-td key="nodeNumber" :props="props">{{ props.row.nodeNumber }}</q-td>
+          <q-td key="eventNumber" :props="props">{{ props.row.eventNumber }}</q-td>
           <q-td key="eventIndex" :props="props">{{ props.row.eventIndex }}</q-td>
           <q-td key="edit" :props="props">
             <q-btn color="primary" flat rounded label="Edit" @click="editEvent(props.row.eventIndex)" no-caps/>
+            <q-btn color="negative" flat rounded label="Delete"
+                   @click="removeEvent(store.state.selected_node, props.row.eventIdentifier)" no-caps/>
           </q-td>
         </q-tr>
       </template>
@@ -28,23 +32,56 @@
 </template>
 
 <script setup>
-import {inject, onBeforeMount} from "vue";
-import Canace8cEventVariables from "components/modules/canace8c/canace8cEventVariables";
+import {inject, onBeforeMount, computed, watch, ref} from "vue";
+import canace8cEventVariables from "components/modules/canace8c/canace8cEventVariables";
 
 const columns = [
-  {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'Event', align: 'left', sortable: true},
+  {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'EventId', align: 'left', sortable: true},
+  {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node', align: 'left', sortable: true},
+  {name: 'eventNumber', field: 'eventNumber', required: true, label: 'Event', align: 'left', sortable: true},
   {name: 'eventIndex', field: 'eventIndex', required: true, label: 'Event Index', align: 'left', sortable: true},
   {name: 'edit', field: 'edit', required: true, label: 'Edit', align: 'left', sortable: true}
 ]
 
 const store = inject('store')
-onBeforeMount(() => {
-  store.methods.request_all_node_events(store.state.selected_node)
+const rows = ref([])
+
+const nodeEvents = computed(() =>{
+  return Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
 })
+
+watch(nodeEvents, () => {
+  update_rows()
+})
+
+const update_rows = () => {
+  console.log(`DefaultEventList Mounted ${store.state.selected_node}`)
+  rows.value = []
+  nodeEvents.value.forEach(event => {
+    let output = {}
+    output['eventIdentifier'] = event.eventIdentifier
+    output['eventIndex'] = event.eventIndex
+    output['nodeNumber'] = parseInt(event.eventIdentifier.substr(0, 4), 16)
+    output['eventNumber'] = parseInt(event.eventIdentifier.substr(4, 4), 16)
+    rows.value.push(output)
+  })
+}
+
+onBeforeMount(() => {
+  console.log(`DefaultEventList Mounted ${store.state.selected_node}`)
+  store.methods.request_all_node_events(store.state.selected_node)
+  update_rows()
+})
+
 const editEvent = (eventIndex) => {
   console.log(`editEvent`)
   store.state.selected_event_index = eventIndex
-  store.methods.update_event_component("Canace8cEventVariables")
+  store.methods.update_event_component("canace8cEventVariables")
+}
+
+const removeEvent = (nodeId, eventIndex) => {
+  console.log(`removeEvent`)
+  store.methods.remove_event(nodeId, eventIndex)
 }
 
 </script>
@@ -52,3 +89,4 @@ const editEvent = (eventIndex) => {
 <style scoped>
 
 </style>
+

@@ -84,26 +84,6 @@ const removeEvent = (nodeId, eventIndex) => {
   store.methods.remove_event(nodeId, eventIndex)
 }
 
-/*export default {
-  name: "DefaultEvents",
-  components: {},
-  setup() {
-    const store = inject('store')
-    onBeforeMount(() => {
-      store.methods.request_all_node_events(store.state.selected_node)
-    })
-    const editEvent = (eventIndex) => {
-      console.log(`editEvent`)
-      store.state.selected_event_index = eventIndex
-      store.methods.update_event_component("DefaultEventVariables")
-    }
-    const removeEvent = (nodeId, eventIndex) => {
-      console.log(`removeEvent`)
-      store.methods.remove_event(nodeId, eventIndex)
-    }
-    return {store, columns, editEvent, removeEvent}
-  }
-}*/
 </script>
 
 <style scoped>

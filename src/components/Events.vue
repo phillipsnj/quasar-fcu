@@ -94,20 +94,20 @@ const eventDetails = computed(()=>{
 })
 
 watch(eventList, () => {
-  console.log(`WATCH Events`)
+  //console.log(`WATCH Events`)
   update_events()
 })
 
 watch(eventDetails, () => {
-  console.log(`WATCH Details`)
+  //console.log(`WATCH Details`)
   update_events()
 })
 
 const update_events = () => {
-  console.log(`Update Events`)
+  //console.log(`Update Events`)
   let displayEventListLocal = []
   for (const event of Object.values(store.state.events)) {
-    console.log(`Update Event : ${event.id} - ${JSON.stringify(event)}`)
+    //console.log(`Update Event : ${event.id} - ${JSON.stringify(event)}`)
     let output = {}
     output['id'] = event.id
     output['nodeNumber'] = event.nodeNumber

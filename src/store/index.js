@@ -121,6 +121,14 @@ const methods = {
       "variables": variables,
       "delay": delay
     })
+  },
+  request_event_variable(nodeId, eventIndex, eventVariableId){
+    console.log(`REQUEST_EVENT_VARIABLE ${eventIndex} ${eventVariableId}`)
+    socket.emit('REQUEST_EVENT_VARIABLE', {
+      "nodeId": nodeId,
+      "eventIndex": eventIndex,
+      "eventVariableIndex": eventVariableId
+    })
   }
 }
 

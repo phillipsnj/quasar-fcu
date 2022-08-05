@@ -15,7 +15,7 @@ export default {
   setup() {
     const store = inject('store')
     onBeforeMount(()=> {
-      console.log('DCanace8cEventsList')
+      console.log('Canace8cEventsList')
       store.methods.update_event_component("Canace8cEventsList")
     })
     return {
