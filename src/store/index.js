@@ -42,13 +42,13 @@ const methods = {
   update_node_variable_in_learn_mode(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     console.log(`MAIN Update Node Variable in Learn Mode:`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
-    if (nodeVariableValue !="" ) {
+    //if (nodeVariableValue !="" ) {
       socket.emit('UPDATE_NODE_VARIABLE_IN_LEARN_MODE', {
         "nodeId": nodeNumber,
         "variableId": nodeVariableIndex,
         "variableValue": parseInt(nodeVariableValue)
       })
-    }
+    //}
   },
   update_event_variable(nodeNumber, eventName, eventIndex, eventVariableIndex, eventVariableValue) {
     console.log(`MAIN Update Event Variable : ${eventVariableValue} : ${eventIndex}`)
@@ -76,11 +76,11 @@ const methods = {
     })
   },
   update_display_component(component) {
-    console.log(`Display Component`)
+    //console.log(`Display Component`)
     state.display_component = component
   },
   update_event_component(component) {
-    console.log(`Event Component ${component}`)
+    //console.log(`Event Component ${component}`)
     state.events_component = component
   },
   QNN() {
@@ -88,11 +88,11 @@ const methods = {
     socket.emit('QUERY_ALL_NODES')
   },
   clear_events() {
-    socket.emit('CLEAR_EVENTS')
+    //socket.emit('CLEAR_EVENTS')
     console.log(`CLEAR_EVENTS`)
   },
   clear_cbus_errors() {
-    socket.emit('CLEAR_CBUS_ERRORS')
+    //socket.emit('CLEAR_CBUS_ERRORS')
     console.log(`CLEAR_CBUS_ERRORS`)
   },
   refresh_events() {
@@ -114,7 +114,7 @@ const methods = {
     socket.emit('REQUEST_ALL_NODE_EVENTS', {"nodeId": nodeId})
   },
   request_all_event_variables(nodeId, eventIndex, delay, variables) {
-    console.log(`REQUEST_ALL_EVENT_VARIABLES`)
+    //console.log(`REQUEST_ALL_EVENT_VARIABLES`)
     socket.emit('REQUEST_ALL_EVENT_VARIABLES', {
       "nodeId": nodeId,
       "eventIndex": eventIndex,
@@ -123,7 +123,7 @@ const methods = {
     })
   },
   request_event_variable(nodeId, eventIndex, eventVariableId){
-    console.log(`REQUEST_EVENT_VARIABLE ${eventIndex} ${eventVariableId}`)
+    //console.log(`REQUEST_EVENT_VARIABLE ${eventIndex} ${eventVariableId}`)
     socket.emit('REQUEST_EVENT_VARIABLE', {
       "nodeId": nodeId,
       "eventIndex": eventIndex,
