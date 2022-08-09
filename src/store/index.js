@@ -88,7 +88,7 @@ const methods = {
     socket.emit('QUERY_ALL_NODES')
   },
   clear_events() {
-    //socket.emit('CLEAR_EVENTS')
+    socket.emit('CLEAR_EVENTS')
     console.log(`CLEAR_EVENTS`)
   },
   clear_cbus_errors() {

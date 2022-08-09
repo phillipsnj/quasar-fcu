@@ -6,7 +6,7 @@
     </q-card-section>
     <q-card-section>
       <q-badge color="secondary">
-        Delay {{ variableValue * 10}} ms
+        {{ Badge }} {{ variableValue * BadgeMulti }} {{ BadgeUnit }}
       </q-badge>
       <q-slider
         v-model="variableValue"
@@ -38,6 +38,18 @@ const props = defineProps({
   "Description": {
     type: String,
     required: false
+  },
+  "Badge": {
+    type: String,
+    default: ''
+  },
+  "BadgeMulti": {
+    type: Number,
+    default: 1
+  },
+  "BadgeUnit": {
+    type: String,
+    default: ""
   },
   "max": {
     type: Number,

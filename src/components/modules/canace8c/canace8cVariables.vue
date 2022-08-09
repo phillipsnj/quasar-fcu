@@ -27,18 +27,30 @@
     Description="Input must be active for duration of the Delay"
   >
   </node-variable-bit-array>
-  <node-variable-bit-slider
+  <node-variable-slider
     :node-variable-index="4"
     :node-number="store.state.selected_node"
     Title="On Delay"
-    Description="On delay time shown in 10ms">
-  </node-variable-bit-slider>
+    Description="On delay time shown in 10ms"
+    Badge = "Delay"
+    :BadgeMulti = 10
+    BadgeUnit = "ms">
+  </node-variable-slider>
   <node-variable
     :node-variable-index="4"
     :node-number="store.state.selected_node"
     name="On Delay"
     hint="On delay time shown in 10ms">
   </node-variable>
+  <node-variable-slider
+    :node-variable-index="5"
+    :node-number="store.state.selected_node"
+    Title="Off Delay"
+    Description="Off delay time shown in 10ms"
+    Badge = "Delay"
+    :BadgeMulti = 10
+    BadgeUnit = "ms">
+  </node-variable-slider>
   <node-variable
     :node-variable-index="5"
     :node-number="store.state.selected_node"
@@ -73,12 +85,12 @@ import {inject, onBeforeMount} from "vue";
 import NodeVariable from "components/modules/common/NodeVariable"
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
-import NodeVariableBitSlider from "components/modules/common/NodeVariableSlider"
+import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import DefaultInfo from "components/modules/default/DefaultInfo"
 
 export default {
   name: "DefaultVariables",
-  components: { NodeVariable, NodeVariableBitArray, NodeVariableBitSlider},
+  components: { NodeVariable, NodeVariableBitArray, NodeVariableSlider},
   setup() {
     const store = inject('store')
     onBeforeMount(() => {
