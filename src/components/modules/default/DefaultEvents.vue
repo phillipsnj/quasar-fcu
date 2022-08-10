@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div>
     <component v-bind:is="store.state.events_component"></component>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   setup() {
     const store = inject('store')
     onBeforeMount(()=> {
-      console.log('DefaultEventsList')
+      //console.log('DefaultEventsList')
       store.methods.update_event_component("DefaultEventsList")
     })
     return {

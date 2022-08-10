@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-md" flat style="max-width: 300px">
+  <q-card class="q-pa-xs" flat style="max-width: 300px">
     <q-input
       mask="###"
       class="bg-white"
@@ -68,11 +68,11 @@ watch(variableValue, () => {
 
 const update_variable = (newValue) => {
   if (newValue < props.min || newValue > props.max) {
-    console.log(`Invalid Value : ${newValue}`)
+    //console.log(`Invalid Value : ${newValue}`)
     error.value = true
     error_message.value = 'Invalid Value'
   } else {
-    console.log(`Value Ok : ${newValue}`)
+    //console.log(`Value Ok : ${newValue}`)
     error.value = false
     error_message.value = ''
     store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
@@ -80,7 +80,7 @@ const update_variable = (newValue) => {
 }
 
 onMounted(() => {
-  console.log(`NodeVariable`)
+  //console.log(`NodeVariable`)
   variable.value = variableValue.value
 })
 

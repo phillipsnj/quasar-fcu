@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row">
+  <div class="q-pa-xs row">
     <NodeVariable :node-variable-index="n"
                   :node-number=store.state.selected_node
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"

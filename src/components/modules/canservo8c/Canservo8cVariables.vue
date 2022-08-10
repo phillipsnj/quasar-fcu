@@ -1,4 +1,5 @@
 <template>
+  <div class=" row items-start q-gutter-md">
   <node-variable-bit-array
     :VariableIndex="1"
     Title="Cut Off"
@@ -30,7 +31,8 @@
     :NodeNumber="store.state.selected_node"
     >
   </canservo8c-channel>
-  <div class="q-pa-md row">
+  </div>
+  <div class="q-pa-xs row">
     <NodeVariable :node-variable-index="n"
                   :node-number=store.state.selected_node
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"

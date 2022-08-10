@@ -1,9 +1,10 @@
 <template>
-  <div class="q-pa-md row">
-    <q-card>
-      <q-card-section>
-        <div class="text-subtitle2">Channel {{ Channel }}</div>
+  <div class=" row items-start q-gutter-md">
+    <q-card class=" q-pa-xs row">
+      <q-card-section class=" q-pa-xs row">
+        <div class="text-subtitle1">Channel {{ Channel }}</div>
       </q-card-section>
+      <div class="row items-start q-gutter-xs">
       <q-card-section>
         <node-variable-slider
           :nodeVariableIndex="BaseNode"
@@ -52,10 +53,11 @@
           BadgeUnit="">
         </node-variable-slider>
       </q-card-section>
+      </div>
     </q-card>
-    <NodeVariable :node-variable-index="BaseNode"
+<!--    <NodeVariable :node-variable-index="BaseNode"
                   :node-number=store.state.selected_node>
-    </NodeVariable>
+    </NodeVariable>-->
   </div>
 </template>
 

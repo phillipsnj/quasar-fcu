@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="q-pa-md q-gutter-xs">
     <node-details></node-details>
   </div>
-  <div>
+  <div class="q-pa-xs">
     <div>
         <q-tabs
           v-model="tab"
@@ -24,11 +24,11 @@
           </q-tab-panel>
 
           <q-tab-panel name="variables" class="bg-white">
-            <canacc8-variables/>
+            <canmio-variables/>
           </q-tab-panel>
 
           <q-tab-panel name="events" class="bg-white">
-            <canacc8-events/>
+            <canmio-events/>
           </q-tab-panel>
         </q-tab-panels>
     </div>
@@ -37,14 +37,14 @@
 
 <script>
 import {inject, ref} from "vue";
-import defaultInfo from "components/modules/default/DefaultInfo"
-import canacc8Variables from "components/modules/canacc8/canacc8Variables"
-import canacc8Events from "components/modules/canacc8/canacc8Events"
+import DefaultInfo from "components/modules/default/DefaultInfo"
+import CanmioVariables from "components/modules/canmio/canmioVariables"
+import CanmioEvents from "components/modules/canmio/canmioEvents"
 import NodeDetails from "components/modules/common/NodeDetails"
 
 export default {
-  name: "canacc8",
-  components: {defaultInfo, canacc8Variables, canacc8Events, NodeDetails},
+  name: "canmio",
+  components: {DefaultInfo, CanmioVariables, CanmioEvents, NodeDetails},
   setup() {
     const store = inject('store')
     return {

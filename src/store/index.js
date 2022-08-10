@@ -31,13 +31,14 @@ const methods = {
   update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     console.log(`MAIN Update Node Variable :`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
-    if (nodeVariableValue !="" ) {
+    // if (nodeVariableValue !="" ) {
+      console.log(`MAIN Update Node Variable - Ok :`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
       socket.emit('UPDATE_NODE_VARIABLE', {
         "nodeId": nodeNumber,
         "variableId": nodeVariableIndex,
         "variableValue": parseInt(nodeVariableValue)
-      })
-    }
+       })
+    //}
   },
   update_node_variable_in_learn_mode(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     console.log(`MAIN Update Node Variable in Learn Mode:`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
@@ -92,7 +93,7 @@ const methods = {
     console.log(`CLEAR_EVENTS`)
   },
   clear_cbus_errors() {
-    //socket.emit('CLEAR_CBUS_ERRORS')
+    socket.emit('CLEAR_CBUS_ERRORS')
     console.log(`CLEAR_CBUS_ERRORS`)
   },
   refresh_events() {
@@ -123,11 +124,17 @@ const methods = {
     })
   },
   request_event_variable(nodeId, eventIndex, eventVariableId){
-    //console.log(`REQUEST_EVENT_VARIABLE ${eventIndex} ${eventVariableId}`)
+    console.log(`REQUEST_EVENT_VARIABLE ${eventIndex} ${eventVariableId}`)
     socket.emit('REQUEST_EVENT_VARIABLE', {
       "nodeId": nodeId,
       "eventIndex": eventIndex,
-      "eventVariableIndex": eventVariableId
+      "eventVariableId": eventVariableId
+    })
+  },
+  clear_node_events(nodeId) {
+    console.log(`CLEAR_NODE_EVENTS ${nodeId}`)
+    socket.emit('CLEAR_NODE_EVENTS',{
+      "nodeId": nodeId
     })
   }
 }

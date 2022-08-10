@@ -24,7 +24,7 @@
       </template>
     </q-table>
   </div>
-  <div class="q-pa-md row" v-if="store.state.debug">
+  <div class="q-pa-xs row" v-if="store.state.debug">
     <p>
       {{ Object.values(store.state.events) }}
     </p>

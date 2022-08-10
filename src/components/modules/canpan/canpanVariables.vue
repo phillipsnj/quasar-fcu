@@ -1,12 +1,14 @@
 <template>
-  <node-variable-select
-    :node-number="store.state.selected_node"
-    :node-variable-index="1"
-    :options="options"
-    Title="Startup Options"
-    Description="Startup Options for Start of Day"
-  >
-  </node-variable-select>
+  <div class=" row items-start q-gutter-md">
+    <node-variable-select
+      :node-number="store.state.selected_node"
+      :node-variable-index="1"
+      :options="options"
+      Title="Startup Options"
+      Description="Startup Options for Start of Day"
+    >
+    </node-variable-select>
+  </div>
 </template>
 
 <script setup>
@@ -20,9 +22,9 @@ import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
 const store = inject('store')
 
 const options = [
-  {label:"Send all Event states", value:0},
-  {label:"Do Nothing", value:1},
-  {label:"Set all States to ON", value:2}
+  {label: "Send all Event states", value: 0},
+  {label: "Do Nothing", value: 1},
+  {label: "Set all States to ON", value: 2}
 ]
 
 onBeforeMount(() => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row">
+  <div class="q-pa-xs row">
     <q-card>
       <q-card-section>
         <div class="text-subtitle2">Channel {{ Channel }}</div>
@@ -37,9 +37,9 @@
         </node-variable-bit>
       </q-card-section>
     </q-card>
-    <NodeVariable :node-variable-index="Channel"
+<!--    <NodeVariable :node-variable-index="Channel"
                   :node-number=store.state.selected_node>
-    </NodeVariable>
+    </NodeVariable>-->
   </div>
 </template>
 

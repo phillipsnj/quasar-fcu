@@ -24,7 +24,7 @@
       </template>
     </q-table>
   </div>
-  <div class="q-pa-md row" v-if="store.state.debug">
+  <div class="q-pa-sm row" v-if="store.state.debug">
     <p>
       {{ Object.values(store.state.events) }}
     </p>
@@ -55,7 +55,7 @@ watch(nodeEvents, () => {
 })
 
 const update_rows = () => {
-  console.log(`DefaultEventList Mounted ${store.state.selected_node}`)
+  //console.log(`DefaultEventList Update Rows ${store.state.selected_node}`)
   rows.value = []
   nodeEvents.value.forEach(event => {
     let output = {}
@@ -68,7 +68,7 @@ const update_rows = () => {
 }
 
 onBeforeMount(() => {
-  console.log(`DefaultEventList Mounted ${store.state.selected_node}`)
+  //console.log(`DefaultEventList Mounted ${store.state.selected_node}`)
   store.methods.request_all_node_events(store.state.selected_node)
   update_rows()
 })

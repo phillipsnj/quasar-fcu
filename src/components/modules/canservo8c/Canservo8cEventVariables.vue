@@ -1,10 +1,11 @@
 <template>
   <h5>Event Variables</h5>
-  <q-card>
-    <q-card-section>
+  <div class=" row items-start q-gutter-md">
+  <q-card class="q-pa-xs">
+    <q-card-section class="q-pa-xs">
       <div class="text-subtitle2">Switch Actions</div>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -17,11 +18,11 @@
       </event-variable-bit>
     </q-card-section>
   </q-card>
-  <q-card>
-    <q-card-section>
+  <q-card class="q-pa-xs">
+    <q-card-section class="q-pa-xs">
       <div class="text-subtitle2">Polarity</div>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -34,7 +35,8 @@
       </event-variable-bit>
     </q-card-section>
   </q-card>
-  <div class="q-pa-md row">
+  </div>
+<!--  <div class="q-pa-md row">
     <EventVariable :eventVariableIndex="n"
                    :eventIndex = store.state.selected_event_index
                    :nodeNumber="store.state.selected_node"
@@ -42,7 +44,7 @@
                    v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
                    :key="n">
     </EventVariable>
-  </div>
+  </div>-->
 </template>
 
 <script setup>

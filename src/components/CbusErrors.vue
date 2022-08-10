@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-primary">
+  <div>
     <!--    <div class="q-pa-md q-gutter-sm">
           <q-btn color="negative" label="Check Nodes" @click="store.methods.QNN()" no-caps/>
         </div>-->
-    <div class="q-pa-md">
+    <div>
       <q-table
         title="Nodes"
         :rows=Object.values(store.state.cbus_errors)
@@ -15,7 +15,7 @@
         :virtual-scroll-sticky-size-start="48"
       >
         <template v-slot:top="">
-          <div class="col-2 q-table__title text-h4">Nodes</div>
+          <div class="col-4 q-table__title text-h4">CBUS Errors</div>
           <q-space />
           <q-input outlined dense debounce="300" v-model="filter" placeholder="Search">
             <template v-slot:append>

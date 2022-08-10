@@ -1,12 +1,13 @@
 <template>
-  <q-card class="q-pa-md" flat style="max-width: 300px">
-    <q-input
+  <q-card class="q-pa-xs" flat style="max-width: 300px">
+<!--    <q-input
       :label="props.Name"
       v-model="props.Value"
       outlined
       readonly
     >
-    </q-input>
+    </q-input>-->
+    <b>{{ Name }}</b> : {{ Value }}
   </q-card>
 </template>
 

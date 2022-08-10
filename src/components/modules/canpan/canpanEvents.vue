@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div>
     <component v-bind:is="store.state.events_component"></component>
   </div>
 </template>

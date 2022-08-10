@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-primary">
+  <div>
     <!--    <div class="q-pa-md q-gutter-sm">
           <q-btn color="negative" label="Check Nodes" @click="store.methods.QNN()" no-caps/>
         </div>-->
-    <div class="q-pa-md">
+    <div>
       <q-table
         title="Nodes"
         :rows=rows

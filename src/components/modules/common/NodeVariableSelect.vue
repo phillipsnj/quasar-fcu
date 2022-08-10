@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-md" flat style="max-width: 300px">
+  <q-card class="q-pa-xs" flat bordered style="max-width: 300px">
     <q-card-section>
       <div class="text-h6">{{ Title }}</div>
       <div class="text-subtitle2">{{ Description }}</div>
@@ -14,18 +14,18 @@
     </q-select>
     </q-card-section>
   </q-card>
-<q-card class="q-pa-md" flat style="max-width: 300px">
+<!--<q-card class="q-pa-sm" style="max-width: 300px">
     <q-input
       class="bg-white"
-      filled
       :label="label"
       :hint="hint"
       v-model="variable"
       outlined
+      readonly
     >
 
     </q-input>
-  </q-card>
+  </q-card>-->
 </template>
 
 <script setup>
@@ -85,7 +85,7 @@ const update_variable = (newValue) => {
 
 
 onMounted(() => {
-  console.log(`NodeVariableSelect`)
+  //console.log(`NodeVariableSelect`)
   variable.value = variableValue.value
   //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
 })

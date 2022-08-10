@@ -1,6 +1,6 @@
 <template>
   <h5>Event Variables</h5>
-  <div class="q-pa-md row">
+  <div class="q-pa-xs row items-start q-gutter-md">
     <event-variable
       :event-variable-index="1"
       :event-index="store.state.selected_event_index"
@@ -15,85 +15,83 @@
       name="Switch Number"
     >
     </event-variable>
+  </div>
+  <div class="q-pa-xs row items-start q-gutter-md">
     <q-card>
       <q-card-section>
-        <div class="text-h6">Switch Actions</div>
-        <div class="text-subtitle2">{{
-            store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index].variables[3]
-          }}
+        <div class="text-subtitle1">Switch Actions</div>
+        <div class="text-subtitle2">
         </div>
       </q-card-section>
-      <q-card-section>
-        <event-variable-bit
-          :event-variable-index="3"
-          :event-index="store.state.selected_event_index"
-          :node-number="store.state.selected_node"
-          :bit=0
-          name="On/Off"
-        >
-        </event-variable-bit>
-      </q-card-section>
-      <q-card-section>
-        <event-variable-bit
-          :event-variable-index="3"
-          :event-index="store.state.selected_event_index"
-          :node-number="store.state.selected_node"
-          :bit=1
-          name="Reverse Polarity"
-        >
-        </event-variable-bit>
-      </q-card-section>
-      <q-card-section>
-        <event-variable-bit
-          :event-variable-index="3"
-          :event-index="store.state.selected_event_index"
-          :node-number="store.state.selected_node"
-          :bit=2
-          name="On Only"
-        >
-        </event-variable-bit>
-      </q-card-section>
-      <q-card-section>
-        <event-variable-bit
-          :event-variable-index="3"
-          :event-index="store.state.selected_event_index"
-          :node-number="store.state.selected_node"
-          :bit=3
-          name="Toggle"
-        >
-        </event-variable-bit>
-      </q-card-section>
-      <q-card-section>
-        <event-variable-bit
-          :event-variable-index="3"
-          :event-index="store.state.selected_event_index"
-          :node-number="store.state.selected_node"
-          :bit=4
-          name="Send own LEDs"
-        >
-        </event-variable-bit>
-      </q-card-section>
-      <q-card-section>
-        <event-variable-bit
-          :event-variable-index="3"
-          :event-index="store.state.selected_event_index"
-          :node-number="store.state.selected_node"
-          :bit=5
-          name="Send Short Event"
-        >
-        </event-variable-bit>
-      </q-card-section>
-      <q-card-section>
-
-      </q-card-section>
+      <div class="q-pa-xs row">
+        <q-card-section>
+          <event-variable-bit
+            :event-variable-index="3"
+            :event-index="store.state.selected_event_index"
+            :node-number="store.state.selected_node"
+            :bit=0
+            name="On/Off"
+          >
+          </event-variable-bit>
+        </q-card-section>
+        <q-card-section>
+          <event-variable-bit
+            :event-variable-index="3"
+            :event-index="store.state.selected_event_index"
+            :node-number="store.state.selected_node"
+            :bit=1
+            name="Reverse Polarity"
+          >
+          </event-variable-bit>
+        </q-card-section>
+        <q-card-section>
+          <event-variable-bit
+            :event-variable-index="3"
+            :event-index="store.state.selected_event_index"
+            :node-number="store.state.selected_node"
+            :bit=2
+            name="On Only"
+          >
+          </event-variable-bit>
+        </q-card-section>
+        <q-card-section>
+          <event-variable-bit
+            :event-variable-index="3"
+            :event-index="store.state.selected_event_index"
+            :node-number="store.state.selected_node"
+            :bit=3
+            name="Toggle"
+          >
+          </event-variable-bit>
+        </q-card-section>
+        <q-card-section>
+          <event-variable-bit
+            :event-variable-index="3"
+            :event-index="store.state.selected_event_index"
+            :node-number="store.state.selected_node"
+            :bit=4
+            name="Send own LEDs"
+          >
+          </event-variable-bit>
+        </q-card-section>
+        <q-card-section>
+          <event-variable-bit
+            :event-variable-index="3"
+            :event-index="store.state.selected_event_index"
+            :node-number="store.state.selected_node"
+            :bit=5
+            name="Send Short Event"
+          >
+          </event-variable-bit>
+        </q-card-section>
+      </div>
     </q-card>
+  </div>
+  <div class="q-pa-xs row items-start q-gutter-md">
     <q-card>
       <q-card-section>
-        <div class="Active LEDs">Switch Actions</div>
-        <div class="Select to Activate LED">{{
-            store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index].variables[3]
-          }}
-        </div>
+        <div class="text-subtitle1">Active LEDs</div>
+        <div class="text-subtitle2">Select to Activate LED</div>
       </q-card-section>
       <q-card-section>
         <event-variable-bit
@@ -143,14 +141,13 @@
         >
         </event-variable-bit>
       </q-card-section>
+
     </q-card>
+
     <q-card>
       <q-card-section>
-        <div class="Invert LEDs">Switch Actions</div>
-        <div class="Select to Invery LED">{{
-            store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index].variables[3]
-          }}
-        </div>
+        <div class="text-subtitle1">Polarity</div>
+        <div class="text-subtitle2">SChange Polarity of LED</div>
       </q-card-section>
       <q-card-section>
         <event-variable-bit
@@ -201,16 +198,19 @@
         </event-variable-bit>
       </q-card-section>
     </q-card>
-    <event-variable-select
-      :node-number="store.state.selected_node"
-      :event-index="store.state.selected_event_index"
-      :event-variable-index="13"
-      :options="optionsEV13"
-      Title="LED Action"
-      Description="Set the mode when LEDS are activated"
-    >
-    </event-variable-select>
+    <q-card bordered>
+      <event-variable-select
+        :node-number="store.state.selected_node"
+        :event-index="store.state.selected_event_index"
+        :event-variable-index="13"
+        :options="optionsEV13"
+        Title="LED Action"
+        Description="Set the mode when LEDS are activated"
+      >
+      </event-variable-select>
+    </q-card>
   </div>
+
 </template>
 
 <script setup>

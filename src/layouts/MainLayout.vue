@@ -123,7 +123,7 @@ export default defineComponent({
 
 <style scoped>
 .main-page {
-  background-color: #1976d2;
+  background-color: white;
 }
 
 .page-title {
