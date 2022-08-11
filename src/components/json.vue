@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md">
-    <div class="q-gutter-y-md" >
+  <div>
+    <div>
       <q-card>
         <q-tabs
           v-model="tab"

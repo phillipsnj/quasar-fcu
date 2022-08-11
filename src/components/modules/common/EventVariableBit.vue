@@ -59,13 +59,13 @@ watch(eventVariableValue, () => {
 const update_checked = () => {
 
   let byteValue = eventVariableValue.value
-  console.log(`NodeVariableBit update_checked ${checked.value} ${byteValue}`)
+  console.log(`EventVariableBit update_checked ${checked.value} ${byteValue}`)
   if (checked.value) {
     byteValue = byteValue + bitArray[props.bit]
   } else {
     byteValue = byteValue - bitArray[props.bit]
   }
-  console.log(`NodeVariableBit update_checked-2 ${checked.value} ${byteValue}`)
+  console.log(`EventVariableBit update_checked-2 ${checked.value} ${byteValue}`)
   //store.methods.update_node_variable(props.NodeNumber, props.VariableIndex, byteValue)
   store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, byteValue)
 }
@@ -76,7 +76,7 @@ onMounted(() => {
   //console.log(`NodeVariableBit onMounted: `+store.state.nodes[props.NodeNumber].nodeVariables[props.VariableIndex])
   const checked_value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitArray[props.bit] ? true : false
   //this.checked.set( store.state.nodes[props.NodeNumber].nodeVariables[props.VariableIndex] & bitArray[props.Bit] ? true : false)
-  console.log(`EventVariableBit onMounted: Checked ${props.nodeNumber} ${checked_value}`)
+  //console.log(`EventVariableBit onMounted: Checked ${props.nodeNumber} ${checked_value}`)
   checked.value = checked_value
 })
 

@@ -23,13 +23,17 @@
           maxlength="30"
           @update:model-value="update_event">
         </q-select>
-        <q-input
+        <q-select
+          class="q-pa-sm"
           outlined
+          use-input
           v-model="eventGroup"
-          label="Event Group"
-          hint="Group of Event"
-          maxlength="30">
-        </q-input>
+          :options="groupList"
+          label="Node Group"
+          maxlength="30"
+          new-value-mode="add-unique"
+          @update:model-value="update_event">
+        </q-select>
       </q-card-section>
     </q-card>
     <q-card class="q-pa-md" style="max-width: 300px">
@@ -81,8 +85,28 @@ const eventGroup = ref('')
 const newNode = ref()
 const availableNodes = ref([])
 const taughtNodes = ref([])
+const groupList = ref([])
 
 const store = inject('store')
+
+const eventDetails = computed(() => {
+  //console.log(`Computed Events`)
+  return Object.values(store.state.layout.eventDetails)
+})
+
+watch(eventDetails, () => {
+  console.log(`WATCH Node Details`)
+  updateGroupList()
+})
+
+const updateGroupList = () => {
+  groupList.value = []
+  eventDetails.value.forEach(node => {
+    if (!groupList.value.includes(node.group)) {
+      groupList.value.push(node.group)
+    }
+  })
+}
 
 const nodeList = computed(() => {
   //console.log(`Computed Events`)
@@ -90,8 +114,9 @@ const nodeList = computed(() => {
 })
 
 watch(nodeList, () => {
-  console.log(`WATCH Nodes`)
-  taughtNodes.value = nodeList.value.find(o => o.consumedEvents === props.eventIdentifier)
+  //console.log(`WATCH Nodes`)
+  update_taught_nodes()
+  //taughtNodes.value = nodeList.value.find(o => o.consumedEvents === props.eventIdentifier)
   //availableNodes.value = nodeList.value.find(o => o.flim === true)
   availableNodes.value = []
   nodeList.value.forEach(node => {
@@ -102,8 +127,23 @@ watch(nodeList, () => {
   })
 })
 
+const update_taught_nodes = () => {
+  taughtNodes.value = []
+  nodeList.value.forEach(node => {
+    if (Object.values(node.consumedEvents).length > 0) {
+      let events = Object.values(node.consumedEvents)
+      events.forEach(event => {
+       if (event.eventIdentifier == props.eventIdentifier) {
+         //console.log(`Consumed Event ${props.eventIdentifier} ${event.node}`)
+         taughtNodes.value.push(event.node)
+       }
+      })
+    }
+  })
+}
+
 onMounted(() => {
-  console.log(`Event Details Mounted ${props.eventIdentifier})`)
+  //console.log(`Event Details Mounted ${props.eventIdentifier})`)
   if (props.eventIdentifier in store.state.layout.eventDetails) {
     //console.log(`Event Layout`)
     eventName.value = store.state.layout.eventDetails[props.eventIdentifier].name
@@ -116,7 +156,8 @@ onMounted(() => {
     eventGroup.value = ""
   }
 
-  taughtNodes.value = nodeList.value.find(o => o.event === props.eventIdentifier)
+  update_taught_nodes()
+  //taughtNodes.value = nodeList.value.find(o => o.event === props.eventIdentifier)
 
   availableNodes.value = []
   nodeList.value.forEach(node => {
@@ -128,7 +169,7 @@ onMounted(() => {
 })
 
 const teach_event = () => {
-  console.log(`teach_event : ${newNode.value} : ${props.eventIdentifier}`)
+  //console.log(`teach_event : ${newNode.value} : ${props.eventIdentifier}`)
   if (newNode.value != "") {
     store.methods.teach_event(newNode.value, props.eventIdentifier, props.eventIndex)
   }

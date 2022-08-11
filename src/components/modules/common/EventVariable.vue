@@ -67,11 +67,11 @@ watch(eventVariableValue, () => {
 
 const update_event = (newValue) => {
   if (newValue < props.min || newValue > props.max ||newValue =='') {
-    console.log(`Invalid Value : ${newValue}`)
+    //console.log(`Invalid Value : ${newValue}`)
     error.value = true
     error_message.value = 'Invalid Value'
   } else {
-    console.log(`Valid Value : ${newValue}`)
+    //console.log(`Valid Value : ${newValue}`)
     error_message.value = ''
     error.value = false
     store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newValue)
@@ -81,7 +81,7 @@ const update_event = (newValue) => {
 //console.log(`EventVariable` + eventVariableValue.value)
 
 onMounted(() => {
-  console.log(`EventVariable onMounted` + props.nodeNumber + ' : ' + props.eventIndex + ' : ' + props.eventVariableIndex)
+  //console.log(`EventVariable onMounted` + props.nodeNumber + ' : ' + props.eventIndex + ' : ' + props.eventVariableIndex)
   eventValue.value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 

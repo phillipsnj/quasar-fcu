@@ -33,6 +33,7 @@
             <div class="text-pre-wrap"  >{{ event_name(props.row.id) }}</div>
           </q-td>-->
           <q-td key="eventName" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.name }}</q-td>
+          <q-td key="group" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.group }}</q-td>
           <q-td key="eventIdentifier" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.id }}</q-td>
           <q-td key="nodeNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.nodeNumber }}</q-td>
           <q-td key="eventNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.eventNumber }}</q-td>
@@ -71,6 +72,7 @@ import {computed, inject, ref, watch, onMounted } from "vue"
 const columns = [
   {name: 'expand', field: 'expand', required: true, label: 'Expand', align: 'left', sortable: false},
   {name: 'eventName', field: 'name', required: true, label: 'Event Name', align: 'left', sortable: true},
+  {name: 'group', field: 'name', required: true, label: 'Group', align: 'left', sortable: true},
   {name: 'eventIdentifier', field: 'id', required: true, label: 'Event Identifier', align: 'left', sortable: true},
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node Number', align: 'left', sortable: true},
   {name: 'eventNumber', field: 'eventNumber', required: true, label: 'Event Number', align: 'left', sortable: true},
@@ -118,6 +120,7 @@ const update_events = () => {
     //displayEventList[i].id = i.id
     output['name'] = event_name(event.id)
     output['colour'] = event_colour(event.id)
+    output['group'] = event_group(event.id)
     /*if (event.id in store.state.layout.eventDetails) {
       output['name'] = store.state.layout.eventDetails[event.id].name
       output['colour'] = store.state.layout.eventDetails[event.id].colour
@@ -147,6 +150,16 @@ const event_colour = (eventId) => {
   } else {
     //console.log(`Event No Colour ${JSON.stringify(eventId)}`)
     return "blue"
+  }
+}
+
+const event_group = (eventId) => {
+  if ( eventId in store.state.layout.eventDetails) {
+    //console.log(`Event Colour`)
+    return store.state.layout.eventDetails[eventId].group
+  } else {
+    //console.log(`Event No Colour ${JSON.stringify(eventId)}`)
+    return ""
   }
 }
 

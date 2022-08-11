@@ -9,8 +9,8 @@
         <q-tabs
           v-model="tab"
           dense
-          class="text-black"
-          active-color="black"
+          class="text-grey"
+          active-color="primary"
           indicator-color="primary"
           align="justify"
           narrow-indicator

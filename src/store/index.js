@@ -52,9 +52,8 @@ const methods = {
     //}
   },
   update_event_variable(nodeNumber, eventName, eventIndex, eventVariableIndex, eventVariableValue) {
-    console.log(`MAIN Update Event Variable : ${eventVariableValue} : ${eventIndex}`)
+    console.log(`MAIN Update Event Variable : ${eventIndex} : ${eventVariableIndex} : ${eventVariableValue} `)
     state.nodes[nodeNumber].consumedEvents[eventIndex].variables[eventVariableIndex] = eventVariableValue
-    if (eventVariableValue !="")
     socket.emit('UPDATE_EVENT_VARIABLE',{
       "nodeId": nodeNumber,
       "eventName": eventName,

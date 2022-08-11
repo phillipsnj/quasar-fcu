@@ -1,11 +1,12 @@
 <template>
   <h5>Event Variables</h5>
+  <div class="q-pa-xs row items-start q-gutter-md">
   <q-card>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <div class="Active LEDs">Switch Actions</div>
       <div class="Select to Activate LED">Select to Activate</div>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -17,7 +18,7 @@
       >
       </event-variable-bit>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -29,7 +30,7 @@
       >
       </event-variable-bit>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -41,7 +42,7 @@
       >
       </event-variable-bit>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -52,7 +53,7 @@
         :name=(n+25).toString()
       >
       </event-variable-bit>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -64,7 +65,7 @@
         >
         </event-variable-bit>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -76,7 +77,7 @@
         >
         </event-variable-bit>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -88,7 +89,7 @@
         >
         </event-variable-bit>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -102,12 +103,14 @@
       </q-card-section>
     </q-card-section>
   </q-card>
+  </div>
+  <div class="q-pa-xs row items-start q-gutter-md">
   <q-card>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <div class="Polarity">Switch Actions</div>
       <div class="Select to Polarity for LED">Select to Activate</div>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -119,7 +122,7 @@
       >
       </event-variable-bit>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -131,7 +134,7 @@
       >
       </event-variable-bit>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -143,7 +146,7 @@
       >
       </event-variable-bit>
     </q-card-section>
-    <q-card-section>
+    <q-card-section class="q-pa-xs">
       <event-variable-bit
         v-for="n in [0,1,2,3,4,5,6,7]"
         :key="n"
@@ -154,7 +157,7 @@
         :name=(n+25).toString()
       >
       </event-variable-bit>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -166,7 +169,7 @@
         >
         </event-variable-bit>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -178,7 +181,7 @@
         >
         </event-variable-bit>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -190,7 +193,7 @@
         >
         </event-variable-bit>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <event-variable-bit
           v-for="n in [0,1,2,3,4,5,6,7]"
           :key="n"
@@ -203,7 +206,9 @@
         </event-variable-bit>
       </q-card-section>
     </q-card-section>
-      <q-card-section>
+  </q-card>
+    <q-card>
+      <q-card-section class="q-pa-xs">
         <event-variable-select
           :node-number="store.state.selected_node"
           :event-index="store.state.selected_event_index"
@@ -216,7 +221,8 @@
       </q-card-section>
 
   </q-card>
-  <div class="q-pa-md row">
+  </div>
+  <div class="q-pa-ms row">
     <EventVariable :eventVariableIndex="n"
                    :eventIndex=store.state.selected_event_index
                    :nodeNumber="store.state.selected_node"

@@ -1,14 +1,14 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
+  <div>
     <node-details></node-details>
   </div>
-  <div class="q-pa-md">
+  <div>
     <div>
         <q-tabs
           v-model="tab"
           dense
-          class="text-white"
-          active-color="black"
+          class="text-grey"
+          active-color="primary"
           indicator-color="primary"
           align="justify"
           narrow-indicator
