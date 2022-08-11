@@ -7,19 +7,19 @@
       </q-card-section>
       <q-card-section>
         <q-input
+          class="q-pa-sm"
           outlined
           v-model="eventName"
           label="Event Name"
-          hint="Name of Event"
           maxlength="30"
           @change="update_event">
         </q-input>
         <q-select
+          class="q-pa-sm"
           outlined
           v-model="eventColour"
           :options="store.state.colours"
           label="Event Colour"
-          hint="Colour of Event"
           maxlength="30"
           @update:model-value="update_event">
         </q-select>
@@ -29,7 +29,7 @@
           use-input
           v-model="eventGroup"
           :options="groupList"
-          label="Node Group"
+          label="Event Group"
           maxlength="30"
           new-value-mode="add-unique"
           @update:model-value="update_event">
@@ -45,25 +45,37 @@
         {{ taughtNodes }}
       </q-card-section>
     </q-card>
-    <q-card class="q-pa-md" style="max-width: 300px">
+    <q-card class="q-pa-xs" style="max-width: 300px">
       <q-card-section>
         <div class="text-h6">Teach Event</div>
         <div class="text-subtitle2">Select a Node to teach e vwent too.</div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section class="q-pa-xs">
         <q-select
           v-model="newNode"
           :options="availableNodes"></q-select>
-        <q-btn color="primary"
-               flat
-               rounded
+        <div class="q-pa-md q-gutter-sm">
+        <q-btn color="negative"
                label="Teach"
                @click="teach_event()"
                no-caps/>
+        </div>
       </q-card-section>
       <q-card-section>
         {{ newNode }}
         {{ availableNodes }}
+      </q-card-section>
+    </q-card>
+    <q-card class="q-pa-md" style="max-width: 300px">
+      <q-card-section>
+        <div class="text-h6">Actions</div>
+        <div class="text-subtitle2">Generate vents</div>
+      </q-card-section>
+      <q-card-section>
+        <div class="q-pa-md q-gutter-sm">
+          <q-btn color="green" label="ON" @click="send_on()"/>
+          <q-btn color="negative" label="OFF" @click="send_off()"/>
+        </div>
       </q-card-section>
     </q-card>
   </div>
@@ -74,6 +86,18 @@ import {inject, onMounted, ref, computed, watch} from "vue";
 
 const props = defineProps({
   "eventIdentifier": {
+    type: String,
+    required: true
+  },
+  "nodeNumber": {
+    type: Number,
+    required: true
+  },
+  "eventNumber": {
+    type: Number,
+    required: true
+  },
+  "type": {
     type: String,
     required: true
   }
@@ -96,6 +120,7 @@ const eventDetails = computed(() => {
 
 watch(eventDetails, () => {
   console.log(`WATCH Node Details`)
+  update_taught_nodes()
   updateGroupList()
 })
 
@@ -116,6 +141,7 @@ const nodeList = computed(() => {
 watch(nodeList, () => {
   //console.log(`WATCH Nodes`)
   update_taught_nodes()
+  updateGroupList()
   //taughtNodes.value = nodeList.value.find(o => o.consumedEvents === props.eventIdentifier)
   //availableNodes.value = nodeList.value.find(o => o.flim === true)
   availableNodes.value = []
@@ -133,10 +159,10 @@ const update_taught_nodes = () => {
     if (Object.values(node.consumedEvents).length > 0) {
       let events = Object.values(node.consumedEvents)
       events.forEach(event => {
-       if (event.eventIdentifier == props.eventIdentifier) {
-         //console.log(`Consumed Event ${props.eventIdentifier} ${event.node}`)
-         taughtNodes.value.push(event.node)
-       }
+        if (event.eventIdentifier == props.eventIdentifier) {
+          //console.log(`Consumed Event ${props.eventIdentifier} ${event.node}`)
+          taughtNodes.value.push(event.node)
+        }
       })
     }
   })
@@ -157,6 +183,7 @@ onMounted(() => {
   }
 
   update_taught_nodes()
+  updateGroupList()
   //taughtNodes.value = nodeList.value.find(o => o.event === props.eventIdentifier)
 
   availableNodes.value = []
@@ -186,6 +213,22 @@ const update_event = () => {
   store.state.layout.eventDetails[props.eventIdentifier].group = eventGroup.value
   store.methods.update_layout()
 
+}
+
+const send_on = () => {
+  if (props.type == 'long') {
+    store.methods.long_on_event(props.nodeNumber, props.eventNumber)
+  } else {
+    store.methods.short_on_event(props.nodeNumber, props.eventNumber)
+  }
+}
+
+const send_off = () => {
+  if (props.type == 'long') {
+    store.methods.long_off_event(props.nodeNumber, props.eventNumber)
+  } else {
+    store.methods.short_off_event(props.nodeNumber, props.eventNumber)
+  }
 }
 
 </script>

@@ -13,30 +13,40 @@
     >
       <template v-slot:top="">
         <div class="col-2 q-table__title text-h4">Events</div>
-        <q-space />
+        <q-space/>
         <q-input outlined dense debounce="300" v-model="filter" placeholder="Search">
           <template v-slot:append>
-            <q-icon name="search" />
+            <q-icon name="search"/>
           </template>
         </q-input>
-        <q-space />
+        <q-space/>
         <q-btn color="negative" label="Refresh Events" @click="store.methods.refresh_events()" no-caps/>
-        <q-space />
+        <q-space/>
         <q-btn color="negative" label="Clear Events" @click="store.methods.clear_events()" no-caps/>
       </template>
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="expand" auto-width>
-            <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'" />
+            <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand"
+                   :icon="props.expand ? 'remove' : 'add'"/>
           </q-td>
-<!--          <q-td key="eventName" :props="props" :class="'text-'+event_colour(props.row.id)">
-            <div class="text-pre-wrap"  >{{ event_name(props.row.id) }}</div>
-          </q-td>-->
+          <!--          <q-td key="eventName" :props="props" :class="'text-'+event_colour(props.row.id)">
+                      <div class="text-pre-wrap"  >{{ event_name(props.row.id) }}</div>
+                    </q-td>-->
           <q-td key="eventName" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.name }}</q-td>
           <q-td key="group" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.group }}</q-td>
-          <q-td key="eventIdentifier" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.id }}</q-td>
-          <q-td key="nodeNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.nodeNumber }}</q-td>
-          <q-td key="eventNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.eventNumber }}</q-td>
+          <q-td key="eventIdentifier" :props="props" :class="'text-'+event_colour(props.row.id)">{{
+              props.row.id
+            }}
+          </q-td>
+          <q-td key="nodeNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{
+              props.row.nodeNumber
+            }}
+          </q-td>
+          <q-td key="eventNumber" :props="props" :class="'text-'+event_colour(props.row.id)">{{
+              props.row.eventNumber
+            }}
+          </q-td>
           <q-td key="status" :props="props">
             <q-chip color="white" text-color="green" v-if="props.row.status=='on'">ON</q-chip>
             <q-chip color="white" text-color="red" v-else>OFF</q-chip>
@@ -44,14 +54,19 @@
           <q-td key="type" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.type }}</q-td>
           <q-td key="count" :props="props" :class="'text-'+event_colour(props.row.id)">{{ props.row.count }}</q-td>
 
-<!--          <q-td key="status" :props="props">
-            <q-btn color="primary" flat rounded label="Edit"
-                   @click="editNode(props.row.nodeNumber, props.row.component)" no-caps/>
-          </q-td>-->
+          <!--          <q-td key="status" :props="props">
+                      <q-btn color="primary" flat rounded label="Edit"
+                             @click="editNode(props.row.nodeNumber, props.row.component)" no-caps/>
+                    </q-td>-->
         </q-tr>
         <q-tr v-show="props.expand" :props="props">
           <q-td colspan="100%">
-            <event-details :eventIdentifier="props.row.id"></event-details>
+            <event-details
+              :eventIdentifier="props.row.id"
+              :nodeNumber="props.row.nodeNumber"
+              :eventNumber="props.row.eventNumber"
+              :type="props.row.type"
+            ></event-details>
           </q-td>
         </q-tr>
       </template>
@@ -67,7 +82,7 @@
 <script setup>
 import EventDetails from "components/modules/common/EventDetails.vue"
 
-import {computed, inject, ref, watch, onMounted } from "vue"
+import {computed, inject, ref, watch, onMounted} from "vue"
 
 const columns = [
   {name: 'expand', field: 'expand', required: true, label: 'Expand', align: 'left', sortable: false},
@@ -82,7 +97,7 @@ const columns = [
 ]
 const store = inject('store')
 const filter = ref('')
-const pagnation = { rowsPerPage: 0 }
+const pagnation = {rowsPerPage: 0}
 let displayEventList = ref()
 
 
@@ -91,7 +106,7 @@ const eventList = computed(() => {
   return Object.values(store.state.events)
 })
 
-const eventDetails = computed(()=>{
+const eventDetails = computed(() => {
   return store.state.layout
 })
 
@@ -130,11 +145,11 @@ const update_events = () => {
     }*/
     displayEventListLocal.push(output)
   }
-  displayEventList.value=displayEventListLocal
+  displayEventList.value = displayEventListLocal
 }
 
 const event_name = (eventId) => {
-  if ( eventId in store.state.layout.eventDetails) {
+  if (eventId in store.state.layout.eventDetails) {
     //console.log(`Event Name`)
     return store.state.layout.eventDetails[eventId].name
   } else {
@@ -144,7 +159,7 @@ const event_name = (eventId) => {
 }
 
 const event_colour = (eventId) => {
-  if ( eventId in store.state.layout.eventDetails) {
+  if (eventId in store.state.layout.eventDetails) {
     //console.log(`Event Colour`)
     return store.state.layout.eventDetails[eventId].colour
   } else {
@@ -154,7 +169,7 @@ const event_colour = (eventId) => {
 }
 
 const event_group = (eventId) => {
-  if ( eventId in store.state.layout.eventDetails) {
+  if (eventId in store.state.layout.eventDetails) {
     //console.log(`Event Colour`)
     return store.state.layout.eventDetails[eventId].group
   } else {

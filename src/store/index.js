@@ -21,6 +21,34 @@ const state = reactive({
 })
 
 const methods = {
+  long_on_event(nodeNumber, eventNumber){
+    console.log(`ACON ${nodeNumber} : ${eventNumber}`)
+    socket.emit('ACCESSORY_LONG_ON', {
+      "nodeNumber": nodeNumber,
+      "eventNumber": eventNumber
+    })
+  },
+  long_off_event(nodeNumber, eventNumber){
+    console.log(`ACOF ${nodeNumber} : ${eventNumber}`)
+    socket.emit('ACCESSORY_LONG_OFF', {
+      "nodeNumber": nodeNumber,
+      "eventNumber": eventNumber
+    })
+  },
+  short_on_event(nodeNumber, eventNumber){
+    console.log(`ASON ${nodeNumber} : ${eventNumber}`)
+    socket.emit('ACCESSORY_SHORT_ON', {
+      "nodeNumber": 0,
+      "deviceNumber": eventNumber
+    })
+  },
+  short_off_event(nodeNumber, eventNumber){
+    console.log(`ACOF ${nodeNumber} : ${eventNumber}`)
+    socket.emit('ACCESSORY_SHORT_OFF', {
+      "nodeNumber": 0,
+      "deviceNumber": eventNumber
+    })
+  },
   remove_node(nodeNumber) {
     socket.emit('REMOVE_NODE', {"nodeId": nodeNumber})
   },
