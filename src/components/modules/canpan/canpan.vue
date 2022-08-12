@@ -16,8 +16,8 @@
           narrow-indicator
         >
           <q-tab name="info" label="Info"/>
-          <q-tab name="variables" label="Variables"/>
-          <q-tab name="events" label="Events"/>
+          <q-tab name="variables" label="Variables" v-if="store.state.nodes[store.state.selected_node].flim"/>
+          <q-tab name="events" label="Events" v-if="store.state.nodes[store.state.selected_node].flim"/>
         </q-tabs>
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="info" class="bg-white">
