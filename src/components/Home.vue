@@ -4,6 +4,7 @@
       <div class="text-h4 text-black">Home Page</div>
       <div class="text-h5 text-black">{{ store.state.layout.layoutDetails.title }}</div>
       <div class="text-h56text-black">Version 2.1</div>
+      <div class="text-h56text-black">{{  host }}</div>
     </div>
   </div>
 </template>
@@ -13,5 +14,6 @@
 import {inject} from "vue";
 
 const store = inject('store')
+const host = window.location.hostname
 
 </script>

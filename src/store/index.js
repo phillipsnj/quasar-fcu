@@ -2,6 +2,9 @@ import {reactive} from 'vue'
 import io from 'socket.io-client'
 //import VueSocketIO from 'vue-socket.io'
 
+const host = window.location.hostname
+const port = "5552"
+
 const state = reactive({
   nodes: {},
   events: {},
@@ -166,9 +169,37 @@ const methods = {
   }
 }
 
-const getters = {}
+const getters = {
+  event_name(eventId) {
+    if (eventId in state.layout.eventDetails) {
+      //console.log(`Event Name`)
+      return state.layout.eventDetails[eventId].name
+    } else {
+      //console.log(`Event No Name ${JSON.stringify(eventId)}`)
+      return JSON.stringify(eventId)
+    }
+  },
+  event_colour(eventId) {
+    if (eventId in state.layout.eventDetails) {
+      //console.log(`Event Name`)
+      return state.layout.eventDetails[eventId].colour
+    } else {
+      //console.log(`Event No Name ${JSON.stringify(eventId)}`)
+      return "black"
+    }
+  },
+  event_group(eventId) {
+    if (eventId in state.layout.eventDetails) {
+      //console.log(`Event Name`)
+      return state.layout.eventDetails[eventId].group
+    } else {
+      //console.log(`Event No Name ${JSON.stringify(eventId)}`)
+      return ""
+    }
+  }
+}
 
-const socket = io('http://localhost:5552')
+const socket = io(`http://${host}:${port}`)
 
 socket.on("connect", () => {
   console.log(`Socket Connect`)

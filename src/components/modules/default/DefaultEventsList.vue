@@ -12,6 +12,7 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="eventIdentifier" :props="props">{{ props.row.eventIdentifier }}</q-td>
+          <q-td key="eventName" :props="props">{{ props.row.eventName}}</q-td>
           <q-td key="nodeNumber" :props="props">{{ props.row.nodeNumber }}</q-td>
           <q-td key="eventNumber" :props="props">{{ props.row.eventNumber }}</q-td>
           <q-td key="eventIndex" :props="props">{{ props.row.eventIndex }}</q-td>
@@ -37,6 +38,7 @@ import DefaultEventVariables from "components/modules/default/DefaultEventVariab
 
 const columns = [
   {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'EventId', align: 'left', sortable: true},
+  {name: 'eventName', field: 'eventName', required: false, label: 'Name', align: 'left', sortable: true},
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node', align: 'left', sortable: true},
   {name: 'eventNumber', field: 'eventNumber', required: true, label: 'Event', align: 'left', sortable: true},
   {name: 'eventIndex', field: 'eventIndex', required: true, label: 'Event Index', align: 'left', sortable: true},
@@ -60,6 +62,7 @@ const update_rows = () => {
   nodeEvents.value.forEach(event => {
     let output = {}
     output['eventIdentifier'] = event.eventIdentifier
+    output['eventName'] = store.getters.event_name(event.eventIdentifier)
     output['eventIndex'] = event.eventIndex
     output['nodeNumber'] = parseInt(event.eventIdentifier.substr(0, 4), 16)
     output['eventNumber'] = parseInt(event.eventIdentifier.substr(4, 4), 16)
