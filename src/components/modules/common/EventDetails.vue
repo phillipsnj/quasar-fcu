@@ -48,7 +48,7 @@
     <q-card class="q-pa-xs" style="max-width: 300px">
       <q-card-section>
         <div class="text-h6">Teach Event</div>
-        <div class="text-subtitle2">Select a Node to teach e vwent too.</div>
+        <div class="text-subtitle2">Select a Node to teach Event too.</div>
       </q-card-section>
       <q-card-section class="q-pa-xs">
         <q-select
@@ -69,7 +69,7 @@
     <q-card class="q-pa-md" style="max-width: 300px">
       <q-card-section>
         <div class="text-h6">Actions</div>
-        <div class="text-subtitle2">Generate vents</div>
+        <div class="text-subtitle2">Generate Events</div>
       </q-card-section>
       <q-card-section>
         <div class="q-pa-md q-gutter-sm">
