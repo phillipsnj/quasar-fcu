@@ -60,7 +60,7 @@ onBeforeMount(() => {
   store.methods.request_all_event_variables(
     store.state.selected_node,
     store.state.selected_event_index,
-    100,
+    25,
     store.state.nodes[store.state.selected_node].parameters[5])
 })
 

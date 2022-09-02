@@ -211,6 +211,11 @@ socket.on("nodes", (data) => {
   state.nodes = data
 })
 
+socket.on("node", (data) => {
+  console.log(`RECEIVED Node ${data.nodeNumber} Data`)
+  state.nodes[data.nodeNumber] = data
+})
+
 socket.on("events", (data) => {
   console.log(`RECEIVED Events Data`)
   state.events = data

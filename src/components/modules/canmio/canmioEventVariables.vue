@@ -1,44 +1,53 @@
 <template>
-  <h5>Event Variables</h5>
-  <div class="q-pa-xs row">
-    <EventVariable
-      name="Number of Stored Variables"
-      :eventVariableIndex="0"
-      :eventIndex=store.state.selected_event_index
-      :nodeNumber="store.state.selected_node"
-      :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
-    >
-    </EventVariable>
-    <EventVariable
-      name="Happenning"
-      :eventVariableIndex="1"
-      :eventIndex=store.state.selected_event_index
-      :nodeNumber="store.state.selected_node"
-      :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
-    >
-    </EventVariable>
-  </div>
-  <div class="q-pa-xs row">
-    <event-variable-select
-      :Title="'Action '+n"
-      :options="event_actions"
-      :eventVariableIndex="n"
-      :eventIndex=store.state.selected_event_index
-      :nodeNumber="store.state.selected_node"
-      v-for="n in [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
-      :key="n">
-    </event-variable-select>
-  </div>
-  <div class="q-pa-xs row">
-    <EventVariable
-      :eventVariableIndex="n"
-      :eventIndex=store.state.selected_event_index
-      :nodeNumber="store.state.selected_node"
-      :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
-      v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
-      :key="n">
-    </EventVariable>
-  </div>
+  <q-card class="q-pa-xs">
+    <q-card-section>
+      <div class="text-h6">Event Variables</div>
+      <div class="text-subtitle2">CANMIO Variables</div>
+    </q-card-section>
+    <div>
+      <q-card-section class=" row items-start q-gutter-md">
+      <EventVariable
+        name="Number of Stored Variables"
+        :eventVariableIndex="0"
+        :eventIndex=store.state.selected_event_index
+        :nodeNumber="store.state.selected_node"
+        :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
+      >
+      </EventVariable>
+      <EventVariable
+        name="Happenning"
+        :eventVariableIndex="1"
+        :eventIndex=store.state.selected_event_index
+        :nodeNumber="store.state.selected_node"
+        :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
+      >
+      </EventVariable>
+      </q-card-section>
+    </div>
+    <div>
+      <q-card-section class=" row items-start q-gutter-md">
+      <event-variable-select
+        :Title="'Action '+(n-1)"
+        :options="event_actions"
+        :eventVariableIndex="n"
+        :eventIndex=store.state.selected_event_index
+        :nodeNumber="store.state.selected_node"
+        v-for="n in [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+        :key="n">
+      </event-variable-select>
+      </q-card-section>
+    </div>
+    <div class="q-pa-xs row">
+      <EventVariable
+        :eventVariableIndex="n"
+        :eventIndex=store.state.selected_event_index
+        :nodeNumber="store.state.selected_node"
+        :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
+        v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
+        :key="n">
+      </EventVariable>
+    </div>
+  </q-card>
 </template>
 
 <script setup>

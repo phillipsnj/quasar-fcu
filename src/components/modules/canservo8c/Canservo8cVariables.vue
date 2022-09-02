@@ -54,7 +54,7 @@ export default {
   setup() {
     const store = inject('store')
     onBeforeMount(() => {
-      store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
+      store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 25, 1)
     })
     return {store, NodeVariable, NodeVariableBitArray, Canservo8cChannel}
   }

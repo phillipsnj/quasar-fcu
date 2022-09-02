@@ -1,14 +1,15 @@
 <template>
-  <q-card class="q-pa-xs" flat bordered style="max-width: 300px">
+  <q-card class="q-pa-xs" flat  bordered style="min-width: 200px">
     <q-card-section class="q-pa-xs">
-      <div class="text-subtitle1">{{ Title }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
+      <div class="text-subtitle4">{{ Title }}</div>
+      <div class="text-subtitle4">{{ Description }}</div>
     </q-card-section>
     <q-card-section class="q-pa-xs">
     <q-select
       v-model="variable"
       :options="options"
       map-options
+      color="red"
       @update:model-value="update_variable"
     >
     </q-select>
