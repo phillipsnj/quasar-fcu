@@ -13,7 +13,6 @@
       :error="error"
       @change="update_variable"
     >
-
     </q-input>
   </q-card>
 </template>

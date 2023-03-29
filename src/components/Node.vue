@@ -8,6 +8,8 @@
 import {inject, onBeforeMount} from "vue";
 
 import mergDefault from "components/modules/default/default.vue"
+import mergDefault2 from "components/modules/default2/default2.vue"
+import mergLcbDefault from "components/modules/defaultlcb/defaultLcb.vue"
 import Canace8c from "components/modules/canace8c/canace8c";
 import Canpan from "components/modules/canpan/canpan";
 import Canacc8 from "components/modules/canacc8/canacc8";
@@ -18,7 +20,7 @@ import Canmio from "components/modules/canmio/canmio"
 
 export default {
   name: "node",
-  components:{mergDefault, Canace8c, Canpan, Canacc8, Canservo8c, Canled64, Cancmd, Canmio},
+  components:{mergDefault, mergDefault2, Canace8c, Canpan, Canacc8, Canservo8c, Canled64, Cancmd, Canmio, mergLcbDefault},
   setup() {
     const store = inject('store')
     const display_component = store.state.nodes[store.state.selected_node].component

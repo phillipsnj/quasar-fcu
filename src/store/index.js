@@ -59,6 +59,14 @@ const methods = {
     console.log(`Update Layout Details : ` + state.title)
     socket.emit('UPDATE_LAYOUT_DETAILS', state.layout)
   },
+  request_service_discovery(nodeNumber) {
+    console.log(`Request Service Discovery : ` + nodeNumber)
+    socket.emit('REQUEST_SERVICE_DISCOVERY', {"nodeId":nodeNumber})
+  },
+  request_diagnostics(nodeNumber) {
+    console.log(`Request Service Discovery : ` + nodeNumber)
+    socket.emit('REQUEST_DIAGNOSTICS', {"nodeId":nodeNumber})
+  },
   update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     console.log(`MAIN Update Node Variable :`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
@@ -107,7 +115,7 @@ const methods = {
     })
   },
   update_display_component(component) {
-    //console.log(`Display Component`)
+    // console.log(`Display Component ${component}`)
     state.display_component = component
   },
   update_event_component(component) {
@@ -133,12 +141,21 @@ const methods = {
   request_all_node_parameters(nodeId, parameters, delay) {
     socket.emit('REQUEST_ALL_NODE_PARAMETERS', {"nodeId": nodeId, "parameters": parameters, "delay": delay})
   },
+  request_node_parameter(nodeId, parameter) {
+    socket.emit('RQNPN', {"nodeId": nodeId, "parameter": parameter})
+  },
   request_all_node_variables(nodeId, variables, delay, start) {
     socket.emit('REQUEST_ALL_NODE_VARIABLES', {
       "nodeId": nodeId,
       "variables": variables,
       "delay": delay,
       "start": start
+    })
+  },
+  request_node_variable(nodeId, variable) {
+    socket.emit('REQUEST_NODE_VARIABLE', {
+      "nodeId": nodeId,
+      "variableId": variable,
     })
   },
   request_all_node_events(nodeId) {
