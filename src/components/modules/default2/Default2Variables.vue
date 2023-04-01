@@ -44,16 +44,10 @@
                           :name="item.name"
                           :options="item.options">
       </NodeVariableSelect>
-      {{ item.type }} - {{ item.nodeVariableIndex}} - {{ item.title }}
+      <div v-if="store.state.debug">
+        {{ item.type }} - {{ item.nodeVariableIndex}} - {{ item.title }}
+      </div>
     </div>
-    <NodeVariableBitSingle :NodeNumber="store.state.selected_node"
-                           VariableIndex=2
-                           Title="item.title"
-                           Description="item.description"
-                           Bit=1
-                           Name="Name"
-    >
-    </NodeVariableBitSingle>
   </div>
   <h5>Raw View</h5>
   <div class="q-pa-xs row">
