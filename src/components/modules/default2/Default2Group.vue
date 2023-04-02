@@ -3,18 +3,69 @@
     Group Component
     <h4>{{ name }}</h4>
     <div v-for="item in groupItems" :key="item">
-      item
-<!--       <NodeVariable v-if="item.type=='NodeVariable'"
+      <h5>{{item.type}}</h5>
+
+       <NodeVariable v-if="item.type=='NodeVariable'"
                     :node-number=store.state.selected_node
                     :name="item.title"
                     :node-variable-index=item.nodeVariableIndex>
       </NodeVariable>
- -->
+      <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
+                                :NodeNumber="store.state.selected_node"
+                                :VariableIndex=item.nodeVariableIndex
+                                :Title="item.title"
+                                :Description="item.description"
+                                :Bit=item.bit
+                                :Name="item.title"
+      >
+      </NodeVariableBitSingle>
+
     </div>
 
   </div>
 </template>
 
+
+<script>
+import {inject, ref, onMounted, computed, watch} from "vue";
+import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableBitSingle from "components/modules/common/NodeVariableBitSingle"
+
+export default {
+
+  components: {
+    NodeVariable,
+    NodeVariableBitSingle
+  },
+
+  props: {
+    name: String,
+    groupItems: Array
+  },
+  setup() {
+    const store = inject('store')
+    onMounted(() => {
+      console.log("Group onMounted")
+//      console.log(`Group name : ${this.name}`)
+//      console.log(`Group items : ${JSON.stringify(groupItems)}`)
+      console.log(`Group store : ${JSON.stringify(store.state)}`)
+    })
+    return {store}
+  },
+  watch: {
+    name(newName, oldName) {
+      console.log(`Group name : ${newName}`)
+    }
+  },
+  mounted() {
+      console.log(`Group name : ${name}`)
+  }
+}
+</script>
+
+
+
+<!-- 
 <script setup>
 import {inject, ref, onMounted, computed, watch} from "vue";
 import NodeVariable from "components/modules/common/NodeVariable"
@@ -32,12 +83,6 @@ const props = defineProps({
 
 })
 
-/*
-export default {
-}
-*/
-
-
 onMounted(() => {
   console.log("Group onMounted")
   console.log(`Group name : ${name}`)
@@ -45,8 +90,8 @@ onMounted(() => {
   console.log(`Group store : ${JSON.stringify(store.state)}`)
 })
 
-
 </script>
+ -->
 
 <style scoped>
 
