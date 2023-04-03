@@ -81,7 +81,7 @@ export default {
 //      console.log(`Group name : ${this.name}`)
 //      console.log(`Group items : ${JSON.stringify(groupItems)}`)
       console.log(`Group store selected node : ${JSON.stringify(store.state.selected_node)}`)
-      console.log(`Group store NV: ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.nv)}`)
+//      console.log(`Group store NV: ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.nv)}`)
     })
     return {store}
   },
@@ -96,35 +96,6 @@ export default {
 }
 </script>
 
-
-
-<!-- 
-<script setup>
-import {inject, ref, onMounted, computed, watch} from "vue";
-import NodeVariable from "components/modules/common/NodeVariable"
-const store = inject('store')
-
-const props = defineProps({
-  "name": {
-    type: String,
-    required: false
-  },
-  "groupItems": {
-    type: Array,
-    required: false
-  }
-
-})
-
-onMounted(() => {
-  console.log("Group onMounted")
-  console.log(`Group name : ${name}`)
-  console.log(`Group items : ${JSON.stringify(props.groupItems)}`)
-  console.log(`Group store : ${JSON.stringify(store.state)}`)
-})
-
-</script>
- -->
 
 <style scoped>
 .GroupTitle {
