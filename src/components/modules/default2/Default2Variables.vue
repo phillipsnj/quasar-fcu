@@ -3,6 +3,10 @@
   <div class="q-pa-xs row">
 
     <div v-for="item in store.state.nodes[store.state.selected_node].variableConfig.nv" :key="item">
+      <NodeVariableGroup v-if="item.type=='group'"
+                    :name="item.displayName"
+                    :groupItems=item.groupItems>
+      </NodeVariableGroup>
       <NodeVariable v-if="item.type=='NodeVariable'"
                     :node-number=store.state.selected_node
                     :name="item.title"
@@ -68,6 +72,7 @@ import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableDual from "components/modules/common/NodeVariableDual"
 import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
 import DefaultInfo from "components/modules/default/DefaultInfo"
+import NodeVariableGroup from "components/modules/common/NodeVariableGroup"
 
 export default {
   name: "DefaultVariables",
@@ -77,7 +82,8 @@ export default {
     NodeVariableBitSingle,
     NodeVariableSlider,
     NodeVariableDual,
-    NodeVariableSelect
+    NodeVariableSelect,
+    NodeVariableGroup
   },
   setup() {
     const store = inject('store')
