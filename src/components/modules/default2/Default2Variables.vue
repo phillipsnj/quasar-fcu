@@ -32,9 +32,9 @@
                             :node-number="store.state.selected_node"
                             :Title="item.title"
                             :Description="item.description"
-                            Badge="Duration"
-                            :BadgeMulti=1
-                            BadgeUnit="seconds">
+                            Badge=""
+                            :BadgeMulti="item.BadgeMulti"
+                            :BadgeUnit="item.BadgeUnits">
       </node-variable-slider>
       <NodeVariableDual v-if="item.type=='NodeVariableDual'"
                         :NodeVariableIndexLow="item.nodeVariableIndexLow"
