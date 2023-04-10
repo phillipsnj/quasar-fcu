@@ -5,51 +5,51 @@
       <div v-for="item in groupItems" :key="item" >
         <NodeVariable v-if="item.type=='NodeVariable'"
                       :node-number=store.state.selected_node
-                      :name="item.title"
+                      :name="item.displayTitle"
                       :node-variable-index=item.nodeVariableIndex>
         </NodeVariable>
         <NodeVariable7Bit v-if="item.type=='NodeVariable7Bit'"
                       :node-number=store.state.selected_node
-                      :name="item.title"
+                      :name="item.displayTitle"
                       :node-variable-index=item.nodeVariableIndex>
         </NodeVariable7Bit>
         <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
-                            :Title="item.title"
+                            :Title="item.displayTitle"
                             :Description="item.description"
                             :learn="false"
         ></NodeVariableBitArray>
         <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
                                   :NodeNumber="store.state.selected_node"
                                   :VariableIndex=item.nodeVariableIndex
-                                  :Title="item.title"
+                                  :Title="item.displayTitle"
                                   :Description="item.description"
                                   :Bit=item.bit
-                                  :Name="item.title">
+                                  :Name="item.displayTitle">
         </NodeVariableBitSingle>
         <node-variable-slider v-if="item.type=='NodeVariableSlider'"
                             :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
-                            :Title="item.title"
+                            :Title="item.displayTitle"
                             :Description="item.description"
                             Badge=""
-                            :BadgeMulti="item.badgeMulti"
-                            :BadgeUnit="item.badgeUnit">
+                            :BadgeMulti="item.displayScale"
+                            :BadgeUnit="item.displayUnits">
         </node-variable-slider>
         <node-variable-slider-7Bit v-if="item.type=='NodeVariableSlider7Bit'"
                             :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
-                            :Title="item.title"
+                            :Title="item.displayTitle"
                             :Description="item.description"
                             Badge=""
-                            :BadgeMulti="item.badgeMulti"
-                            :BadgeUnit="item.badgeUnit">
+                            :BadgeMulti="item.displayScale"
+                            :BadgeUnit="item.displayUnits">
         </node-variable-slider-7Bit>
         <NodeVariableDual v-if="item.type=='NodeVariableDual'"
                           :NodeVariableIndexLow="item.nodeVariableIndexLow"
                           :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
                           :NodeNumber="store.state.selected_node"
-                          :name="item.title">
+                          :name="item.displayTitle">
         </NodeVariableDual>
         <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
                             :nodeVariableIndex="item.nodeVariableIndex"
@@ -99,7 +99,7 @@ export default {
 //      console.log(`Group name : ${this.name}`)
 //      console.log(`Group items : ${JSON.stringify(groupItems)}`)
       console.log(`Group store selected node : ${JSON.stringify(store.state.selected_node)}`)
-//      console.log(`Group store NV: ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.nv)}`)
+//      console.log(`Group store NV: ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.nodeVariables)}`)
     })
     return {store}
   },
