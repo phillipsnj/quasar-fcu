@@ -69,9 +69,11 @@ const update_checked = () => {
   console.log('NodeVariableBit update_checked')
   let byteValue = variableValue.value
   if (checked.value) {
-    byteValue = byteValue + bitArray[props.Bit]
+    byteValue = byteValue | bitArray[props.Bit]										// set bit by 'or-ing' bit value
+    console.log(`bit ${bitArray[props.Bit]} set, new byte value ${byteValue}`)
   } else {
-    byteValue = byteValue - bitArray[props.Bit]
+    byteValue = byteValue & ~bitArray[props.Bit]									// clear bit by 'and-ing' inverse bit value
+    console.log(`bit ${bitArray[props.Bit]} cleared, new byte value ${byteValue}`)
   }
   //store.methods.update_node_variable(props.NodeNumber, props.VariableIndex, byteValue)
   if (props.learn) {
