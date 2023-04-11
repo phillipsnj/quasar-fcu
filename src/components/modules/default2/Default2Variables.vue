@@ -2,59 +2,59 @@
   <h5>Default 2 Variables</h5>
   <div class="q-pa-xs row">
 
-    <div v-for="item in store.state.nodes[store.state.selected_node].variableConfig.nv" :key="item">
+    <div v-for="item in store.state.nodes[store.state.selected_node].variableConfig.nodeVariables" :key="item">
       <NodeVariableGroup v-if="item.type=='group'"
-                    :name="item.displayName"
+                    :name="item.displayTitle"
                     :groupItems=item.groupItems>
       </NodeVariableGroup>
       <NodeVariable v-if="item.type=='NodeVariable'"
                     :node-number=store.state.selected_node
-                    :name="item.title"
+                    :name="item.displayTitle"
                     :node-variable-index=item.nodeVariableIndex>
       </NodeVariable>
       <NodeVariable7Bit v-if="item.type=='NodeVariable7Bit'"
                       :node-number=store.state.selected_node
-                      :name="item.title"
+                      :name="item.displayTitle"
                       :node-variable-index=item.nodeVariableIndex>
       </NodeVariable7Bit>
       <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
-                            :Title="item.title"
+                            :Title="item.displayTitle"
                             :Description="item.description"
                             :learn="false"
       ></NodeVariableBitArray>
       <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
                                 :NodeNumber="store.state.selected_node"
                                 :VariableIndex=item.nodeVariableIndex
-                                :Title="item.title"
+                                :Title="item.displayTitle"
                                 :Description="item.description"
                                 :Bit=item.bit
-                                :Name="item.title"
+                                :Name="item.displayTitle"
       >
       </NodeVariableBitSingle>
       <node-variable-slider v-if="item.type=='NodeVariableSlider'"
                             :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
-                            :Title="item.title"
+                            :Title="item.displayTitle"
                             :Description="item.description"
                             Badge=""
-                            :BadgeMulti="item.BadgeMulti"
-                            :BadgeUnit="item.BadgeUnits">
+                            :BadgeMulti="item.displayScale"
+                            :BadgeUnit="item.displayUnits">
       </node-variable-slider>
       <node-variable-slider-7Bit v-if="item.type=='NodeVariableSlider7Bit'"
                             :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
-                            :Title="item.title"
+                            :Title="item.displayTitle"
                             :Description="item.description"
                             Badge=""
-                            :BadgeMulti="item.badgeMulti"
-                            :BadgeUnit="item.badgeUnit">
+                            :BadgeMulti="item.displayScale"
+                            :BadgeUnit="item.displayUnits">
       </node-variable-slider-7Bit>
       <NodeVariableDual v-if="item.type=='NodeVariableDual'"
                         :NodeVariableIndexLow="item.nodeVariableIndexLow"
                         :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
                         :NodeNumber="store.state.selected_node"
-                        :name="item.title">
+                        :name="item.displayTitle">
       </NodeVariableDual>
       <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
                           :nodeVariableIndex="item.nodeVariableIndex"
@@ -63,7 +63,7 @@
                           :options="item.options">
       </NodeVariableSelect>
       <div v-if="store.state.debug">
-        {{ item.type }} - {{ item.nodeVariableIndex}} - {{ item.title }}
+        {{ item.type }} - {{ item.nodeVariableIndex}} - {{ item.displayTitle }}
       </div>
     </div>
   </div>
