@@ -118,7 +118,7 @@ export default {
 <style scoped>
 .GroupTitle {
   text-align: center;
-  font-size:1vw;
+  font-size: 1.5em;
   font-weight: bold;
 }
 </style>
