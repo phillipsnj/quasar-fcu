@@ -62,7 +62,7 @@
       <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
                           :nodeVariableIndex="item.nodeVariableIndex"
                           :nodeNumber="store.state.selected_node"
-                          :name="item.name"
+                          :Title="item.displayTitle"
                           :options="item.options">
       </NodeVariableSelect>
       <div v-if="store.state.debug">
