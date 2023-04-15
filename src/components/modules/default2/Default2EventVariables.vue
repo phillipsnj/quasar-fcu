@@ -4,6 +4,8 @@
     <EventVariable :eventVariableIndex="n"
                    :eventIndex = store.state.selected_event_index
                    :nodeNumber="store.state.selected_node"
+                   Title = "myTitle3"
+                   name = "myName3"
                    :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
                    v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
                    :key="n">
@@ -19,7 +21,7 @@ import {inject, onBeforeMount} from "vue";
 const store = inject('store')
 const label = "Label"
 onBeforeMount(() => {
-  console.log('DefaultEventVariables')
+  console.log('Default2EventVariables')
   store.methods.request_all_event_variables(
     store.state.selected_node,
     store.state.selected_event_index,

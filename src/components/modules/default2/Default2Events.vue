@@ -6,17 +6,17 @@
 
 <script>
 import { inject, onBeforeMount } from "vue";
-import DefaultEventsList from "components/modules/default/DefaultEventsList";
-import DefaultEventVariables from "components/modules/default/DefaultEventVariables";
+import Default2EventsList from "components/modules/default2/Default2EventsList";
+import Default2EventVariables from "components/modules/default2/Default2EventVariables";
 
 export default {
   name: "DefaultEvents",
-  components: { DefaultEventsList, DefaultEventVariables},
+  components: { Default2EventsList, Default2EventVariables},
   setup() {
     const store = inject('store')
     onBeforeMount(()=> {
       //console.log('DefaultEventsList')
-      store.methods.update_event_component("DefaultEventsList")
+      store.methods.update_event_component("Default2EventsList")
     })
     return {
       store
