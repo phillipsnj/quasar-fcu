@@ -44,8 +44,10 @@ const store = inject('store')
 const bitArray = {0: 1, 1: 2, 2: 4, 3: 8, 4: 16, 5: 32, 6: 64, 7: 128}
 const checked = ref(false)
 
-console.log(`eventIdentifier ${props.nodeNumber} ${props.eventIndex} ${props.eventVariableIndex}`)
+//console.log(`eventIdentifier ${props.nodeNumber} ${props.eventIndex} ${props.eventVariableIndex}`)
 let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+console.log(`EventVariableBit: eventIdentifier: ${eventIdentifier}`)
+console.log(`EventVariableBit: props: ${JSON.stringify(props)}`)
 
 
 const eventVariableValue = computed(() => {
@@ -61,9 +63,11 @@ const update_checked = () => {
   let byteValue = eventVariableValue.value
   console.log(`EventVariableBit update_checked ${checked.value} ${byteValue}`)
   if (checked.value) {
-    byteValue = byteValue + bitArray[props.bit]
+    byteValue = byteValue | bitArray[props.bit]										// set bit by 'or-ing' bit value
+    console.log(`bit ${bitArray[props.bit]} set, new byte value ${byteValue}`)
   } else {
-    byteValue = byteValue - bitArray[props.bit]
+    byteValue = byteValue & ~bitArray[props.bit]									// clear bit by 'and-ing' inverse bit value
+    console.log(`bit ${bitArray[props.bit]} cleared, new byte value ${byteValue}`)
   }
   console.log(`EventVariableBit update_checked-2 ${checked.value} ${byteValue}`)
   //store.methods.update_node_variable(props.NodeNumber, props.VariableIndex, byteValue)

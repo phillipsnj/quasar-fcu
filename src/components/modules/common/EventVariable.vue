@@ -1,16 +1,20 @@
 <template>
   <q-card class="q-pa-md" flat>
-    <q-input
-      mask="###"
-      :label="label"
-      debounce="1000"
-      :hint="hint"
-      v-model="eventValue"
-      outlined
-      :error-message="error_message"
-      :error="error"
-      @change="update_event">
-    </q-input>
+    <q-card-section>
+      <div class="text-h6">{{ Title }}</div>
+      <div class="text-subtitle2">{{ Description }}</div>
+      <q-input
+        mask="###"
+        :label="label"
+        debounce="1000"
+        :hint="hint"
+        v-model="eventValue"
+        outlined
+        :error-message="error_message"
+        :error="error"
+        @change="update_event">
+      </q-input>
+    </q-card-section>
   </q-card>
 </template>
 
@@ -30,6 +34,14 @@ const props = defineProps({
   "eventVariableIndex": {
     type: Number,
     required: true
+  },
+  "Title": {
+    type: String,
+    required: false
+  },
+  "Description": {
+    type: String,
+    required: false
   },
   "name": {
     type: String,
@@ -55,14 +67,18 @@ const error = ref(false)
 const error_message = ref('')
 const eventValue = ref()
 let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+console.log(`Event Variable Props : ${JSON.stringify(props)}`)
 
 
 const eventVariableValue = computed(() => {
+  console.log(`EVENT: variableConfig : ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.eventVariables[props.eventVariableIndex - 1])}`)
   return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
+//store.state.nodes[store.state.selected_node].variableConfig.nodeVariables"
+
 watch(eventVariableValue, () => {
-  eventValue.value = eventVariableValue.value
+eventValue.value = eventVariableValue.value
 })
 
 const update_event = (newValue) => {
