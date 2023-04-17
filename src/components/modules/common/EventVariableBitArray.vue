@@ -1,21 +1,22 @@
 <template>
   <q-card class="q-pa-md">
+
     <q-card-section>
       <div class="text-h6">{{ Title }}</div>
       <div class="text-subtitle2">{{ Description }}</div>
     </q-card-section>
+
     <q-card-section>
-       <event-variable-bit
-        v-for="n in [0,1,2,3,4,5,6,7]"
-        :key="n"
-        :nodeNumber=nodeNumber
-        :eventVariableIndex=eventVariableIndex
-        :eventIndex=eventIndex
-        :bit=n
-        :learn=learn
-        :Name="(n+1).toString()"
-      >
-      </event-variable-bit>
+      <!-- bits array - key is the bit position, value is the label -->
+      <div v-for="key in Object.keys(bits)" :key="key">
+        <event-variable-bit
+          :nodeNumber=nodeNumber
+          :eventVariableIndex=eventVariableIndex
+          :eventIndex=eventIndex
+          :bit=Number(key)
+          :name="bits[key]"
+        ></event-variable-bit>
+      </div>
      </q-card-section>
 
   </q-card>
@@ -40,6 +41,9 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  bits: {
+    required: true
+  },
   "Title": {
     type: String,
     required: false
@@ -54,8 +58,11 @@ const props = defineProps({
   }
 })
 
+
+
 onMounted(() => {
   console.log(`EventVariableBitArray onMounted:`)
+  console.log(`EventVariableBitArray: props: ${JSON.stringify(props)}`)
 })
 
 

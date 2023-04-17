@@ -71,7 +71,6 @@ console.log(`Event Variable Props : ${JSON.stringify(props)}`)
 
 
 const eventVariableValue = computed(() => {
-  console.log(`EVENT: variableConfig : ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.eventVariables[props.eventVariableIndex - 1])}`)
   return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
