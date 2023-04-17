@@ -6,19 +6,19 @@
       <div class="text-subtitle2">{{ Description }}</div>
     </q-card-section>
 
-    <q-card-section>
+     <q-card-section>
       <!-- bits array - key is the bit position, value is the label -->
-      <div v-for="key in Object.keys(bits)" :key="key">
+      <div v-for="key in Object.keys(bitCollection)" :key="key">
         <event-variable-bit
           :nodeNumber=nodeNumber
           :eventVariableIndex=eventVariableIndex
           :eventIndex=eventIndex
           :bit=Number(key)
-          :name="bits[key]"
+          :name="bitCollection[key]"
         ></event-variable-bit>
       </div>
      </q-card-section>
-
+ 
   </q-card>
 </template>
 
@@ -41,7 +41,7 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  bits: {
+  bitCollection: {
     required: true
   },
   "Title": {

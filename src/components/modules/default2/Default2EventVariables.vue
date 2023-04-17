@@ -6,7 +6,7 @@
                               :nodeNumber = "store.state.selected_node"
                               :eventIndex = store.state.selected_event_index
                               :eventVariableIndex=item.eventVariableIndex
-                              :bits = item.bits
+                              :bitCollection = item.bitCollection
                               :Title="item.displayTitle"
                               :Description="item.description"
                               :learn="false"
