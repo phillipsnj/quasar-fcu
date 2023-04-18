@@ -1,0 +1,132 @@
+<template>
+  <q-card class="q-pa-md" flat>
+    <q-card-section>
+      <div class="text-h6">{{ Title }}</div>
+      <div class="text-subtitle2">{{ Description }}</div>
+      <q-input
+        mask="###"
+        :label="label"
+        debounce="1000"
+        v-model="eventValue"
+        outlined
+        :error-message="error_message"
+        :error="error"
+        @change="update_event">
+      </q-input>
+    </q-card-section>
+  </q-card>
+</template>
+
+<script setup>
+import {inject, ref, onMounted, computed, watch} from "vue";
+
+const props = defineProps({
+  "nodeNumber": {
+    type: Number,
+    required: true
+  },
+  "eventIndex": {
+    type: Number,
+    required: true
+  },
+  "eventVariableIndex": {
+    type: Number,
+    required: true
+  },
+  "Title": {
+    type: String,
+    required: false
+  },
+  "Description": {
+    type: String,
+    required: false
+  },
+  "name": {
+    type: String,
+    required: false
+  },
+  "max": {
+    type: Number,
+    default: 255
+  },
+  "min": {
+    type: Number,
+    default: 0
+  },
+  "startBit":{
+    type: Number,
+    default: 0
+  },
+  "endBit":{
+    type: Number,
+    default: 7
+  },
+  "displayOffset":{
+    type: Number,
+    default: 0
+  }
+})
+
+const label = props.name ? props.name : "Event Variable " + props.eventVariableIndex
+const store = inject('store')
+const error = ref(false)
+const error_message = ref('')
+const eventValue = ref()
+let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+console.log(`EventVariableNumber: Props : ${JSON.stringify(props)}`)
+const bitMask = computed(() => {
+  var bitMask = 0;
+  for (var i=props.startBit; i<= props.endBit; i++){
+    bitMask += 1<<i;
+  }
+  return bitMask;
+})
+console.log(`EventVariableNumber: bitMask2 : ${bitMask.value}`)
+
+
+const eventVariableValue = computed(() => {
+  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+})
+
+watch(eventVariableValue, () => {
+//eventValue.value = ((eventVariableValue.value & bitMask.value) >> props.startBit) + props.displayOffset
+eventValue.value = ((eventVariableValue.value & bitMask.value) >> props.startBit)  + props.displayOffset
+})
+
+const update_event = (newValue) => {
+
+  // get previous value, as starting point for updated byte value
+  let byteValue = eventVariableValue.value
+
+  if (newValue < props.min || newValue > props.max ||newValue =='') {
+    error.value = true
+    error_message.value = 'Invalid Value'
+  } else {
+    let processedValue = newValue                           // take a copy to change
+    processedValue -= props.displayOffset                   // remove display offset
+    processedValue = processedValue << props.startBit       // shift to position in variable
+
+    //set bits, but only if they match bits in the bitmask
+    byteValue = byteValue | (processedValue & bitMask.value)							// set bit by 'or-ing' bit value
+    // clear bits, but only if they match bits in the bitmask
+    byteValue = byteValue & (processedValue | ~bitMask.value)							// clear bit by 'and-ing' inverse bit value
+
+    error_message.value = ''
+    error.value = false
+    store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, byteValue)
+  }
+}
+
+
+onMounted(() => {
+  console.log(`EventVariableNumber: onMounted`)
+  let startValue = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  eventValue.value = ((startValue  & bitMask.value)  >> props.startBit) + props.displayOffset
+  //eventValue.value = ((startValue & bitMask.value) >> props.startBit) + props.displayOffset
+})
+
+</script>
+
+<style scoped>
+
+</style>

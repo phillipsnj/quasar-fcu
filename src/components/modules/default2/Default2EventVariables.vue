@@ -10,6 +10,15 @@
                               :Title="item.displayTitle"
                               :Description="item.description">
         </EventVariableBitArray>
+        <EventVariableNumber v-if="item.type=='EventVariableNumber'"
+                    :node-number=store.state.selected_node
+                    :eventIndex = store.state.selected_event_index
+                    :eventVariableIndex= "item.eventVariableIndex"
+                    :startBit = "item.startBit"
+                    :endBit = "item.endBit"
+                    :displayOffset = "item.displayOffset"
+                    :name="item.displayTitle">
+        </EventVariableNumber>
         <EventVariableSelect v-if="item.type=='EventVariableSelect'"
                           :nodeNumber="store.state.selected_node"
                           :eventIndex = "store.state.selected_event_index"
@@ -26,8 +35,8 @@
   </div>
   <div class="q-pa-none row">
     <EventVariableRaw :eventVariableIndex="n"
+    :nodeNumber="store.state.selected_node"
                   :eventIndex = store.state.selected_event_index
-                  :nodeNumber="store.state.selected_node"
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
                   :key="n">
     </EventVariableRaw>
@@ -37,6 +46,7 @@
 <script>
 import {inject, onBeforeMount} from "vue";
 import EventVariableBitArray from "components/modules/common/EventVariableBitArray"
+import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableRaw from "components/modules/common/EventVariableRaw"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import DefaultInfo from "components/modules/default/DefaultInfo"
@@ -46,6 +56,7 @@ export default {
   components: {
     EventVariableRaw,
     EventVariableBitArray,
+    EventVariableNumber,
     EventVariableRaw,
     EventVariableSelect
   },

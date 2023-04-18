@@ -60,8 +60,8 @@ const props = defineProps({
 
 
 onMounted(() => {
-  console.log(`EventVariableBitArray onMounted:`)
-  console.log(`EventVariableBitArray: props: ${JSON.stringify(props)}`)
+//  console.log(`EventVariableBitArray onMounted:`)
+//  console.log(`EventVariableBitArray: props: ${JSON.stringify(props)}`)
 })
 
 
