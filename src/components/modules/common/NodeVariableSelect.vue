@@ -14,18 +14,6 @@
     </q-select>
     </q-card-section>
   </q-card>
-<!--<q-card class="q-pa-sm" style="max-width: 300px">
-    <q-input
-      class="bg-white"
-      :label="label"
-      :hint="hint"
-      v-model="variable"
-      outlined
-      readonly
-    >
-
-    </q-input>
-  </q-card>-->
 </template>
 
 <script setup>
@@ -85,7 +73,7 @@ const update_variable = (newValue) => {
 
 
 onMounted(() => {
-  //console.log(`NodeVariableSelect`)
+  console.log(`NodeVariableSelect: onMounted`)
   variable.value = variableValue.value
   //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
 })

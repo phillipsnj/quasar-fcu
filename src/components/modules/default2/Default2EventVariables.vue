@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-xs row">
+  <div class="q-pa-none row">
     <div v-if="store.state.nodes[store.state.selected_node].variableConfig.eventVariables">
       <div v-for="item in store.state.nodes[store.state.selected_node].variableConfig.eventVariables" :key="item">
         <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
@@ -8,34 +8,46 @@
                               :eventVariableIndex=item.eventVariableIndex
                               :bitCollection = item.bitCollection
                               :Title="item.displayTitle"
-                              :Description="item.description"
-                              :learn="false"
-        ></EventVariableBitArray>
+                              :Description="item.description">
+        </EventVariableBitArray>
+        <EventVariableSelect v-if="item.type=='EventVariableSelect'"
+                          :nodeNumber="store.state.selected_node"
+                          :eventIndex = "store.state.selected_event_index"
+                          :eventVariableIndex= "item.eventVariableIndex"
+                          :bitMask = "item.bitMask"
+                          :Title= "item.displayTitle"
+                          :options= "item.options">
+        </EventVariableSelect>
       </div>
     </div>
   </div>
-  <h5>Raw View</h5>
-  <div class="q-pa-xs row">
-      <EventVariable :eventVariableIndex="n"
-                    :eventIndex = store.state.selected_event_index
-                    :nodeNumber="store.state.selected_node"
-                    v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
-                    :key="n">
-      </EventVariable>
+  <div class="q-pa-none row">
+    <h6>Raw View</h6>
+  </div>
+  <div class="q-pa-none row">
+    <EventVariableRaw :eventVariableIndex="n"
+                  :eventIndex = store.state.selected_event_index
+                  :nodeNumber="store.state.selected_node"
+                  v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
+                  :key="n">
+    </EventVariableRaw>
   </div>
 </template>
 
 <script>
 import {inject, onBeforeMount} from "vue";
-import EventVariable from "components/modules/common/EventVariable"
 import EventVariableBitArray from "components/modules/common/EventVariableBitArray"
+import EventVariableRaw from "components/modules/common/EventVariableRaw"
+import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import DefaultInfo from "components/modules/default/DefaultInfo"
 
 export default {
   name: "DefaultVariables",
   components: {
-    EventVariable,
-    EventVariableBitArray
+    EventVariableRaw,
+    EventVariableBitArray,
+    EventVariableRaw,
+    EventVariableSelect
   },
   setup() {
     const store = inject('store')
@@ -50,7 +62,7 @@ export default {
         console.log(`Default2EventVariables: config: ` + JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.eventVariables))
         console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
       })
-    return {store, EventVariable}
+    return {store, EventVariableRaw}
   }
 }
 </script>
