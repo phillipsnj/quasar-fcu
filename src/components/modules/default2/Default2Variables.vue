@@ -13,6 +13,7 @@
       </NodeVariable>
       <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
+                            :bitCollection = item.bitCollection
                             :Title="item.displayTitle"
                             :Description="item.description"
                             :learn="false"

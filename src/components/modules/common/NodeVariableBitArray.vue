@@ -5,16 +5,14 @@
       <div class="text-subtitle2">{{ Description }}</div>
     </q-card-section>
     <q-card-section>
-      <node-variable-bit
-        v-for="n in [0,1,2,3,4,5,6,7]"
-        :key="n"
-        :NodeNumber="store.state.selected_node"
-        :VariableIndex=VariableIndex
-        :Bit=n
-        :learn=learn
-        :Name="(n+1).toString()"
-      >
-      </node-variable-bit>
+      <div v-for="item in bitCollection" :key="item">
+        <node-variable-bit
+          :NodeNumber="store.state.selected_node"
+          :VariableIndex=VariableIndex
+          :Bit=item.bitPosition
+          :Name=item.label
+        ></node-variable-bit>
+      </div>
     </q-card-section>
 
   </q-card>
@@ -23,12 +21,15 @@
 <script setup>
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 
-import { inject } from "vue";
+import { inject, onMounted } from "vue";
 const store = inject('store')
 
 const props = defineProps({
   "VariableIndex": {
     type: Number,
+    required: true
+  },
+  "bitCollection": {
     required: true
   },
   "Title": {
@@ -38,12 +39,14 @@ const props = defineProps({
   "Description": {
     type: String,
     default: ""
-  },
-  "learn": {
-    type: Boolean,
-    default: false
   }
 })
+
+onMounted(() => {
+  console.log(`NodeVariableBitArray onMounted:`)
+  console.log(`NodeVariableBitArray: props: ${JSON.stringify(props)}`)
+})
+
 </script>
 
 <style scoped>
