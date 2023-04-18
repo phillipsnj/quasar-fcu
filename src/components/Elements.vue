@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 
 import {inject, ref} from "vue";
 

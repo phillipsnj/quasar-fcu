@@ -315,13 +315,13 @@
       </div>
     </q-card>
   </div>
-  <!--  <NodeVariable :node-variable-index="base_nv(selectedChannel) +1"
+  <!--  <NodeVariableNumber :node-variable-index="base_nv(selectedChannel) +1"
                   :node-number=store.state.selected_node>
-    </NodeVariable>-->
+    </NodeVariableNumber>-->
 </template>
 
 <script setup>
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import NodeVariableSelect from "components/modules/common/NodeVariableSelect"

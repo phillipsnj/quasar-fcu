@@ -33,30 +33,30 @@
   </canservo8c-channel>
   </div>
   <div class="q-pa-xs row">
-    <NodeVariable :node-variable-index="n"
+    <NodeVariableNumber :node-variable-index="n"
                   :node-number=store.state.selected_node
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"
                   :key="n">
-    </NodeVariable>
+    </NodeVariableNumber>
   </div>
 </template>
 
 <script>
 import {inject, onBeforeMount} from "vue";
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
 import Canservo8cChannel from "components/modules/canservo8c/canservo8cChannel"
 import DefaultInfo from "components/modules/default/DefaultInfo"
 
 export default {
   name: "Canservo8cVariables",
-  components: {NodeVariable, NodeVariableBitArray, Canservo8cChannel},
+  components: {NodeVariableNumber, NodeVariableBitArray, Canservo8cChannel},
   setup() {
     const store = inject('store')
     onBeforeMount(() => {
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 25, 1)
     })
-    return {store, NodeVariable, NodeVariableBitArray, Canservo8cChannel}
+    return {store, NodeVariableNumber, NodeVariableBitArray, Canservo8cChannel}
   }
 }
 </script>

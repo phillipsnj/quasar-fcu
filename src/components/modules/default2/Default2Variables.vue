@@ -6,11 +6,11 @@
                     :name="item.displayTitle"
                     :groupItems=item.groupItems>
       </NodeVariableGroup>
-      <NodeVariable v-if="item.type=='NodeVariable'"
+      <NodeVariableNumber v-if="item.type=='NodeVariable'"
                     :node-number=store.state.selected_node
                     :name="item.displayTitle"
                     :node-variable-index=item.nodeVariableIndex>
-      </NodeVariable>
+      </NodeVariableNumber>
       <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
                             :bitCollection = item.bitCollection
@@ -73,17 +73,18 @@
   </div>
   <h5>Raw View</h5>
   <div class="q-pa-xs row">
-    <NodeVariable :node-variable-index="n"
+    <NodeVariableRaw :node-variable-index="n"
                   :node-number=store.state.selected_node
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"
                   :key="n">
-    </NodeVariable>
+    </NodeVariableRaw>
   </div>
 </template>
 
 <script>
 import {inject, onBeforeMount} from "vue";
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
+import NodeVariableRaw from "components/modules/common/NodeVariableRaw"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
 import NodeVariableBitSingle from "components/modules/common/NodeVariableBitSingle"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
@@ -97,7 +98,8 @@ import NodeVariableGroup from "components/modules/common/NodeVariableGroup"
 export default {
   name: "DefaultVariables",
   components: {
-    NodeVariable,
+    NodeVariableNumber,
+    NodeVariableRaw,
     NodeVariableBitArray,
     NodeVariableBitSingle,
     NodeVariableSlider,
@@ -112,7 +114,7 @@ export default {
     onBeforeMount(() => {
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, NodeVariable, NodeVariableBitArray}
+    return {store, NodeVariableNumber, NodeVariableBitArray}
   }
 }
 </script>

@@ -3,11 +3,11 @@
     <div class = "GroupTitle"> {{ name }}</div>
     <div class="q-pa-xs row">
       <div v-for="item in groupItems" :key="item" >
-        <NodeVariable v-if="item.type=='NodeVariable'"
+        <NodeVariableNumber v-if="item.type=='NodeVariable'"
                       :node-number=store.state.selected_node
                       :name="item.displayTitle"
                       :node-variable-index=item.nodeVariableIndex>
-        </NodeVariable>
+        </NodeVariableNumber>
         <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
                             :Title="item.displayTitle"
@@ -70,7 +70,7 @@
 
 <script>
 import {inject, ref, onMounted, computed, watch} from "vue";
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
 import NodeVariableBitSingle from "components/modules/common/NodeVariableBitSingle"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
@@ -82,7 +82,7 @@ import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
 export default {
 
   components: {
-    NodeVariable,
+    NodeVariableNumber,
     NodeVariableBitArray,
     NodeVariableBitSingle,
     NodeVariableSlider,
