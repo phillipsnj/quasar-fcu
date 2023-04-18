@@ -7,14 +7,13 @@
     </q-card-section>
 
      <q-card-section>
-      <!-- bits array - key is the bit position, value is the label -->
-      <div v-for="key in Object.keys(bitCollection)" :key="key">
+      <div v-for="item in bitCollection" :key="item">
         <event-variable-bit
           :nodeNumber=nodeNumber
           :eventVariableIndex=eventVariableIndex
           :eventIndex=eventIndex
-          :bit=Number(key)
-          :name="bitCollection[key]"
+          :bit=item.bitPosition
+          :name=item.label
         ></event-variable-bit>
       </div>
      </q-card-section>
