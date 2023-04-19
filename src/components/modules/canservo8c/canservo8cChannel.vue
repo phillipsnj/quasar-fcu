@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import {inject, onBeforeMount, ref, computed, watch} from "vue"

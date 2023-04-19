@@ -255,18 +255,18 @@
     </node-variable-slider>
   </div>
   <div class="q-pa-md row">
-    <NodeVariable :node-variable-index="n"
+    <NodeVariableNumber :node-variable-index="n"
                   :node-number=store.state.selected_node
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"
                   :key="n">
-    </NodeVariable>
+    </NodeVariableNumber>
 
   </div>
 </template>
 
 <script>
 import {inject, onBeforeMount} from "vue";
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableDual from "components/modules/common/NodeVariableDual"
@@ -274,13 +274,13 @@ import DefaultInfo from "components/modules/default/DefaultInfo"
 
 export default {
   name: "DefaultVariables",
-  components: {NodeVariable, NodeVariableBit, NodeVariableSlider, NodeVariableDual},
+  components: {NodeVariableNumber, NodeVariableBit, NodeVariableSlider, NodeVariableDual},
   setup() {
     const store = inject('store')
     onBeforeMount(() => {
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, NodeVariable, NodeVariableBit}
+    return {store, NodeVariableNumber, NodeVariableBit}
   }
 }
 </script>

@@ -1,8 +1,6 @@
 <template>
-  <q-card class="q-pa-md" flat>
+  <q-card class="q-pa-none" flat>
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
       <q-input
         mask="###"
         :label="label"
@@ -96,7 +94,7 @@ const update_event = (newValue) => {
 //console.log(`EventVariable` + eventVariableValue.value)
 
 onMounted(() => {
-  //console.log(`EventVariable onMounted` + props.nodeNumber + ' : ' + props.eventIndex + ' : ' + props.eventVariableIndex)
+  console.log(`EventVariableRaw onMounted`)
   eventValue.value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 

@@ -1,32 +1,19 @@
 <template>
-  <q-card class="q-pa-xs" flat  bordered style="min-width: 200px">
-    <q-card-section class="q-pa-xs">
+  <q-card class="q-pa-xs" flat bordered style="min-width: 200px">
+    <q-card-section>
       <div class="text-subtitle4">{{ Title }}</div>
       <div class="text-subtitle4">{{ Description }}</div>
     </q-card-section>
-    <q-card-section class="q-pa-xs">
+    <q-card-section>
     <q-select
-      v-model="variable"
+      v-model="selectVariable"
       :options="options"
       map-options
-      color="red"
       @update:model-value="update_variable"
     >
     </q-select>
     </q-card-section>
   </q-card>
-<!--<q-card class="q-pa-md" flat style="max-width: 300px">
-    <q-input
-      class="bg-white"
-      filled
-      :label="label"
-      :hint="hint"
-      v-model="variable"
-      outlined
-      readonly
-    >
-    </q-input>
-  </q-card>-->
 </template>
 
 <script setup>
@@ -44,6 +31,10 @@ const props = defineProps({
   "eventVariableIndex": {
     type: Number,
     required: true
+  },
+  "bitMask": {
+    type: Number,
+    default: 255
   },
   "name": {
     type: String,
@@ -66,11 +57,9 @@ const props = defineProps({
   },
 })
 
-//console.log(`Event Variable  Variable : ${props.nodeNumber} ${props.eventIndex}`)
-//var variableValue = ref(29)
 const label = props.name ? props.name : "Variable" + props.eventVariableIndex
 const store = inject('store')
-const variable = ref()
+const selectVariable = ref()
 let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
 
 const variableValue = computed(() =>{
@@ -78,19 +67,29 @@ const variableValue = computed(() =>{
 })
 
 watch(variableValue, () => {
-  variable.value = variableValue.value
+  selectVariable.value = variableValue.value & props.bitMask
 })
 
 const update_variable = (newValue) => {
-  //console.log(`NodeVariableSelect update_variable ${newValue.value}`)
-  store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newValue.value)
+  console.log(`EventVariableSelect: newValue ${newValue.value}`);
+
+  
+  // get previous value
+  let byteValue = variableValue.value
+  //set bits, but only if they match bits in the bitmask
+  byteValue = byteValue | (newValue.value & props.bitMask)							// set bit by 'or-ing' bit value
+  // clear bits, but only if they match bits in the bitmask
+  byteValue = byteValue & (newValue.value | ~props.bitMask)							// clear bit by 'and-ing' inverse bit value
+
+  console.log(`EventVariableSelect: byteValue ${byteValue}`);
+  
+  store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, byteValue)
 }
 
-
 onMounted(() => {
-  //console.log(`EventVariableSelect Mounted`)
-  variable.value = variableValue.value
-  //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
+  console.log(`EventVariableSelect: onMounted`)
+  selectVariable.value = variableValue.value & props.bitMask
+  console.log(`EventVariableSelect: props: ${JSON.stringify(props)}`)
 })
 
 

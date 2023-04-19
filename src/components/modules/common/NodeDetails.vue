@@ -1,9 +1,12 @@
 <template>
-  <div class="text-h6 text-white">
+  <div class="text-h6">
     Node : {{ store.state.selected_node }} -
-    Type : {{ store.state.nodes[store.state.selected_node].module }} -
-    Component : {{ store.state.nodes[store.state.selected_node].component }}
-    Event Component : {{ store.state.events_component}}</div>
+    Type : {{ store.state.nodes[store.state.selected_node].module }}
+  </div>
+  <div class="text-h8">
+    Component : {{ store.state.nodes[store.state.selected_node].component }} - 
+    Event Component : {{ store.state.events_component}}
+  </div>
 </template>
 
 <script>

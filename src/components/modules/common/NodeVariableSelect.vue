@@ -14,18 +14,6 @@
     </q-select>
     </q-card-section>
   </q-card>
-<!--<q-card class="q-pa-sm" style="max-width: 300px">
-    <q-input
-      class="bg-white"
-      :label="label"
-      :hint="hint"
-      v-model="variable"
-      outlined
-      readonly
-    >
-
-    </q-input>
-  </q-card>-->
 </template>
 
 <script setup>
@@ -39,6 +27,10 @@ const props = defineProps({
   "nodeVariableIndex": {
     type: Number,
     required: true
+  },
+  "bitMask": {
+    type: Number,
+    default: 255
   },
   "name": {
     type: String,
@@ -65,7 +57,6 @@ const props = defineProps({
   }
 })
 
-console.log(`Node Variable : ` + props.nodeNumber)
 const label = props.name ? props.name : "Variable" + props.nodeVariableIndex
 const store = inject('store')
 const variable = ref()
@@ -75,19 +66,30 @@ const variableValue = computed(() =>{
 })
 
 watch(variableValue, () => {
-  variable.value = variableValue.value
+  variable.value = variableValue.value & props.bitMask
 })
 
 const update_variable = (newValue) => {
   console.log(`NodeVariableSelect update_variable ${newValue.value}`)
-  store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue.value)
+
+  // get previous value
+  let byteValue = variableValue.value
+  //set bits, but only if they match bits in the bitmask
+  byteValue = byteValue | (newValue.value & props.bitMask)							// set bit by 'or-ing' bit value
+  // clear bits, but only if they match bits in the bitmask
+  byteValue = byteValue & (newValue.value | ~props.bitMask)							// clear bit by 'and-ing' inverse bit value
+
+  console.log(`EventVariableSelect: byteValue ${byteValue}`);
+  
+
+  store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, byteValue)
 }
 
 
 onMounted(() => {
-  //console.log(`NodeVariableSelect`)
-  variable.value = variableValue.value
-  //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
+  console.log(`NodeVariableSelect: onMounted`)
+  variable.value = variableValue.value & props.bitMask
+  console.log(`NodeVariableSelect: props: ${JSON.stringify(props)}`)
 })
 
 

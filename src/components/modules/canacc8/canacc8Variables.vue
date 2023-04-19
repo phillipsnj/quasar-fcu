@@ -7,17 +7,17 @@
     :Channel = "n"
     ></canacc8-channel>
 
-    <NodeVariable :node-variable-index="n"
+    <NodeVariableNumber :node-variable-index="n"
                   :node-number=store.state.selected_node
                   v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"
                   :key="n">
-    </NodeVariable>
+    </NodeVariableNumber>
   </div>
 </template>
 
 <script>
 import {inject, onBeforeMount} from "vue";
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 //import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 //import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import DefaultInfo from "components/modules/default/DefaultInfo"
@@ -25,13 +25,13 @@ import Canacc8Channel from "components/modules/canacc8/canacc8Channel";
 
 export default {
   name: "canacc8Variables",
-  components: {Canacc8Channel, NodeVariable},
+  components: {Canacc8Channel, NodeVariableNumber},
   setup() {
     const store = inject('store')
     onBeforeMount(() => {
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, NodeVariable}
+    return {store, NodeVariableNumber}
   }
 }
 </script>

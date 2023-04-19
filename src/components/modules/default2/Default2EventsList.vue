@@ -34,7 +34,7 @@
 
 <script setup>
 import {inject, onBeforeMount, computed, watch, ref} from "vue";
-import DefaultEventVariables from "components/modules/default/DefaultEventVariables";
+import Default2EventVariables from "components/modules/default2/Default2EventVariables";
 
 const columns = [
   {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'EventId', align: 'left', sortable: true},
@@ -79,7 +79,7 @@ onBeforeMount(() => {
 const editEvent = (eventIndex) => {
   console.log(`editEvent`)
   store.state.selected_event_index = eventIndex
-  store.methods.update_event_component("DefaultEventVariables")
+  store.methods.update_event_component("Default2EventVariables")
 }
 
 const removeEvent = (nodeId, eventIndex) => {

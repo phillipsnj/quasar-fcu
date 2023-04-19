@@ -37,14 +37,14 @@
         </node-variable-bit>
       </q-card-section>
     </q-card>
-<!--    <NodeVariable :node-variable-index="Channel"
+<!--    <NodeVariableNumber :node-variable-index="Channel"
                   :node-number=store.state.selected_node>
-    </NodeVariable>-->
+    </NodeVariableNumber>-->
   </div>
 </template>
 
 <script setup>
-import NodeVariable from "components/modules/common/NodeVariable"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import {inject, onBeforeMount, ref, computed, watch} from "vue"

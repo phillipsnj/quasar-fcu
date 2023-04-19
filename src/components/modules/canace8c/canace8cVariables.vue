@@ -75,18 +75,18 @@
     Description="Select Outputs to disable Start of Day"
   ></node-variable-bit-array>
   <!--  <div class="q-pa-md row">
-      <NodeVariable :node-variable-index="n"
+      <NodeVariableNumber :node-variable-index="n"
                     :node-number=store.state.selected_node
                     :learn=true
                     v-for="n in store.state.nodes[store.state.selected_node].parameters[6]"
                     :key="n">
-      </NodeVariable>
+      </NodeVariableNumber>
     </div>-->
 </template>
 
 <script>
 import {inject, onBeforeMount} from "vue";
-//import NodeVariable from "components/modules/common/NodeVariable"
+//import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableBit from "components/modules/common/NodeVariableBit"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
