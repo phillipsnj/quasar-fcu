@@ -104,6 +104,7 @@ const update_rows = () => {
 
 const editNode = (nodeId, component) => {
   store.state.selected_node = nodeId
+  store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
   store.state.display_component = "node"
 }
 const deleteNode = (nodeId) => {
