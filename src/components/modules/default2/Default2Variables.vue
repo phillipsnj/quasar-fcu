@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-xs row">
 
-    <div v-for="item in store.state.nodes[store.state.selected_node].variableConfig.nodeVariables" :key="item">
+    <div v-for="item in nodeVariables" :key="item">
       <NodeVariableGroup v-if="item.type=='group'"
                     :name="item.displayTitle"
                     :groupItems=item.groupItems>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import {inject, onBeforeMount} from "vue";
+import {inject, onBeforeMount, ref} from "vue";
 import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableRaw from "components/modules/common/NodeVariableRaw"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
@@ -111,10 +111,16 @@ export default {
   },
   setup() {
     const store = inject('store')
+    const nodeVariables = ref()
     onBeforeMount(() => {
+      if (store.state.nodes[store.state.selected_node].variableConfig != undefined) {
+        if (store.state.nodes[store.state.selected_node].variableConfig.nodeVariables != undefined){
+          nodeVariables.value = store.state.nodes[store.state.selected_node].variableConfig.nodeVariables
+        }
+      }
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, NodeVariableNumber, NodeVariableBitArray}
+    return {store, NodeVariableNumber, NodeVariableBitArray, nodeVariables}
   }
 }
 </script>

@@ -35,6 +35,7 @@
 
 <script>
 import {inject, ref} from "vue";
+import { useQuasar } from 'quasar'
 import Default2Info from "./Default2Info"
 import Default2Variables from "./Default2Variables"
 import Default2Events from "./Default2Events"
@@ -45,6 +46,19 @@ export default {
   components: {Default2Info, Default2Variables, Default2Events, NodeDetails},
   setup() {
     const store = inject('store')
+
+    const $q = useQuasar()
+    if ((store.state.nodes[store.state.selected_node].moduleDescriptorFilename != undefined)  
+      && (store.state.nodes[store.state.selected_node].variableConfig == undefined)) {
+      $q.notify({
+        message: 'Failed to load module file ' + store.state.nodes[store.state.selected_node].moduleDescriptorFilename,
+        timeout: 0,
+        type: 'warning',
+        position: 'center',
+        actions: [ { label: 'Dismiss' } ]
+      })
+    }
+
     return {
       tab: ref('info'),
       store
