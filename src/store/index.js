@@ -140,6 +140,7 @@ const methods = {
   },
   request_all_node_parameters(nodeId, parameters, delay) {
     socket.emit('REQUEST_ALL_NODE_PARAMETERS', {"nodeId": nodeId, "parameters": parameters, "delay": delay})
+    console.log(`REQUEST_ALL_NODE_PARAMETERS`)
   },
   request_node_parameter(nodeId, parameter) {
     socket.emit('RQNPN', {"nodeId": nodeId, "parameter": parameter})
@@ -151,6 +152,7 @@ const methods = {
       "delay": delay,
       "start": start
     })
+    console.log(`REQUEST_ALL_NODE_VARIABLES`)
   },
   request_node_variable(nodeId, variable) {
     socket.emit('REQUEST_NODE_VARIABLE', {
@@ -160,9 +162,10 @@ const methods = {
   },
   request_all_node_events(nodeId) {
     socket.emit('REQUEST_ALL_NODE_EVENTS', {"nodeId": nodeId})
+    console.log(`REQUEST_ALL_NODE_EVENTS`)
   },
   request_all_event_variables(nodeId, eventIndex, delay, variables) {
-    //console.log(`REQUEST_ALL_EVENT_VARIABLES`)
+    console.log(`REQUEST_ALL_EVENT_VARIABLES`)
     socket.emit('REQUEST_ALL_EVENT_VARIABLES', {
       "nodeId": nodeId,
       "eventIndex": eventIndex,

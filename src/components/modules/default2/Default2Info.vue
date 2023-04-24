@@ -143,7 +143,8 @@ const updateGroupList = () => {
 
 
 onBeforeMount(() => {
-  store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
+  // now done in nodes.vue when node edit clicked
+//  store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
   if (store.state.selected_node in store.state.layout.nodeDetails) {
     //console.log(`Event Layout`)
     nodeName.value = store.state.layout.nodeDetails[store.state.selected_node].name
