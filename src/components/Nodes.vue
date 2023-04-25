@@ -75,7 +75,6 @@ const columns = [
 const store = inject('store')
 const filter = ref('')
 const rows = ref([])
-const $q = useQuasar()
 
 const nodeList = computed(() => {
   //console.log(`Computed Events`)
@@ -83,7 +82,7 @@ const nodeList = computed(() => {
 })
 
 watch(nodeList, () => {
-  //console.log(`WATCH Nodes`)
+//  console.log(`WATCH Nodes`)
   update_rows()
 })
 
@@ -104,21 +103,14 @@ const update_rows = () => {
   })
 }
 
+
 const editNode = (nodeId, component) => {
   store.state.selected_node = nodeId
+  // will always want parameters, so update as soon as individual node id is known
   store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
-  $q.notify({
-    message: 'loading node parameters',
-    timeout: 500,
-    type: 'info',
-    position: 'center'
-  })
-
-  setTimeout(() => {
-    console.log("timout requesting node parameters")
-    store.state.display_component = "node"
-  }, 1500);
+  store.state.display_component = "node"
 }
+
 const deleteNode = (nodeId) => {
   store.methods.remove_node(nodeId)
 }
