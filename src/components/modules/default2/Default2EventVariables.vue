@@ -27,6 +27,9 @@
                         :Title= "item.displayTitle"
                         :options= "item.options">
       </EventVariableSelect>
+      <EventVariableTabs v-if="item.type=='EventVariableTabs'"
+                  :tabPanels=item.tabPanelsObj>
+      </EventVariableTabs>
     </div>
   </div>
   <div class="q-pa-none row">
@@ -48,6 +51,7 @@ import EventVariableBitArray from "components/modules/common/EventVariableBitArr
 import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableRaw from "components/modules/common/EventVariableRaw"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
+import EventVariableTabs from "components/modules/common/EventVariableTabs"
 import DefaultInfo from "components/modules/default/DefaultInfo"
 
 export default {
@@ -57,7 +61,8 @@ export default {
     EventVariableBitArray,
     EventVariableNumber,
     EventVariableRaw,
-    EventVariableSelect
+    EventVariableSelect,
+    EventVariableTabs
   },
   setup() {
     const store = inject('store')
