@@ -2,14 +2,14 @@
     <div class="q-pa-md">
 
       <q-tabs v-model="selectedTab">
-        <q-tab v-for="tab in tabPanels" :key="tab.name"
-          :label="tab.name"
-          :name="tab.name"
+        <q-tab v-for="tab in tabPanels" :key="tab.displayTitle"
+          :label="tab.displayTitle"
+          :name="tab.displayTitle"
         />
       </q-tabs>
 
       <q-tab-panels keep-alive v-model="selectedTab">
-        <q-tab-panel v-for="tab in tabPanels" :key="tab.name" :name="tab.name" >
+        <q-tab-panel v-for="tab in tabPanels" :key="tab.displayTitle" :name="tab.displayTitle" >
           <div v-for="item in tab.items" :key="item">
             <EventVariableNumber v-if="item.type=='EventVariableNumber'"
                 :node-number=store.state.selected_node
@@ -51,7 +51,7 @@
         console.log('tabs props: ' + JSON.stringify(props))
         tabPanels.value = props.configuration.tabPanels
         console.log('tabs tabPanels: ' + JSON.stringify(tabPanels.value))
-        selectedTab.value = tabPanels.value[0].name
+        selectedTab.value = tabPanels.value[0].displayTitle
       })
 
       return {
