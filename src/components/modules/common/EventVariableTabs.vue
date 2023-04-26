@@ -3,28 +3,31 @@
       <div class="q-gutter-y-md" style="max-width: 600px">
 
         <q-tabs v-model="selectedTab">
-          <q-tab v-for="tab in tabs" :key="tab.name"
+          <q-tab v-for="tab in tabPanels" :key="tab.name"
             :label="tab.name"
             :name="tab.name"
           />
         </q-tabs>
   
-        <q-tab-panels v-model="selectedTab" animated class="shadow-2 rounded-borders">
-          <q-tab-panel name="One">
-            <div class="text-h6">One</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-  
-          <q-tab-panel name="Two">
-            <div class="text-h6">Two</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-  
-          <q-tab-panel name="Three">
-            <div class="text-h6">Three</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+        <q-tab-panels keep-alive v-model="selectedTab">
+          <q-tab-panel v-for="tab in tabPanels" :key="tab.name" :name="tab.name" >
+            <!-- <component :is="tab.componentName"></component> -->
+
+            <div v-for="item in tab.items" :key="item">
+              <EventVariableNumber v-if="item.type=='EventVariableNumber'"
+                  :node-number=store.state.selected_node
+                  :eventIndex = store.state.selected_event_index
+                  :eventVariableIndex= "item.eventVariableIndex"
+                  :startBit = "item.startBit"
+                  :endBit = "item.endBit"
+                  :displayOffset = "item.displayOffset"
+                  :name="item.displayTitle">
+              </EventVariableNumber>
+            </div>
           </q-tab-panel>
         </q-tab-panels>
+
       </div>
     </div>
   </template>
@@ -34,30 +37,30 @@
   
   // composition API - uses ref()
 
-  import { ref, onMounted } from 'vue'
+  import { inject, ref, onMounted } from 'vue'
+  import EventVariableNumber from "components/modules/common/EventVariableNumber"
+
+  const tabPanels = ref()
   
   export default {
     props: {
-        tabPanels: Object
+      configuration: Object
+    },
+      components: {
+      EventVariableNumber
     },
     setup (props) {
-      onMounted(() => console.log('tab panel name: ' + props.name))
+      const store = inject('store')
+      onMounted(() => {
+        console.log('tabs props: ' + JSON.stringify(props))
+        tabPanels.value = props.configuration.tabPanels
+        console.log('tabs tabPanels: ' + JSON.stringify(tabPanels.value))
+      })
+
       return {
-        selectedTab: ref('Two'),
-        tabs: [
-          {
-            name: 'One',
-            componentName: 'One'
-          },
-          {
-            name: 'Two',
-            componentName: 'Two'
-          },
-          {
-            name: 'Three',
-            componentName: 'Three'
-          }
-        ]
+        store,
+        selectedTab: ref('One'),
+        tabPanels
       }
     }
   }

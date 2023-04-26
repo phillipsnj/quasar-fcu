@@ -28,7 +28,7 @@
                         :options= "item.options">
       </EventVariableSelect>
       <EventVariableTabs v-if="item.type=='EventVariableTabs'"
-                  :tabPanels=item.tabPanelsObj>
+                  :configuration=item>
       </EventVariableTabs>
     </div>
   </div>
