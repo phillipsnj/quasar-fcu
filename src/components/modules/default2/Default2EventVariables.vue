@@ -2,6 +2,9 @@
   <div class="q-pa-none row">
 
     <div v-for="item in eventVariables" :key="item">
+      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
+                    :configuration = item>
+      </EventVariableGroup>
       <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
@@ -48,6 +51,7 @@
 <script>
 import {inject, onBeforeMount, ref} from "vue";
 import EventVariableBitArray from "components/modules/common/EventVariableBitArray"
+import EventVariableGroup from "components/modules/common/EventVariableGroup"
 import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableRaw from "components/modules/common/EventVariableRaw"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
@@ -59,6 +63,7 @@ export default {
   components: {
     EventVariableRaw,
     EventVariableBitArray,
+    EventVariableGroup,
     EventVariableNumber,
     EventVariableRaw,
     EventVariableSelect,
