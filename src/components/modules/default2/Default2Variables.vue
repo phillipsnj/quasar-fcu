@@ -2,14 +2,6 @@
   <div class="q-pa-xs row">
 
     <div v-for="item in nodeVariables" :key="item">
-      <NodeVariableGroup v-if="item.type=='group'"
-                    :configuration = item>
-      </NodeVariableGroup>
-      <NodeVariableNumber v-if="item.type=='NodeVariable'"
-                    :node-number=store.state.selected_node
-                    :name="item.displayTitle"
-                    :node-variable-index=item.nodeVariableIndex>
-      </NodeVariableNumber>
       <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
                             :bitCollection = item.bitCollection
@@ -26,6 +18,26 @@
                                 :Name="item.displayTitle"
       >
       </NodeVariableBitSingle>
+      <NodeVariableDual v-if="item.type=='NodeVariableDual'"
+                        :NodeVariableIndexLow="item.nodeVariableIndexLow"
+                        :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
+                        :NodeNumber="store.state.selected_node"
+                        :name="item.displayTitle">
+      </NodeVariableDual>
+      <NodeVariableGroup v-if="item.type=='group'"
+                    :configuration = item>
+      </NodeVariableGroup>
+      <NodeVariableNumber v-if="item.type=='NodeVariable'"
+                    :node-number=store.state.selected_node
+                    :name="item.displayTitle"
+                    :node-variable-index=item.nodeVariableIndex>
+      </NodeVariableNumber>
+      <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
+                          :nodeVariableIndex="item.nodeVariableIndex"
+                          :nodeNumber="store.state.selected_node"
+                          :Title="item.displayTitle"
+                          :options="item.options">
+      </NodeVariableSelect>
       <node-variable-slider v-if="item.type=='NodeVariableSlider'"
                             :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
@@ -53,18 +65,9 @@
                             :BadgeMulti="item.displayScale"
                             :BadgeUnit="item.displayUnits">
       </node-variable-slider-7Bit>
-      <NodeVariableDual v-if="item.type=='NodeVariableDual'"
-                        :NodeVariableIndexLow="item.nodeVariableIndexLow"
-                        :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
-                        :NodeNumber="store.state.selected_node"
-                        :name="item.displayTitle">
-      </NodeVariableDual>
-      <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
-                          :nodeVariableIndex="item.nodeVariableIndex"
-                          :nodeNumber="store.state.selected_node"
-                          :Title="item.displayTitle"
-                          :options="item.options">
-      </NodeVariableSelect>
+      <NodeVariableTabs v-if="item.type=='NodeVariableTabs'"
+                  :configuration=item>
+      </NodeVariableTabs>
       <div v-if="store.state.debug">
         {{ item.type }} - {{ item.nodeVariableIndex}} - {{ item.displayTitle }}
       </div>
@@ -82,31 +85,33 @@
 
 <script>
 import {inject, onBeforeMount, ref} from "vue";
-import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
-import NodeVariableRaw from "components/modules/common/NodeVariableRaw"
+import DefaultInfo from "components/modules/default/DefaultInfo"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
 import NodeVariableBitSingle from "components/modules/common/NodeVariableBitSingle"
+import NodeVariableDual from "components/modules/common/NodeVariableDual"
+import NodeVariableGroup from "components/modules/common/NodeVariableGroup"
+import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
+import NodeVariableRaw from "components/modules/common/NodeVariableRaw"
+import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableSlider6Bit from "components/modules/common/NodeVariableSlider6Bit"
 import NodeVariableSlider7Bit from "components/modules/common/NodeVariableSlider7Bit"
-import NodeVariableDual from "components/modules/common/NodeVariableDual"
-import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
-import DefaultInfo from "components/modules/default/DefaultInfo"
-import NodeVariableGroup from "components/modules/common/NodeVariableGroup"
+import NodeVariableTabs from "components/modules/common/NodeVariableTabs"
 
 export default {
   name: "DefaultVariables",
   components: {
-    NodeVariableNumber,
-    NodeVariableRaw,
     NodeVariableBitArray,
     NodeVariableBitSingle,
+    NodeVariableDual,
+    NodeVariableGroup,
+    NodeVariableNumber,
+    NodeVariableRaw,
+    NodeVariableSelect,
     NodeVariableSlider,
     NodeVariableSlider6Bit,
     NodeVariableSlider7Bit,
-    NodeVariableDual,
-    NodeVariableSelect,
-    NodeVariableGroup
+    NodeVariableTabs
   },
   setup() {
     const store = inject('store')
@@ -119,7 +124,7 @@ export default {
       }
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, NodeVariableNumber, NodeVariableBitArray, nodeVariables}
+    return {store, nodeVariables}
   }
 }
 </script>
