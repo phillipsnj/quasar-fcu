@@ -1,8 +1,8 @@
 <template>
   <div style="border:2px solid grey">
-    <div class = "GroupTitle"> {{ name }}</div>
+    <div class = "GroupTitle"> {{ configuration.displayTitle }}</div>
     <div class="q-pa-xs row">
-      <div v-for="item in groupItems" :key="item" >
+      <div v-for="item in configuration.groupItems" :key="item" >
         <NodeVariableNumber v-if="item.type=='NodeVariable'"
                       :node-number=store.state.selected_node
                       :name="item.displayTitle"
@@ -93,27 +93,15 @@ export default {
   },
 
   props: {
-    name: String,
-    groupItems: Array
+    configuration: Object
   },
-  setup() {
+  setup(props) {
     const store = inject('store')
     onMounted(() => {
       console.log("Group onMounted")
-//      console.log(`Group name : ${this.name}`)
-//      console.log(`Group items : ${JSON.stringify(groupItems)}`)
-      console.log(`Group store selected node : ${JSON.stringify(store.state.selected_node)}`)
-//      console.log(`Group store NV: ${JSON.stringify(store.state.nodes[store.state.selected_node].variableConfig.nodeVariables)}`)
+      console.log('Node Group props: ' + JSON.stringify(props))
     })
     return {store}
-  },
-  watch: {
-    name(newName, oldName) {
-      console.log(`Group name : ${newName}`)
-    }
-  },
-  mounted() {
-      console.log(`Group name : ${name}`)
   }
 }
 </script>

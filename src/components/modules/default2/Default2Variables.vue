@@ -3,8 +3,7 @@
 
     <div v-for="item in nodeVariables" :key="item">
       <NodeVariableGroup v-if="item.type=='group'"
-                    :name="item.displayTitle"
-                    :groupItems=item.groupItems>
+                    :configuration = item>
       </NodeVariableGroup>
       <NodeVariableNumber v-if="item.type=='NodeVariable'"
                     :node-number=store.state.selected_node
