@@ -10,71 +10,73 @@
 
       <q-tab-panels keep-alive v-model="selectedTab">
         <q-tab-panel v-for="tab in tabPanels" :key="tab.displayTitle" :name="tab.displayTitle" >
-          <div v-for="item in tab.items" :key="item">
+          <div class="q-pa-xs row">
+            <div v-for="item in tab.items" :key="item">
 
-            <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
-                      :node-number=store.state.selected_node
-                      :name="item.displayTitle"
-                      :node-variable-index=item.nodeVariableIndex>
-            </NodeVariableNumber>
-            <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
-                                :VariableIndex=item.nodeVariableIndex
-                                :bitCollection = item.bitCollection
-                                :Title="item.displayTitle"
-                                :Description="item.description"
-                                :learn="false"
-            ></NodeVariableBitArray>
-            <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
-                                      :NodeNumber="store.state.selected_node"
-                                      :VariableIndex=item.nodeVariableIndex
-                                      :Title="item.displayTitle"
-                                      :Description="item.description"
-                                      :Bit=item.bit
-                                      :Name="item.displayTitle">
-            </NodeVariableBitSingle>
-            <NodeVariableDual v-if="item.type=='NodeVariableDual'"
-                              :NodeVariableIndexLow="item.nodeVariableIndexLow"
-                              :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
-                              :NodeNumber="store.state.selected_node"
-                              :name="item.displayTitle">
-            </NodeVariableDual>
-            <NodeVariableGroup v-if="item.type=='group'"
-                    :configuration = item>
-            </NodeVariableGroup>
-            <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
-                                :nodeVariableIndex="item.nodeVariableIndex"
-                                :nodeNumber="store.state.selected_node"
-                                :Title="item.displayTitle"
-                                :options="item.options">
-            </NodeVariableSelect>
-            <node-variable-slider v-if="item.type=='NodeVariableSlider'"
-                                :node-variable-index="item.nodeVariableIndex"
-                                :node-number="store.state.selected_node"
-                                :Title="item.displayTitle"
-                                :Description="item.description"
-                                Badge=""
-                                :BadgeMulti="item.displayScale"
-                                :BadgeUnit="item.displayUnits">
-            </node-variable-slider>
-            <node-variable-slider-6Bit v-if="item.type=='NodeVariableSlider6Bit'"
-                                :node-variable-index="item.nodeVariableIndex"
-                                :node-number="store.state.selected_node"
-                                :Title="item.displayTitle"
-                                :Description="item.description"
-                                Badge=""
-                                :BadgeMulti="item.displayScale"
-                                :BadgeUnit="item.displayUnits">
-            </node-variable-slider-6Bit>
-            <node-variable-slider-7Bit v-if="item.type=='NodeVariableSlider7Bit'"
-                                :node-variable-index="item.nodeVariableIndex"
-                                :node-number="store.state.selected_node"
-                                :Title="item.displayTitle"
-                                :Description="item.description"
-                                Badge=""
-                                :BadgeMulti="item.displayScale"
-                                :BadgeUnit="item.displayUnits">
-            </node-variable-slider-7Bit>
+              <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
+                        :node-number=store.state.selected_node
+                        :name="item.displayTitle"
+                        :node-variable-index=item.nodeVariableIndex>
+              </NodeVariableNumber>
+              <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
+                                  :VariableIndex=item.nodeVariableIndex
+                                  :bitCollection = item.bitCollection
+                                  :Title="item.displayTitle"
+                                  :Description="item.description"
+                                  :learn="false"
+              ></NodeVariableBitArray>
+              <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
+                                        :NodeNumber="store.state.selected_node"
+                                        :VariableIndex=item.nodeVariableIndex
+                                        :Title="item.displayTitle"
+                                        :Description="item.description"
+                                        :Bit=item.bit
+                                        :Name="item.displayTitle">
+              </NodeVariableBitSingle>
+              <NodeVariableDual v-if="item.type=='NodeVariableDual'"
+                                :NodeVariableIndexLow="item.nodeVariableIndexLow"
+                                :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
+                                :NodeNumber="store.state.selected_node"
+                                :name="item.displayTitle">
+              </NodeVariableDual>
+              <NodeVariableGroup v-if="item.type=='group'"
+                      :configuration = item>
+              </NodeVariableGroup>
+              <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
+                                  :nodeVariableIndex="item.nodeVariableIndex"
+                                  :nodeNumber="store.state.selected_node"
+                                  :Title="item.displayTitle"
+                                  :options="item.options">
+              </NodeVariableSelect>
+              <node-variable-slider v-if="item.type=='NodeVariableSlider'"
+                                  :node-variable-index="item.nodeVariableIndex"
+                                  :node-number="store.state.selected_node"
+                                  :Title="item.displayTitle"
+                                  :Description="item.description"
+                                  Badge=""
+                                  :BadgeMulti="item.displayScale"
+                                  :BadgeUnit="item.displayUnits">
+              </node-variable-slider>
+              <node-variable-slider-6Bit v-if="item.type=='NodeVariableSlider6Bit'"
+                                  :node-variable-index="item.nodeVariableIndex"
+                                  :node-number="store.state.selected_node"
+                                  :Title="item.displayTitle"
+                                  :Description="item.description"
+                                  Badge=""
+                                  :BadgeMulti="item.displayScale"
+                                  :BadgeUnit="item.displayUnits">
+              </node-variable-slider-6Bit>
+              <node-variable-slider-7Bit v-if="item.type=='NodeVariableSlider7Bit'"
+                                  :node-variable-index="item.nodeVariableIndex"
+                                  :node-number="store.state.selected_node"
+                                  :Title="item.displayTitle"
+                                  :Description="item.description"
+                                  Badge=""
+                                  :BadgeMulti="item.displayScale"
+                                  :BadgeUnit="item.displayUnits">
+              </node-variable-slider-7Bit>
 
+            </div>
           </div>
         </q-tab-panel>
       </q-tab-panels>
