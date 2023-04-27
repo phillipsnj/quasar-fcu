@@ -49,7 +49,7 @@ export default {
   components: {
     EventVariableBitArray,
     EventVariableNumber,
-    EventVariableSelect,
+    EventVariableSelect
   },
 
   props: {

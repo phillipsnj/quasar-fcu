@@ -27,7 +27,7 @@
       <NodeVariableGroup v-if="item.type=='group'"
                     :configuration = item>
       </NodeVariableGroup>
-      <NodeVariableNumber v-if="item.type=='NodeVariable'"
+      <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
                     :node-number=store.state.selected_node
                     :name="item.displayTitle"
                     :node-variable-index=item.nodeVariableIndex>

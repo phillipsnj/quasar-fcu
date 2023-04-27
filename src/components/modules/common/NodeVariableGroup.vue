@@ -3,13 +3,14 @@
     <div class = "GroupTitle"> {{ configuration.displayTitle }}</div>
     <div class="q-pa-xs row">
       <div v-for="item in configuration.groupItems" :key="item" >
-        <NodeVariableNumber v-if="item.type=='NodeVariable'"
+        <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
                       :node-number=store.state.selected_node
                       :name="item.displayTitle"
                       :node-variable-index=item.nodeVariableIndex>
         </NodeVariableNumber>
         <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
+                            :bitCollection = item.bitCollection
                             :Title="item.displayTitle"
                             :Description="item.description"
                             :learn="false"

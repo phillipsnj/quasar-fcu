@@ -12,13 +12,14 @@
         <q-tab-panel v-for="tab in tabPanels" :key="tab.displayTitle" :name="tab.displayTitle" >
           <div v-for="item in tab.items" :key="item">
 
-            <NodeVariableNumber v-if="item.type=='NodeVariable'"
+            <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
                       :node-number=store.state.selected_node
                       :name="item.displayTitle"
                       :node-variable-index=item.nodeVariableIndex>
             </NodeVariableNumber>
             <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                                 :VariableIndex=item.nodeVariableIndex
+                                :bitCollection = item.bitCollection
                                 :Title="item.displayTitle"
                                 :Description="item.description"
                                 :learn="false"
