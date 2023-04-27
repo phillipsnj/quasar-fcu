@@ -22,6 +22,13 @@
                               :Title="item.displayTitle"
                               :Description="item.description">
               </EventVariableBitArray>
+              <EventVariableBitSingle v-if="item.type=='EventVariableBitSingle'"
+                            :nodeNumber = "store.state.selected_node"
+                            :eventIndex = store.state.selected_event_index
+                            :eventVariableIndex=item.eventVariableIndex
+                            :bit = "item.bit"
+                            :title="item.displayTitle">
+              </EventVariableBitSingle>
               <EventVariableNumber v-if="item.type=='EventVariableNumber'"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
@@ -55,6 +62,7 @@
 
   import { inject, ref, onMounted } from 'vue'
   import EventVariableBitArray from "components/modules/common/EventVariableBitArray"
+  import EventVariableBitSingle from "components/modules/common/EventVariableBitSingle"
   import EventVariableNumber from "components/modules/common/EventVariableNumber"
   import EventVariableSelect from "components/modules/common/EventVariableSelect"
 
@@ -67,6 +75,7 @@
     },
     components: {
       EventVariableBitArray,
+      EventVariableBitSingle,
       EventVariableNumber,
       EventVariableSelect
     },
