@@ -5,13 +5,13 @@
     </q-card-section>
     <q-card-section>
       <q-badge color="secondary">
-        {{ eventValue * displayScale }} {{ displayUnits }}
+        {{ variableValue * displayScale }} {{ displayUnits }}
       </q-badge>
       <q-slider
-        v-model="eventValue"
+        v-model="variableValue"
         :max="max"
         :min="min"
-        @change="update_event"
+        @change="update_variable"
       >
       </q-slider>
     </q-card-section>
@@ -64,30 +64,32 @@ const eventValue = ref()
 let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
 console.log(`Event Variable Props : ${JSON.stringify(props)}`)
 
-
-const eventVariableValue = computed(() => {
-  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+const variableValue = computed({
+  get() {
+    return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  },
+  set(newValue) {
+    console.log(`NewValue : ${newValue}`)
+    if (newValue <= props.max && newValue >= props.min) {
+      console.log(`update_variable : ${newValue}`)
+      error.value = false
+      error_message.value = ''
+      store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newValue)
+    } else {
+      console.log(`Invalid Value : ${newValue}`)
+      error_message.value = 'Invalid Value'
+      error.value = true
+    }
+  }
 })
 
-
-watch(eventVariableValue, () => {
-  eventValue.value = eventVariableValue.value
-})
-
-const update_event = (newValue) => {
-  if (newValue < props.min || newValue > props.max ||newValue =='') {
-    //console.log(`Invalid Value : ${newValue}`)
-    error.value = true
-    error_message.value = 'Invalid Value'
+const update_variable = (newValue) => {
+  if (error.value) {
+    console.log(`Invalid Value : ${newValue}`)
   } else {
-    //console.log(`Valid Value : ${newValue}`)
-    error_message.value = ''
-    error.value = false
-    store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newValue)
+    console.log(`update_variable : ${newValue}`)
   }
 }
-
-//console.log(`EventVariable` + eventVariableValue.value)
 
 onMounted(() => {
   console.log(`EventVariableRaw onMounted`)
