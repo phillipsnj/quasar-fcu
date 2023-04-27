@@ -38,6 +38,14 @@
                         :Title= "item.displayTitle"
                         :options= "item.options">
       </EventVariableSelect>
+      <EventVariableSlider v-if="item.type=='EventVariableSlider'"
+                            :node-number="store.state.selected_node"
+                            :eventIndex = "store.state.selected_event_index"
+                            :eventVariableIndex= "item.eventVariableIndex"
+                            :displayTitle="item.displayTitle"
+                            :displayScale="item.displayScale"
+                            :displayUnits="item.displayUnits">
+      </EventVariableSlider>
       <EventVariableTabs v-if="item.type=='EventVariableTabs'"
                   :configuration=item>
       </EventVariableTabs>
@@ -64,6 +72,7 @@ import EventVariableGroup from "components/modules/common/EventVariableGroup"
 import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableRaw from "components/modules/common/EventVariableRaw"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
+import EventVariableSlider from "components/modules/common/EventVariableSlider"
 import EventVariableTabs from "components/modules/common/EventVariableTabs"
 import DefaultInfo from "components/modules/default/DefaultInfo"
 
@@ -76,6 +85,7 @@ export default {
     EventVariableNumber,
     EventVariableRaw,
     EventVariableSelect,
+    EventVariableSlider,
     EventVariableTabs
   },
   setup() {

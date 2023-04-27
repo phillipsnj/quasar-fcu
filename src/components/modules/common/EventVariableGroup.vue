@@ -38,6 +38,14 @@
                         :Title= "item.displayTitle"
                         :options= "item.options">
       </EventVariableSelect>
+      <EventVariableSlider v-if="item.type=='EventVariableSlider'"
+                            :node-number="store.state.selected_node"
+                            :eventIndex = "store.state.selected_event_index"
+                            :eventVariableIndex= "item.eventVariableIndex"
+                            :displayTitle="item.displayTitle"
+                            :displayScale="item.displayScale"
+                            :displayUnits="item.displayUnits">
+      </EventVariableSlider>
  
       </div>
     </div>
@@ -51,6 +59,7 @@ import EventVariableBitArray from "components/modules/common/EventVariableBitArr
 import EventVariableBitSingle from "components/modules/common/EventVariableBitSingle"
 import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
+import EventVariableSlider from "components/modules/common/EventVariableSlider"
 
 export default {
 
@@ -58,7 +67,8 @@ export default {
     EventVariableBitArray,
     EventVariableBitSingle,
     EventVariableNumber,
-    EventVariableSelect
+    EventVariableSelect,
+    EventVariableSlider
   },
 
   props: {

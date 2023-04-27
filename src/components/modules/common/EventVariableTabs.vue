@@ -49,6 +49,14 @@
                           :Title= "item.displayTitle"
                           :options= "item.options">
               </EventVariableSelect>
+              <EventVariableSlider v-if="item.type=='EventVariableSlider'"
+                            :node-number="store.state.selected_node"
+                            :eventIndex = "store.state.selected_event_index"
+                            :eventVariableIndex= "item.eventVariableIndex"
+                            :displayTitle="item.displayTitle"
+                            :displayScale="item.displayScale"
+                            :displayUnits="item.displayUnits">
+              </EventVariableSlider>
 
             </div>
           </div>
@@ -69,6 +77,7 @@
   import EventVariableGroup from "components/modules/common/EventVariableGroup"
   import EventVariableNumber from "components/modules/common/EventVariableNumber"
   import EventVariableSelect from "components/modules/common/EventVariableSelect"
+  import EventVariableSlider from "components/modules/common/EventVariableSlider"
 
   const tabPanels = ref()
   const selectedTab = ref()
@@ -82,7 +91,8 @@
       EventVariableBitSingle,
       EventVariableGroup,
       EventVariableNumber,
-      EventVariableSelect
+      EventVariableSelect,
+      EventVariableSlider
     },
     setup (props) {
       const store = inject('store')

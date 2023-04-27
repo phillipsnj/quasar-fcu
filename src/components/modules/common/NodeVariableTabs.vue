@@ -10,7 +10,7 @@
 
       <q-tab-panels keep-alive v-model="selectedTab">
         <q-tab-panel v-for="tab in tabPanels" :key="tab.displayTitle" :name="tab.displayTitle" >
-          <div class="q-pa-xs row">
+          <div class="q-pa-xs row"  style="border:1px solid grey">
             <div v-for="item in tab.items" :key="item">
 
               <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
