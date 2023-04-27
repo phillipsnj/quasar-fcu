@@ -11,7 +11,7 @@
       <q-tab-panels keep-alive v-model="selectedTab">
         <q-tab-panel v-for="tab in tabPanels" :key="tab.displayTitle" :name="tab.displayTitle" >
 
-          <div class="q-pa-xs row">
+          <div class="q-pa-md row"  style="border:1px solid grey">
             <div v-for="item in tab.items" :key="item">
 
               <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
@@ -29,6 +29,9 @@
                             :bit = "item.bit"
                             :title="item.displayTitle">
               </EventVariableBitSingle>
+              <EventVariableGroup v-if="item.type=='EventVariableGroup'"
+                    :configuration = item>
+              </EventVariableGroup>
               <EventVariableNumber v-if="item.type=='EventVariableNumber'"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
@@ -63,6 +66,7 @@
   import { inject, ref, onMounted } from 'vue'
   import EventVariableBitArray from "components/modules/common/EventVariableBitArray"
   import EventVariableBitSingle from "components/modules/common/EventVariableBitSingle"
+  import EventVariableGroup from "components/modules/common/EventVariableGroup"
   import EventVariableNumber from "components/modules/common/EventVariableNumber"
   import EventVariableSelect from "components/modules/common/EventVariableSelect"
 
@@ -76,6 +80,7 @@
     components: {
       EventVariableBitArray,
       EventVariableBitSingle,
+      EventVariableGroup,
       EventVariableNumber,
       EventVariableSelect
     },
