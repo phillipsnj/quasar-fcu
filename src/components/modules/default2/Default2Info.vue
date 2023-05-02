@@ -112,64 +112,98 @@
 </template>
 
 <script setup>
-import {inject, onBeforeMount, ref, watch, computed} from "vue"
-import NodeParameter from "components/modules/common/NodeParameter"
+  import {inject, onBeforeMount, onMounted, ref, watch, computed} from "vue"
+  import { useQuasar } from 'quasar'
+  import NodeParameter from "components/modules/common/NodeParameter"
 
-const store = inject('store')
+  const store = inject('store')
 
-const nodeName = ref('')
-const nodeColour = ref('')
-const nodeGroup = ref('')
-const groupList = ref([])
+  const nodeName = ref('')
+  const nodeColour = ref('')
+  const nodeGroup = ref('')
+  const groupList = ref([])
+  const $q = useQuasar()
 
-const nodeDetails = computed(() => {
-  //console.log(`Computed Events`)
-  return Object.values(store.state.layout.nodeDetails)
-})
-
-watch(nodeDetails, () => {
-  console.log(`WATCH Node Details`)
-  updateGroupList()
-})
-
-const updateGroupList = () => {
-  groupList.value = []
-  nodeDetails.value.forEach(node => {
-    if (!groupList.value.includes(node.group)) {
-      groupList.value.push(node.group)
-    }
+  const nodeDetails = computed(() => {
+    //console.log(`Computed Events`)
+    return Object.values(store.state.layout.nodeDetails)
   })
-}
+
+  watch(nodeDetails, () => {
+    //console.log(`WATCH Node Details`)
+    updateGroupList()
+  })
+
+  const moduleDescriptorFilename = computed(() => {
+    return store.state.nodes[store.state.selected_node].moduleDescriptorFilename
+  })
 
 
-onBeforeMount(() => {
-  store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
-  if (store.state.selected_node in store.state.layout.nodeDetails) {
-    //console.log(`Event Layout`)
-    nodeName.value = store.state.layout.nodeDetails[store.state.selected_node].name
-    nodeColour.value = store.state.layout.nodeDetails[store.state.selected_node].colour
-    nodeGroup.value = store.state.layout.nodeDetails[store.state.selected_node].group
-  } else {
-    //console.log(`Event No Layout ${props.eventIdentifier}`)
-    nodeName.value = store.state.selected_node.toString() + ' - ' + store.state.nodes[store.state.selected_node].module
-    nodeColour.value = "black"
-    nodeGroup.value = ""
+  watch(moduleDescriptorFilename, () => {
+    //console.log(`WATCH moduleDescriptorFilename`)
+    checkFileLoad()
+  })
+
+  const updateGroupList = () => {
+    groupList.value = []
+    nodeDetails.value.forEach(node => {
+      if (!groupList.value.includes(node.group)) {
+        groupList.value.push(node.group)
+      }
+    })
   }
-  updateGroupList()
-})
 
-const update_node = () => {
-  console.log(`Node Details Update Node`)
-  if (store.state.selected_node in store.state.layout.nodeDetails === false) {
-    store.state.layout.nodeDetails[store.state.selected_node] = {}
+  var loadFile_notification_raised = false;
+  const checkFileLoad = () => {
+    console.log(`checkFileLoad`)
+    if (loadFile_notification_raised != true) {
+      if ((moduleDescriptorFilename.value != undefined)  
+        && (store.state.nodes[store.state.selected_node].variableConfig == undefined)) {
+          $q.notify({
+          message: 'Failed to load module file ' + moduleDescriptorFilename.value,
+          timeout: 0,
+          type: 'warning',
+          position: 'center',
+          actions: [ { label: 'Dismiss' } ]
+        })
+        loadFile_notification_raised = true;
+        console.log(`LoadFile notification raised`)
+      }
+    }
   }
-  store.state.layout.nodeDetails[store.state.selected_node].name = nodeName.value
-  store.state.layout.nodeDetails[store.state.selected_node].colour = nodeColour.value
-  store.state.layout.nodeDetails[store.state.selected_node].group = nodeGroup.value
-  store.methods.update_layout()
 
-}
+  onMounted( () => {
+    checkFileLoad()
+  })
 
+  onBeforeMount(() => {
+    // now done in nodes.vue when node edit clicked
+    //  store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
+    if (store.state.selected_node in store.state.layout.nodeDetails) {
+      //console.log(`Event Layout`)
+      nodeName.value = store.state.layout.nodeDetails[store.state.selected_node].name
+      nodeColour.value = store.state.layout.nodeDetails[store.state.selected_node].colour
+      nodeGroup.value = store.state.layout.nodeDetails[store.state.selected_node].group
+    } else {
+      //console.log(`Event No Layout ${props.eventIdentifier}`)
+      nodeName.value = store.state.selected_node.toString() + ' - ' + store.state.nodes[store.state.selected_node].module
+      nodeColour.value = "black"
+      nodeGroup.value = ""
+    }
+    updateGroupList()
+  })
+
+  const update_node = () => {
+    console.log(`Node Details Update Node`)
+    if (store.state.selected_node in store.state.layout.nodeDetails === false) {
+      store.state.layout.nodeDetails[store.state.selected_node] = {}
+    }
+    store.state.layout.nodeDetails[store.state.selected_node].name = nodeName.value
+    store.state.layout.nodeDetails[store.state.selected_node].colour = nodeColour.value
+    store.state.layout.nodeDetails[store.state.selected_node].group = nodeGroup.value
+    store.methods.update_layout()
+
+  }
 
 </script>
 

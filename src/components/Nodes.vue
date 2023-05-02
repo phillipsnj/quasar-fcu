@@ -59,6 +59,7 @@
 
 <script setup>
 import {inject, ref, onBeforeMount, computed, watch} from "vue";
+import { useQuasar } from 'quasar'
 
 const columns = [
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node Number', align: 'left', sortable: true},
@@ -81,7 +82,7 @@ const nodeList = computed(() => {
 })
 
 watch(nodeList, () => {
-  //console.log(`WATCH Nodes`)
+//  console.log(`WATCH Nodes`)
   update_rows()
 })
 
@@ -102,11 +103,14 @@ const update_rows = () => {
   })
 }
 
+
 const editNode = (nodeId, component) => {
   store.state.selected_node = nodeId
+  // will always want parameters, so update as soon as individual node id is known
   store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
   store.state.display_component = "node"
 }
+
 const deleteNode = (nodeId) => {
   store.methods.remove_node(nodeId)
 }
