@@ -1,19 +1,18 @@
 <template>
-  <q-card class="q-pa-md" flat>
+  <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
+      <div class="text-h6">{{ label }}</div>
       <div class="text-subtitle2">{{ Description }}</div>
-      <q-input
-        mask="###"
-        :label="label"
-        debounce="1000"
-        v-model="eventValue"
-        outlined
-        :error-message="error_message"
-        :error="error"
-        @change="update_event">
-      </q-input>
     </q-card-section>
+    <q-input
+      mask="###"
+      debounce="1000"
+      v-model="eventValue"
+      outlined
+      :error-message="error_message"
+      :error="error"
+      @change="update_event">
+    </q-input>
   </q-card>
 </template>
 

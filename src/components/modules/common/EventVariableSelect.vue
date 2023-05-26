@@ -1,8 +1,8 @@
 <template>
-  <q-card class="q-pa-xs" flat bordered style="min-width: 200px">
+  <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-subtitle4">{{ Title }}</div>
-      <div class="text-subtitle4">{{ Description }}</div>
+      <div class="text-h6">{{ Title }}</div>
+      <div class="text-subtitle2">{{ Description }}</div>
     </q-card-section>
     <q-card-section>
     <q-select
