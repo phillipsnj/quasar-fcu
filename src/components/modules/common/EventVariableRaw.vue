@@ -5,7 +5,6 @@
         mask="###"
         :label="label"
         debounce="1000"
-        :hint="hint"
         v-model="eventValue"
         outlined
         :error-message="error_message"
