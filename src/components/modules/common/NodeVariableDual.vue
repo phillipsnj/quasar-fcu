@@ -2,7 +2,6 @@
   <q-card class="q-pa-md">
     <q-card-section>
       <div class="text-h6">{{ label }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
     </q-card-section>
     <q-input
       mask="######"
