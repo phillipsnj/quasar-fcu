@@ -28,7 +28,9 @@
                   :startBit = "item.startBit"
                   :endBit = "item.endBit"
                   :displayOffset = "item.displayOffset"
-                  :name="item.displayTitle">
+                  :name="item.displayTitle"
+                  :min = "item.min"
+                  :max = "item.max">
       </EventVariableNumber>
       <EventVariableSelect v-if="item.type=='EventVariableSelect'"
                         :nodeNumber="store.state.selected_node"

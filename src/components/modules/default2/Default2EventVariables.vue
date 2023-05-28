@@ -24,10 +24,12 @@
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
                   :eventVariableIndex= "item.eventVariableIndex"
+                  :name="item.displayTitle"
                   :startBit = "item.startBit"
                   :endBit = "item.endBit"
                   :displayOffset = "item.displayOffset"
-                  :name="item.displayTitle"
+                  :min = "item.min"
+                  :max = "item.max"
                   :configuration = item>
       </EventVariableNumber>
       <EventVariableSelect v-if="item.type=='EventVariableSelect'"
