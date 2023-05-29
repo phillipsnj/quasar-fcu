@@ -3,8 +3,6 @@
     <q-card-section>
       <div class="text-h6">{{ displayTitle }}</div>
       <div class="text-subtitle2">{{ description }}</div>
-    </q-card-section>
-    <q-card-section>
       <q-badge color="secondary">
         {{ (sliderValue * displayScale) + displayOffset }} {{ displayUnits }}
       </q-badge>
