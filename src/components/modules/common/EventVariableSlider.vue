@@ -2,13 +2,14 @@
   <q-card class="q-pa-xs" style="width: 300px">
     <q-card-section>
       <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ description }}</div>
     </q-card-section>
     <q-card-section>
       <q-badge color="secondary">
-        {{ variableValue * displayScale }} {{ displayUnits }}
+        {{ (sliderValue * displayScale) + displayOffset }} {{ displayUnits }}
       </q-badge>
       <q-slider
-        v-model="variableValue"
+        v-model="sliderValue"
         :max="max"
         :min="min"
         @change="update_variable"
@@ -38,6 +39,10 @@ const props = defineProps({
     type: String,
     required: false
   },
+  "description": {
+    type: String,
+    required: false
+  },
   "displayScale": {
     type: Number,
     default: 1
@@ -46,6 +51,10 @@ const props = defineProps({
     type: String,
     default: ""
   },
+  "displayOffset":{
+    type: Number,
+    default: 0
+  },
   "max": {
     type: Number,
     default: 255
@@ -53,6 +62,14 @@ const props = defineProps({
   "min": {
     type: Number,
     default: 0
+  },
+  "startBit":{
+    type: Number,
+    default: 0
+  },
+  "endBit":{
+    type: Number,
+    default: 7
   }
 })
 
@@ -60,21 +77,39 @@ const label = props.name ? props.name : "Event Variable " + props.eventVariableI
 const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
-const eventValue = ref()
 let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
-console.log(`Event Variable Props : ${JSON.stringify(props)}`)
+console.log(`EventVariableSlider Props : ${JSON.stringify(props)}`)
+const bitMask = computed(() => {
+  var bitMask = 0;
+  for (var i=props.startBit; i<= props.endBit; i++){
+    bitMask += 1<<i;
+  }
+  return bitMask;
+})
+console.log(`EventVariableSlider: bitMask : ${bitMask.value}`)
 
-const variableValue = computed({
+const sliderValue = computed({
   get() {
-    return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+    return ((store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitMask.value) >> props.startBit)
   },
   set(newValue) {
+    // get previous value, as starting point for updated byte value
+    let newByteValue = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+    console.log(`OldByteValue : ${newByteValue}`)
     console.log(`NewValue : ${newValue}`)
+    // not sure we need to do a range check as the slider control uses max & min anyway...
     if (newValue <= props.max && newValue >= props.min) {
       console.log(`update_variable : ${newValue}`)
+      let processedValue = newValue                           // take a copy to change
+      processedValue = processedValue << props.startBit       // shift to position in variable
+      //set bits, but only if they match bits in the bitmask
+      newByteValue = newByteValue | (processedValue & bitMask.value)							// set bit by 'or-ing' bit value
+      // clear bits, but only if they match bits in the bitmask
+      newByteValue = newByteValue & (processedValue | ~bitMask.value)							// clear bit by 'and-ing' inverse bit value
+
       error.value = false
       error_message.value = ''
-      store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newValue)
+      store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newByteValue)
     } else {
       console.log(`Invalid Value : ${newValue}`)
       error_message.value = 'Invalid Value'
@@ -87,13 +122,12 @@ const update_variable = (newValue) => {
   if (error.value) {
     console.log(`Invalid Value : ${newValue}`)
   } else {
-    console.log(`update_variable : ${newValue}`)
+    console.log(`update slider value : ${newValue}`)
   }
 }
 
 onMounted(() => {
-  console.log(`EventVariableRaw onMounted`)
-  eventValue.value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  console.log(`EventVariableSlider onMounted`)
 })
 
 </script>

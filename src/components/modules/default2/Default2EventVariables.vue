@@ -45,8 +45,14 @@
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
                             :displayTitle="item.displayTitle"
+                            :description = "item.description"
                             :displayScale="item.displayScale"
-                            :displayUnits="item.displayUnits">
+                            :displayUnits="item.displayUnits"
+                            :displayOffset = "item.displayOffset"
+                            :min = "item.min"
+                            :max = "item.max"
+                            :startBit = "item.startBit"
+                            :endBit = "item.endBit">
       </EventVariableSlider>
       <EventVariableTabs v-if="item.type=='EventVariableTabs'"
                   :configuration=item>
