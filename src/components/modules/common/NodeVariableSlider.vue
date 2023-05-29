@@ -1,15 +1,15 @@
 <template>
   <q-card class="q-pa-xs" style="width: 300px">
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
+      <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ description }}</div>
     </q-card-section>
     <q-card-section>
       <q-badge color="secondary">
-        {{ Badge }} {{ variableValue * BadgeMulti }} {{ BadgeUnit }}
+        {{ (sliderValue * displayScale) + displayOffset }} {{ displayUnits }}
       </q-badge>
       <q-slider
-        v-model="variableValue"
+        v-model="sliderValue"
         :max="max"
         :min="min"
         @change="update_variable"
@@ -31,25 +31,25 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  "Title": {
+  "displayTitle": {
     type: String,
     required: false
   },
-  "Description": {
+  "description": {
     type: String,
     required: false
   },
-  "Badge": {
-    type: String,
-    default: ''
-  },
-  "BadgeMulti": {
+  "displayScale": {
     type: Number,
     default: 1
   },
-  "BadgeUnit": {
+  "displayUnits": {
     type: String,
     default: ""
+  },
+  "displayOffset":{
+    type: Number,
+    default: 0
   },
   "max": {
     type: Number,
@@ -59,25 +59,32 @@ const props = defineProps({
     type: Number,
     default: 0
   },
-  "hint": {
-    type: String,
-    default: ""
+  "startBit":{
+    type: Number,
+    default: 0
   },
-  "learn": {
-    type: Boolean,
-    default: false
+  "endBit":{
+    type: Number,
+    default: 7
   }
 })
 
 console.log(`Node Variable : ` + props.nodeNumber)
-//var variableValue = ref(29)
 const label = props.name ? props.name : "Variable" + props.nodeVariableIndex
 const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
+const bitMask = computed(() => {
+  var bitMask = 0;
+  for (var i=props.startBit; i<= props.endBit; i++){
+    bitMask += 1<<i;
+  }
+  return bitMask;
+})
+console.log(`NodeVariableSlider: bitMask : ${bitMask.value}`)
 
-
-const variableValue = computed({
+/*
+const sliderValue = computed({
   get() {
     return store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
   },
@@ -99,6 +106,42 @@ const variableValue = computed({
     }
   }
 })
+*/
+
+const sliderValue = computed({
+  get() {
+    return ((store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex] & bitMask.value) >> props.startBit)
+  },
+  set(newValue) {
+    // get previous value, as starting point for updated byte value
+    let newByteValue = store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
+    console.log(`OldByteValue : ${newByteValue}`)
+    // not sure we need to do a range check as the slider control uses max & min anyway...
+    if (newValue <= props.max && newValue >= props.min) {
+      console.log(`update_variable : ${newValue}`)
+      let processedValue = newValue                           // take a copy to change
+      processedValue = processedValue << props.startBit       // shift to position in variable
+      //set bits, but only if they match bits in the bitmask
+      newByteValue = newByteValue | (processedValue & bitMask.value)							// set bit by 'or-ing' bit value
+      // clear bits, but only if they match bits in the bitmask
+      newByteValue = newByteValue & (processedValue | ~bitMask.value)							// clear bit by 'and-ing' inverse bit value
+
+      error.value = false
+      error_message.value = ''
+      store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newByteValue)
+      console.log(`NewByteValue : ${newByteValue}`)
+    } else {
+      console.log(`Invalid Value : ${newValue}`)
+      error_message.value = 'Invalid Value'
+      error.value = true
+    }
+  }
+})
+
+
+
+
+
 
 const update_variable = (newValue) => {
   if (error.value) {
@@ -106,21 +149,10 @@ const update_variable = (newValue) => {
   } else {
     console.log(`update_variable : ${newValue}`)
   }
-  /*if (newValue <= props.max && newValue >= props.min) {
-    console.log(`update_variable : ${newValue}`)
-    error.value = false
-    error_message.value = ''
-    store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
-  } else {
-    console.log(`Invalid Value : ${newValue}`)
-    error_message.value = 'Invalid Value'
-    error.value = true
-  }*/
 }
 
 onMounted(() => {
   console.log(`NodeVariableSlider`)
-  //variableValue = ref(store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex])
 })
 
 

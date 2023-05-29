@@ -24,13 +24,17 @@
                                   :Name="item.displayTitle">
         </NodeVariableBitSingle>
         <node-variable-slider v-if="item.type=='NodeVariableSlider'"
-                            :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
-                            :Title="item.displayTitle"
-                            :Description="item.description"
-                            Badge=""
-                            :BadgeMulti="item.displayScale"
-                            :BadgeUnit="item.displayUnits">
+                            :nodeVariableIndex="item.nodeVariableIndex"
+                            :displayTitle="item.displayTitle"
+                            :description = "item.description"
+                            :displayScale="item.displayScale"
+                            :displayUnits="item.displayUnits"
+                            :displayOffset = "item.displayOffset"
+                            :min = "item.min"
+                            :max = "item.max"
+                            :startBit = "item.startBit"
+                            :endBit = "item.endBit">
         </node-variable-slider>
         <node-variable-slider-6Bit v-if="item.type=='NodeVariableSlider6Bit'"
                             :node-variable-index="item.nodeVariableIndex"
