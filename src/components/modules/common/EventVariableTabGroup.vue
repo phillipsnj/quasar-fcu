@@ -41,12 +41,18 @@
                         :options= "item.options">
       </EventVariableSelect>
       <EventVariableSlider v-if="item.type=='EventVariableSlider'"
-                            :node-number="store.state.selected_node"
+      :node-number="store.state.selected_node"
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
                             :displayTitle="item.displayTitle"
+                            :description = "item.description"
                             :displayScale="item.displayScale"
-                            :displayUnits="item.displayUnits">
+                            :displayUnits="item.displayUnits"
+                            :displayOffset = "item.displayOffset"
+                            :min = "item.min"
+                            :max = "item.max"
+                            :startBit = "item.startBit"
+                            :endBit = "item.endBit">
       </EventVariableSlider>
  
       </div>

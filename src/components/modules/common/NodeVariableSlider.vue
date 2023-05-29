@@ -83,31 +83,6 @@ const bitMask = computed(() => {
 })
 console.log(`NodeVariableSlider: bitMask : ${bitMask.value}`)
 
-/*
-const sliderValue = computed({
-  get() {
-    return store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
-  },
-  set(newValue) {
-    console.log(`NewValue : ${newValue}`)
-    if (newValue <= props.max && newValue >= props.min) {
-      console.log(`update_variable : ${newValue}`)
-      error.value = false
-      error_message.value = ''
-      if (props.learn) {
-        store.methods.update_node_variable_in_learn_mode(props.nodeNumber, props.nodeVariableIndex, newValue)
-      } else {
-        store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
-      }
-    } else {
-      console.log(`Invalid Value : ${newValue}`)
-      error_message.value = 'Invalid Value'
-      error.value = true
-    }
-  }
-})
-*/
-
 const sliderValue = computed({
   get() {
     return ((store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex] & bitMask.value) >> props.startBit)
@@ -137,11 +112,6 @@ const sliderValue = computed({
     }
   }
 })
-
-
-
-
-
 
 const update_variable = (newValue) => {
   if (error.value) {
