@@ -36,15 +36,6 @@
                             :startBit = "item.startBit"
                             :endBit = "item.endBit">
         </node-variable-slider>
-        <node-variable-slider-6Bit v-if="item.type=='NodeVariableSlider6Bit'"
-                            :node-variable-index="item.nodeVariableIndex"
-                            :node-number="store.state.selected_node"
-                            :Title="item.displayTitle"
-                            :Description="item.description"
-                            Badge=""
-                            :BadgeMulti="item.displayScale"
-                            :BadgeUnit="item.displayUnits">
-        </node-variable-slider-6Bit>
         <node-variable-slider-7Bit v-if="item.type=='NodeVariableSlider7Bit'"
                             :node-variable-index="item.nodeVariableIndex"
                             :node-number="store.state.selected_node"
@@ -83,7 +74,6 @@ import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
 import NodeVariableBitArray from "components/modules/common/NodeVariableBitArray"
 import NodeVariableBitSingle from "components/modules/common/NodeVariableBitSingle"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
-import NodeVariableSlider6Bit from "components/modules/common/NodeVariableSlider6Bit"
 import NodeVariableSlider7Bit from "components/modules/common/NodeVariableSlider7Bit"
 import NodeVariableDual from "components/modules/common/NodeVariableDual"
 import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
@@ -96,7 +86,6 @@ export default {
     NodeVariableBitArray,
     NodeVariableBitSingle,
     NodeVariableSlider,
-    NodeVariableSlider6Bit,
     NodeVariableSlider7Bit,
     NodeVariableDual,
     NodeVariableSelect,

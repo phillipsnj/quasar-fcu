@@ -58,15 +58,6 @@
                                   :startBit = "item.startBit"
                                   :endBit = "item.endBit">
               </node-variable-slider>
-              <node-variable-slider-6Bit v-if="item.type=='NodeVariableSlider6Bit'"
-                                  :node-variable-index="item.nodeVariableIndex"
-                                  :node-number="store.state.selected_node"
-                                  :Title="item.displayTitle"
-                                  :Description="item.description"
-                                  Badge=""
-                                  :BadgeMulti="item.displayScale"
-                                  :BadgeUnit="item.displayUnits">
-              </node-variable-slider-6Bit>
               <node-variable-slider-7Bit v-if="item.type=='NodeVariableSlider7Bit'"
                                   :node-variable-index="item.nodeVariableIndex"
                                   :node-number="store.state.selected_node"
@@ -100,7 +91,6 @@
   import NodeVariableNumber from "components/modules/common/NodeVariableNumber"
   import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
   import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
-  import NodeVariableSlider6Bit from "components/modules/common/NodeVariableSlider6Bit"
   import NodeVariableSlider7Bit from "components/modules/common/NodeVariableSlider7Bit"
   import NodeVariableTabGroup from "components/modules/common/NodeVariableTabGroup"
 
@@ -115,7 +105,6 @@
       NodeVariableNumber,
       NodeVariableSelect,
       NodeVariableSlider,
-      NodeVariableSlider6Bit,
       NodeVariableSlider7Bit,
       NodeVariableTabGroup
     },
