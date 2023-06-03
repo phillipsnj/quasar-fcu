@@ -1,10 +1,10 @@
 <template>
-  <q-card class="q-pa-md" flat style="max-width: 300px">
+  <q-card class="q-pa-md">
+    <q-card-section>
+      <div class="text-h6">{{ label }}</div>
+    </q-card-section>
     <q-input
       mask="######"
-      class="bg-white"
-      filled
-      :label="label"
       debounce="1000"
       :hint="hint"
       v-model="variable"

@@ -49,14 +49,17 @@ watch(variableValue, () => {
 })
 
 const update_variable = (newValue) => {
-  //console.log(`Value Ok : ${newValue}`)
-  error.value = false
-  error_message.value = ''
-  store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
+  if (newValue < 0 || newValue > 255 ||newValue =='') {
+    error.value = true
+    error_message.value = 'Invalid Value'
+  } else {
+    error.value = false
+    error_message.value = ''
+    store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newValue)
+  }
 }
 
 onMounted(() => {
-  //console.log(`NodeVariable`)
   variable.value = variableValue.value
 })
 

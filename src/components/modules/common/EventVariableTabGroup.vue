@@ -54,9 +54,6 @@
                             :startBit = "item.startBit"
                             :endBit = "item.endBit">
       </EventVariableSlider>
-      <EventVariableTabs v-if="item.type=='EventVariableTabs'"
-                  :configuration=item>
-      </EventVariableTabs>
  
       </div>
     </div>
@@ -71,7 +68,6 @@ import EventVariableBitSingle from "components/modules/common/EventVariableBitSi
 import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import EventVariableSlider from "components/modules/common/EventVariableSlider"
-import EventVariableTabs from "components/modules/common/EventVariableTabs"
 
 export default {
 
@@ -80,8 +76,7 @@ export default {
     EventVariableBitSingle,
     EventVariableNumber,
     EventVariableSelect,
-    EventVariableSlider,
-    EventVariableTabs
+    EventVariableSlider
   },
 
   props: {

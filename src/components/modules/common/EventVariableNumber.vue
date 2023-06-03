@@ -1,19 +1,18 @@
 <template>
-  <q-card class="q-pa-md" flat>
+  <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
+      <div class="text-h6">{{ label }}</div>
       <div class="text-subtitle2">{{ Description }}</div>
-      <q-input
-        mask="###"
-        :label="label"
-        debounce="1000"
-        v-model="eventValue"
-        outlined
-        :error-message="error_message"
-        :error="error"
-        @change="update_event">
-      </q-input>
     </q-card-section>
+    <q-input
+      mask="###"
+      debounce="1000"
+      v-model="eventValue"
+      outlined
+      :error-message="error_message"
+      :error="error"
+      @change="update_event">
+    </q-input>
   </q-card>
 </template>
 
@@ -98,12 +97,13 @@ const update_event = (newValue) => {
   // get previous value, as starting point for updated byte value
   let byteValue = eventVariableValue.value
 
-  if (newValue < props.min || newValue > props.max ||newValue =='') {
+  let processedValue = newValue                           // take a copy to change
+  processedValue -= props.displayOffset                   // remove display offset
+
+  if (processedValue < props.min || processedValue > props.max ||newValue =='') {
     error.value = true
-    error_message.value = 'Invalid Value'
+    error_message.value = 'Invalid Value ' + newValue + ' : Valid Range ' + (props.min + props.displayOffset) + ' - ' + (props.max + props.displayOffset)
   } else {
-    let processedValue = newValue                           // take a copy to change
-    processedValue -= props.displayOffset                   // remove display offset
     processedValue = processedValue << props.startBit       // shift to position in variable
 
     //set bits, but only if they match bits in the bitmask

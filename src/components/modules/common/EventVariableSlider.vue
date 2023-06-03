@@ -18,14 +18,18 @@
 </template>
 
 <script setup>
-import {inject, ref, onMounted, computed} from "vue";
+import {inject, ref, onMounted, computed, watch} from "vue";
 
 const props = defineProps({
   "nodeNumber": {
     type: Number,
     required: true
   },
-  "nodeVariableIndex": {
+  "eventIndex": {
+    type: Number,
+    required: true
+  },
+  "eventVariableIndex": {
     type: Number,
     required: true
   },
@@ -67,11 +71,12 @@ const props = defineProps({
   }
 })
 
-console.log(`Node Variable : ` + props.nodeNumber)
-const label = props.name ? props.name : "Variable" + props.nodeVariableIndex
+const label = props.name ? props.name : "Event Variable " + props.eventVariableIndex
 const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
+let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+console.log(`EventVariableSlider Props : ${JSON.stringify(props)}`)
 const bitMask = computed(() => {
   var bitMask = 0;
   for (var i=props.startBit; i<= props.endBit; i++){
@@ -79,16 +84,17 @@ const bitMask = computed(() => {
   }
   return bitMask;
 })
-console.log(`NodeVariableSlider: bitMask : ${bitMask.value}`)
+console.log(`EventVariableSlider: bitMask : ${bitMask.value}`)
 
 const sliderValue = computed({
   get() {
-    return ((store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex] & bitMask.value) >> props.startBit)
+    return ((store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitMask.value) >> props.startBit)
   },
   set(newValue) {
     // get previous value, as starting point for updated byte value
-    let newByteValue = store.state.nodes[props.nodeNumber].nodeVariables[props.nodeVariableIndex]
+    let newByteValue = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
     console.log(`OldByteValue : ${newByteValue}`)
+    console.log(`NewValue : ${newValue}`)
     // not sure we need to do a range check as the slider control uses max & min anyway...
     if (newValue <= props.max && newValue >= props.min) {
       console.log(`update_variable : ${newValue}`)
@@ -101,8 +107,7 @@ const sliderValue = computed({
 
       error.value = false
       error_message.value = ''
-      store.methods.update_node_variable(props.nodeNumber, props.nodeVariableIndex, newByteValue)
-      console.log(`NewByteValue : ${newByteValue}`)
+      store.methods.update_event_variable(props.nodeNumber, eventIdentifier, props.eventIndex, props.eventVariableIndex, newByteValue)
     } else {
       console.log(`Invalid Value : ${newValue}`)
       error_message.value = 'Invalid Value'
@@ -115,14 +120,13 @@ const update_variable = (newValue) => {
   if (error.value) {
     console.log(`Invalid Value : ${newValue}`)
   } else {
-    console.log(`update_variable : ${newValue}`)
+    console.log(`update slider value : ${newValue}`)
   }
 }
 
 onMounted(() => {
-  console.log(`NodeVariableSlider`)
+  console.log(`EventVariableSlider onMounted`)
 })
-
 
 </script>
 

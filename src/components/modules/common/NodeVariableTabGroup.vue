@@ -48,10 +48,6 @@
                             :Title="item.displayTitle"
                             :options="item.options">
         </NodeVariableSelect>
-        <NodeVariableTabs v-if="item.type=='NodeVariableTabs'"
-                    :configuration=item>
-        </NodeVariableTabs>
-
       </div>
     </div>
 
@@ -67,7 +63,6 @@ import NodeVariableBitSingle from "components/modules/common/NodeVariableBitSing
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableDual from "components/modules/common/NodeVariableDual"
 import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
-import NodeVariableTabs from "components/modules/common/NodeVariableTabs"
 
 export default {
 
@@ -77,8 +72,7 @@ export default {
     NodeVariableBitSingle,
     NodeVariableSlider,
     NodeVariableDual,
-    NodeVariableSelect,
-    NodeVariableTabs
+    NodeVariableSelect
   },
 
   props: {
