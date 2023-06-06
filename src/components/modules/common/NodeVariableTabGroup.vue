@@ -18,8 +18,8 @@
         <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
                                   :NodeNumber="store.state.selected_node"
                                   :VariableIndex=item.nodeVariableIndex
-                                  :Title="item.displayTitle"
-                                  :Description="item.description"
+                                  :displayTitle="item.displayTitle"
+                                  :displaySubTitle="item.displaySubTitle"
                                   :Bit=item.bit
                                   :Name="item.displayTitle">
         </NodeVariableBitSingle>
@@ -27,7 +27,7 @@
                             :node-number="store.state.selected_node"
                             :nodeVariableIndex="item.nodeVariableIndex"
                             :displayTitle="item.displayTitle"
-                            :description = "item.description"
+                            :displaySubTitle = "item.displaySubTitle"
                             :displayScale="item.displayScale"
                             :displayUnits="item.displayUnits"
                             :displayOffset = "item.displayOffset"

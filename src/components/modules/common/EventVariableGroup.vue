@@ -11,8 +11,8 @@
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
                             :bitCollection = item.bitCollection
-                            :Title="item.displayTitle"
-                            :Description="item.description">
+                            :displayTitle="item.displayTitle"
+                            :displaySubTitle="item.displaySubTitle">
       </EventVariableBitArray>
       <EventVariableBitSingle v-if="item.type=='EventVariableBitSingle'"
                             :nodeNumber = "store.state.selected_node"
@@ -45,7 +45,7 @@
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
                             :displayTitle="item.displayTitle"
-                            :description = "item.description"
+                            :displaySubTitle = "item.displaySubTitle"
                             :displayScale="item.displayScale"
                             :displayUnits="item.displayUnits"
                             :displayOffset = "item.displayOffset"

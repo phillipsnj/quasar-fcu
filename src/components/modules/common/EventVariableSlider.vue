@@ -2,7 +2,7 @@
   <q-card class="q-pa-xs" style="width: 300px">
     <q-card-section>
       <div class="text-h6">{{ displayTitle }}</div>
-      <div class="text-subtitle2">{{ description }}</div>
+      <div class="text-subtitle2">{{ displaySubTitle }}</div>
       <q-badge color="secondary">
         {{ (sliderValue * displayScale) + displayOffset }} {{ displayUnits }}
       </q-badge>
@@ -37,7 +37,7 @@ const props = defineProps({
     type: String,
     required: false
   },
-  "description": {
+  "displaySubTitle": {
     type: String,
     required: false
   },

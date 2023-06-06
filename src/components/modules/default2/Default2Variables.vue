@@ -5,8 +5,8 @@
       <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
                             :VariableIndex=item.nodeVariableIndex
                             :bitCollection = item.bitCollection
-                            :Title="item.displayTitle"
-                            :Description="item.description"
+                            :displayTitle="item.displayTitle"
+                            :displaySubTitle="item.displaySubTitle"
                             :learn="false"
       ></NodeVariableBitArray>
       <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
@@ -42,7 +42,7 @@
                             :node-number="store.state.selected_node"
                             :nodeVariableIndex="item.nodeVariableIndex"
                             :displayTitle="item.displayTitle"
-                            :description = "item.description"
+                            :displaySubTitle = "item.displaySubTitle"
                             :displayScale="item.displayScale"
                             :displayUnits="item.displayUnits"
                             :displayOffset = "item.displayOffset"
