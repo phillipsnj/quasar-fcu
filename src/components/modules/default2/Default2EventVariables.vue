@@ -2,9 +2,6 @@
   <div class="q-pa-none row">
 
     <div v-for="item in eventVariables" :key="item">
-      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
-                    :configuration = item>
-      </EventVariableGroup>
       <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
@@ -21,6 +18,9 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitSingle>
+      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
+                    :configuration = item>
+      </EventVariableGroup>
       <EventVariableNumber v-if="item.type=='EventVariableNumber'"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index

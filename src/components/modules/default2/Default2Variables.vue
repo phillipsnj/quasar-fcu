@@ -21,7 +21,8 @@
                         :NodeVariableIndexLow="item.nodeVariableIndexLow"
                         :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
                         :NodeNumber="store.state.selected_node"
-                        :name="item.displayTitle">
+                        :displayTitle="item.displayTitle"
+                        :displaySubTitle="item.displaySubTitle">
       </NodeVariableDual>
       <NodeVariableGroup v-if="item.type=='group'"
                     :configuration = item>
