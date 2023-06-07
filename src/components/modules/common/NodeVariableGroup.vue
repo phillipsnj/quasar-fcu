@@ -45,7 +45,8 @@
         <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
                             :nodeVariableIndex="item.nodeVariableIndex"
                             :nodeNumber="store.state.selected_node"
-                            :Title="item.displayTitle"
+                            :displayTitle="item.displayTitle"
+                            :displaySubTitle="item.displaySubTitle"
                             :options="item.options">
         </NodeVariableSelect>
         <NodeVariableTabs v-if="item.type=='NodeVariableTabs'"

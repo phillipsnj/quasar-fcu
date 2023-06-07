@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-xs" style="width: 300px">
+  <q-card class="q-pa-md">
     <q-card-section>
       <div class="text-h6">{{ displayTitle }}</div>
       <div class="text-subtitle2">{{ displaySubTitle }}</div>

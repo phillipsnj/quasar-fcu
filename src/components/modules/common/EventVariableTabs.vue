@@ -47,7 +47,8 @@
                           :eventIndex = "store.state.selected_event_index"
                           :eventVariableIndex= "item.eventVariableIndex"
                           :bitMask = "item.bitMask"
-                          :Title= "item.displayTitle"
+                          :displayTitle="item.displayTitle"
+                          :displaySubTitle="item.displaySubTitle"
                           :options= "item.options">
               </EventVariableSelect>
               <EventVariableSlider v-if="item.type=='EventVariableSlider'"

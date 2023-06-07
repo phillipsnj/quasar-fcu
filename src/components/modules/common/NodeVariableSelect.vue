@@ -1,10 +1,8 @@
 <template>
-  <q-card class="q-pa-xs" flat bordered style="max-width: 300px">
+  <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
-    </q-card-section>
-    <q-card-section>
+      <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ displaySubTitle }}</div>
     <q-select
       v-model="variable"
       :options="options"
@@ -43,13 +41,13 @@ const props = defineProps({
     type: String,
     default: ""
   },
-  "Title": {
+  "displayTitle": {
     type: String,
-    default: ""
+    required: false
   },
-  "Description": {
+  "displaySubTitle": {
     type: String,
-    default: ""
+    required: false
   },
   "learn": {
     type: Boolean,
