@@ -1,9 +1,8 @@
 <template>
   <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ title }}</div>
-    </q-card-section>
-    <q-card-section>
+      <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ displaySubTitle }}</div>
       <EventVariableBit
         :nodeNumber="store.state.selected_node"
         :eventIndex=eventIndex
@@ -34,9 +33,13 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  "title": {
+  "displayTitle": {
     type: String,
     required: false
+  },
+  "displaySubTitle": {
+    type: String,
+    default: ""
   },
   "bit": {
     type: Number,

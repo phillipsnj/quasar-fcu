@@ -20,8 +20,7 @@
                                   :VariableIndex=item.nodeVariableIndex
                                   :displayTitle="item.displayTitle"
                                   :displaySubTitle="item.displaySubTitle"
-                                  :Bit=item.bit
-                                  :Name="item.displayTitle">
+                                  :Bit=item.bit>
         </NodeVariableBitSingle>
         <node-variable-slider v-if="item.type=='NodeVariableSlider'"
                             :node-number="store.state.selected_node"

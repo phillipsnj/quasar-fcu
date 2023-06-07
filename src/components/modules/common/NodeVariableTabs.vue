@@ -28,10 +28,9 @@
               <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
                                         :NodeNumber="store.state.selected_node"
                                         :VariableIndex=item.nodeVariableIndex
-                                        :Title="item.displayTitle"
-                                        :Description="item.description"
-                                        :Bit=item.bit
-                                        :Name="item.displayTitle">
+                                        :displayTitle="item.displayTitle"
+                                        :displaySubTitle="item.displaySubTitle"
+                                        :Bit=item.bit>
               </NodeVariableBitSingle>
               <NodeVariableDual v-if="item.type=='NodeVariableDual'"
                                 :NodeVariableIndexLow="item.nodeVariableIndexLow"

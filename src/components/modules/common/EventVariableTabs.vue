@@ -27,7 +27,8 @@
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
                             :bit = "item.bit"
-                            :title="item.displayTitle">
+                            :displayTitle="item.displayTitle"
+                            :displaySubTitle="item.displaySubTitle">
               </EventVariableBitSingle>
               <EventVariableNumber v-if="item.type=='EventVariableNumber'"
                   :node-number=store.state.selected_node
