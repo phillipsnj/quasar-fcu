@@ -37,7 +37,8 @@
                   :startBit = "item.startBit"
                   :endBit = "item.endBit"
                   :displayOffset = "item.displayOffset"
-                  :name="item.displayTitle"
+                  :displayTitle="item.displayTitle"
+                  :displaySubTitle="item.displaySubTitle"
                   :min = "item.min"
                   :max = "item.max">
               </EventVariableNumber>

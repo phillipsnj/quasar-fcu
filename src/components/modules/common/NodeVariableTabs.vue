@@ -15,7 +15,8 @@
 
               <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
                         :node-number=store.state.selected_node
-                        :name="item.displayTitle"
+                        :displayTitle="item.displayTitle"
+                        :displaySubTitle = "item.displaySubTitle"
                         :node-variable-index=item.nodeVariableIndex>
               </NodeVariableNumber>
               <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"

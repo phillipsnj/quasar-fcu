@@ -25,7 +25,8 @@
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
                   :eventVariableIndex= "item.eventVariableIndex"
-                  :name="item.displayTitle"
+                  :displayTitle="item.displayTitle"
+                  :displaySubTitle="item.displaySubTitle"
                   :startBit = "item.startBit"
                   :endBit = "item.endBit"
                   :displayOffset = "item.displayOffset"
