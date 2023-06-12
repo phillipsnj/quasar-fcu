@@ -3,10 +3,14 @@
     Node : {{ store.state.selected_node }} -
     Type : {{ store.state.nodes[store.state.selected_node].module }}
   </div>
+
+<!--
   <div class="text-h8">
     Component : {{ store.state.nodes[store.state.selected_node].component }} - 
     Event Component : {{ store.state.events_component}}
   </div>
+ -->
+ 
 </template>
 
 <script>
