@@ -1,10 +1,8 @@
 <template>
   <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
-    </q-card-section>
-    <q-card-section>
+      <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ displaySubTitle }}</div>
       <div v-for="item in bitCollection" :key="item">
         <node-variable-bit
           :NodeNumber="store.state.selected_node"
@@ -32,11 +30,11 @@ const props = defineProps({
   "bitCollection": {
     required: true
   },
-  "Title": {
+  "displayTitle": {
     type: String,
     required: false
   },
-  "Description": {
+  "displaySubTitle": {
     type: String,
     default: ""
   }

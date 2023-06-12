@@ -178,6 +178,8 @@
 
   onBeforeMount(() => {
     // now done in nodes.vue when node edit clicked
+    store.methods.request_service_discovery(store.state.selected_node)
+//    store.methods.request_diagnostics(store.state.selected_node)
     //  store.methods.request_all_node_parameters(store.state.selected_node, 20, 100)
     if (store.state.selected_node in store.state.layout.nodeDetails) {
       //console.log(`Event Layout`)

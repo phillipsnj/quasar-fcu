@@ -2,29 +2,31 @@
   <div class="q-pa-none row">
 
     <div v-for="item in eventVariables" :key="item">
-      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
-                    :configuration = item>
-      </EventVariableGroup>
       <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
                             :bitCollection = item.bitCollection
-                            :Title="item.displayTitle"
-                            :Description="item.description">
+                            :displayTitle="item.displayTitle"
+                            :displaySubTitle="item.displaySubTitle">
       </EventVariableBitArray>
       <EventVariableBitSingle v-if="item.type=='EventVariableBitSingle'"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
                             :bit = "item.bit"
-                            :title="item.displayTitle">
+                            :displayTitle="item.displayTitle"
+                            :displaySubTitle="item.displaySubTitle">
       </EventVariableBitSingle>
+      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
+                    :configuration = item>
+      </EventVariableGroup>
       <EventVariableNumber v-if="item.type=='EventVariableNumber'"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
                   :eventVariableIndex= "item.eventVariableIndex"
-                  :name="item.displayTitle"
+                  :displayTitle="item.displayTitle"
+                  :displaySubTitle="item.displaySubTitle"
                   :startBit = "item.startBit"
                   :endBit = "item.endBit"
                   :displayOffset = "item.displayOffset"
@@ -37,7 +39,8 @@
                         :eventIndex = "store.state.selected_event_index"
                         :eventVariableIndex= "item.eventVariableIndex"
                         :bitMask = "item.bitMask"
-                        :Title= "item.displayTitle"
+                        :displayTitle="item.displayTitle"
+                        :displaySubTitle="item.displaySubTitle"
                         :options= "item.options">
       </EventVariableSelect>
       <EventVariableSlider v-if="item.type=='EventVariableSlider'"
@@ -45,7 +48,7 @@
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
                             :displayTitle="item.displayTitle"
-                            :description = "item.description"
+                            :displaySubTitle = "item.displaySubTitle"
                             :displayScale="item.displayScale"
                             :displayUnits="item.displayUnits"
                             :displayOffset = "item.displayOffset"

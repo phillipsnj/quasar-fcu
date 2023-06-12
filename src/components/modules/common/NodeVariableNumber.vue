@@ -1,18 +1,19 @@
 <template>
   <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ label }}</div>
+      <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ displaySubTitle }}</div>
+      <q-input
+        mask="###"
+        debounce="1000"
+        v-model="variable"
+        outlined
+        :error-message="error_message"
+        :error="error"
+        @change="update_variable"
+      >
+      </q-input>
     </q-card-section>
-    <q-input
-      mask="###"
-      debounce="1000"
-      v-model="variable"
-      outlined
-      :error-message="error_message"
-      :error="error"
-      @change="update_variable"
-    >
-    </q-input>
   </q-card>
 </template>
 
@@ -28,7 +29,11 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  "name": {
+  "displayTitle": {
+    type: String,
+    required: false
+  },
+  "displaySubTitle": {
     type: String,
     required: false
   },

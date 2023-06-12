@@ -1,10 +1,8 @@
 <template>
   <q-card class="q-pa-md">
     <q-card-section>
-      <div class="text-h6">{{ Title }}</div>
-      <div class="text-subtitle2">{{ Description }}</div>
-    </q-card-section>
-    <q-card-section>
+      <div class="text-h6">{{ displayTitle }}</div>
+      <div class="text-subtitle2">{{ displaySubTitle }}</div>
     <q-select
       v-model="selectVariable"
       :options="options"
@@ -47,14 +45,14 @@ const props = defineProps({
     type: String,
     default: ""
   },
-  "Title": {
+  "displayTitle": {
     type: String,
-    default: ""
+    required: false
   },
-  "Description": {
+  "displaySubTitle": {
     type: String,
-    default: ""
-  },
+    required: false
+  }
 })
 
 const label = props.name ? props.name : "Variable" + props.eventVariableIndex
