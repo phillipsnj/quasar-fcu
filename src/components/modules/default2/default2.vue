@@ -28,7 +28,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="services" class="bg-white">
-        <default2Services/>
+        <default2NodeServices/>
       </q-tab-panel>
 
       <q-tab-panel name="events" class="bg-white">
@@ -43,12 +43,12 @@ import {inject, ref} from "vue";
 import Default2Info from "./Default2Info"
 import Default2Variables from "./Default2Variables"
 import Default2Events from "./Default2Events"
-import Default2Services from "./Default2Services"
+import Default2NodeServices from "./Default2NodeServices"
 import NodeDetails from "components/modules/common/NodeDetails"
 
 export default {
   name: "mergDefault2",
-  components: {Default2Info, Default2Variables, Default2Events, NodeDetails, Default2Services},
+  components: {Default2Info, Default2Variables, Default2Events, NodeDetails, Default2NodeServices},
   setup() {
     const store = inject('store')
  

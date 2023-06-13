@@ -30,7 +30,7 @@
 
 <script setup>
 import {inject, onBeforeMount, computed, watch, ref} from "vue";
-//import Default2EventVariables from "components/modules/default2/Default2EventVariables";
+import Default2NodeServiceDiagnostics from "components/modules/default2/Default2NodeServiceDiagnostics";
 
 const columns = [
   {name: 'serviceIndex', field: 'serviceIndex', required: true, label: 'Service Index', align: 'left', sortable: true},
@@ -73,6 +73,8 @@ onBeforeMount(() => {
 const showDiagnostics = (serviceIndex) => {
   console.log(`showDiagnostics for index ${serviceIndex}`)
   store.methods.request_diagnostics(store.state.selected_node)
+  store.state.selected_service_index = serviceIndex
+  store.methods.update_services_component("Default2NodeServiceDiagnostics")
 }
 
 
