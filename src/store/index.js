@@ -14,8 +14,10 @@ const state = reactive({
   layout: {},
   display_component: "home",
   events_component: "DefaultEventsList",
+  services_component: "Default2NodeServicesList",
   selected_node: 0,
   selected_event_index: 0,
+  selected_service_index: 0,
   title: "MERG Quasar FCU",
   debug: false,
   advanced: false,
@@ -115,12 +117,13 @@ const methods = {
     })
   },
   update_display_component(component) {
-    // console.log(`Display Component ${component}`)
     state.display_component = component
   },
   update_event_component(component) {
-    //console.log(`Event Component ${component}`)
     state.events_component = component
+  },
+  update_services_component(component) {
+    state.services_component = component
   },
   QNN() {
     console.log(`QUERY_ALL_NODES`)

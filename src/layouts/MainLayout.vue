@@ -36,10 +36,12 @@
       <q-page>
         <!--      <p>{{ store.state.display_component }}</p>-->
         <div v-if="store.state.debug">
-          <p>display_component : {{ store.state.display_component }}</p>
-          <p>events_component : {{ store.state.events_component }}</p>
-          <p>selected_node : {{ store.state.selected_node }}</p>
-          <p>selected_events_index : {{ store.state.selected_event_index }}</p>
+          display_component : {{ store.state.display_component }}<br>
+          events_component : {{ store.state.events_component }}<br>
+          services_component : {{ store.state.services_component }}<br>
+          selected_node : {{ store.state.selected_node }}<br>
+          selected_events_index : {{ store.state.selected_event_index }}<br>
+          selected_service_index : {{ store.state.selected_service_index }}<br>
         </div>
         <component v-bind:is="store.state.display_component"></component>
       </q-page>
