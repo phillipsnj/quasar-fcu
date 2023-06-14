@@ -1,7 +1,7 @@
 <template>
   <div class="text-h6">
     Node : {{ store.state.selected_node }} -
-    Type : {{ store.state.nodes[store.state.selected_node].module }}
+    Type : {{ store.state.nodes[store.state.selected_node].moduleName }}
   </div>
 
 <!--
