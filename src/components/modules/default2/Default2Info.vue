@@ -107,7 +107,17 @@
         </node-parameter>
       </q-card-section>
     </q-card>
+
   </div>
+  <div class="q-pa-xs row">
+    <p v-if="store.state.debug">
+      Debug: Node JSON<br>
+      <pre>
+      {{ store.state.nodes[store.state.selected_node] }}
+      </pre>
+    </p>
+  </div>
+
 
 </template>
 
