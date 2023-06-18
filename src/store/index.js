@@ -70,16 +70,25 @@ const methods = {
     socket.emit('REQUEST_DIAGNOSTICS', {"nodeId":nodeNumber})
   },
   update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue) {
-    console.log(`MAIN Update Node Variable :`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
-    // if (nodeVariableValue !="" ) {
-      console.log(`MAIN Update Node Variable - Ok :`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
+    
+    console.log(`NVsetNeedsLearnMode : ` + JSON.stringify(state.nodes[nodeNumber].variableConfig.NVsetNeedsLearnMode))
+    if((state.nodes[nodeNumber].variableConfig)
+        && (state.nodes[nodeNumber].variableConfig.NVsetNeedsLearnMode)){
+          console.log(`MAIN Update Node Variable in learn mode : `+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
+          socket.emit('UPDATE_NODE_VARIABLE_IN_LEARN_MODE', {
+        "nodeId": nodeNumber,
+        "variableId": nodeVariableIndex,
+        "variableValue": parseInt(nodeVariableValue)
+      })
+    } else {
+      console.log(`MAIN Update Node Variable : `+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)
       socket.emit('UPDATE_NODE_VARIABLE', {
         "nodeId": nodeNumber,
         "variableId": nodeVariableIndex,
         "variableValue": parseInt(nodeVariableValue)
        })
-    //}
+    }
   },
   update_node_variable_in_learn_mode(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     console.log(`MAIN Update Node Variable in Learn Mode:`+nodeNumber+' : '+nodeVariableIndex+' : '+  nodeVariableValue)

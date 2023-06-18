@@ -30,7 +30,7 @@
             <q-td key="nodeNumber" :class="'text-'+nodeColour(props.row.nodeNumber)" :props="props">{{ props.row.nodeNumber }}</q-td>
             <q-td key="nodeName" :props="props">{{ props.row.nodeName }}</q-td>
             <q-td key="group" :props="props">{{ props.row.group }}</q-td>
-            <q-td key="module" :props="props">{{ props.row.module }}</q-td>
+            <q-td key="moduleName" :props="props">{{ props.row.moduleName }}</q-td>
             <q-td key="component" :props="props">{{ props.row.component }}</q-td>
             <q-td key="mode" :props="props">
               <q-chip color="white" text-color="amber" v-if="props.row.mode">Flim</q-chip>
@@ -63,9 +63,9 @@ import { useQuasar } from 'quasar'
 
 const columns = [
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node Number', align: 'left', sortable: true},
-  {name: 'nodeName', field: 'nodeName', required: true, label: 'Name', align: 'left', sortable: true},
+  {name: 'nodeName', field: 'nodeName', required: true, label: 'Node Name', align: 'left', sortable: true},
   {name: 'group', field: 'group', required: true, label: 'Group', align: 'left', sortable: true},
-  {name: 'module', field: 'module', required: true, label: 'Module', align: 'left', sortable: true},
+  {name: 'moduleName', field: 'moduleName', required: true, label: 'Module Name', align: 'left', sortable: true},
   {name: 'component', field: 'component', required: true, label: 'component', align: 'left', sortable: true},
   {name: 'mode', field: 'mode', required: true, label: 'Mode', align: 'left', sortable: true},
   {name: 'status', field: 'status', required: true, label: 'Status', align: 'left', sortable: true},
@@ -95,7 +95,7 @@ const update_rows = () => {
     output['nodeNumber'] = node.nodeNumber
     output['nodeName'] = nodeName(node.nodeNumber)
     output['group'] = nodeGroup(node.nodeNumber)
-    output['module'] = node.module
+    output['moduleName'] = node.moduleName
     output['component'] = node.component
     output['status'] = node.status
     output['mode'] = node.flim
@@ -119,7 +119,7 @@ const nodeName = (nodeId) => {
   if (nodeId in store.state.layout.nodeDetails) {
     return store.state.layout.nodeDetails[nodeId].name
   } else {
-    return nodeId.toString()+' - '+store.state.nodes[nodeId].module
+    return nodeId.toString()+' - '+store.state.nodes[nodeId].moduleName
   }
 }
 

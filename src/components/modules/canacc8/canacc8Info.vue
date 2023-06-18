@@ -45,7 +45,7 @@
                     :Value="store.state.nodes[store.state.selected_node].moduleManufacturerName">
     </node-parameter>
     <node-parameter Name="Module"
-                    :Value="store.state.nodes[store.state.selected_node].module">
+                    :Value="store.state.nodes[store.state.selected_node].moduleName">
     </node-parameter>
     <node-parameter Name="Component"
                     :Value="store.state.nodes[store.state.selected_node].component">

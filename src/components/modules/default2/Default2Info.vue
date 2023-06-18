@@ -70,7 +70,7 @@
                         :Value="store.state.nodes[store.state.selected_node].moduleManufacturerName">
         </node-parameter>
         <node-parameter Name="Module"
-                        :Value="store.state.nodes[store.state.selected_node].module">
+                        :Value="store.state.nodes[store.state.selected_node].moduleName">
         </node-parameter>
         <node-parameter Name="Producer"
                         :Value="store.state.nodes[store.state.selected_node].producer">
@@ -107,7 +107,17 @@
         </node-parameter>
       </q-card-section>
     </q-card>
+
   </div>
+  <div class="q-pa-xs row">
+    <p v-if="store.state.debug">
+      Debug: Node JSON<br>
+      <pre>
+      {{ store.state.nodes[store.state.selected_node] }}
+      </pre>
+    </p>
+  </div>
+
 
 </template>
 
