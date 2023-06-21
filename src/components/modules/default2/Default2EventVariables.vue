@@ -1,4 +1,15 @@
 <template>
+  <div class="q-pa-md" >
+    <q-banner inline-actions>
+      <div class="text-h6">
+        Producer Node {{producerNode}} : Event Number {{eventNumber}}
+      </div>
+      <template v-slot:action>
+        <q-btn color="negative" label="<Back" @click="showEventsList" no-caps/>
+      </template>
+    </q-banner>
+  </div>
+  
   <div class="q-pa-none row">
 
     <div v-for="item in eventVariables" :key="item">
@@ -102,6 +113,9 @@ export default {
   setup() {
     const store = inject('store')
     const eventVariables = ref()
+    const eventIdentifier = store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index].eventIdentifier
+    const producerNode = parseInt(eventIdentifier.substr(0, 4), 16)
+    const eventNumber = parseInt(eventIdentifier.substr(4, 4), 16)
     onBeforeMount(() => {
       console.log('Default2EventVariables')
       if (store.state.nodes[store.state.selected_node].variableConfig != undefined) {
@@ -119,10 +133,17 @@ export default {
       console.log(`Default2EventVariables: config: ` + JSON.stringify(eventVariables.value))
       console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
     })
+
+    function showEventsList () {
+      console.log(`showEventsList`)
+      store.methods.update_event_component("Default2EventsList")
+    }
       
-    return {store, EventVariableRaw, eventVariables}
+    return {store, EventVariableRaw, eventVariables, showEventsList, eventIdentifier, producerNode, eventNumber}
   }
 }
+
+
 </script>
 
 <style scoped>

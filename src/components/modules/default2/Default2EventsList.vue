@@ -1,4 +1,14 @@
 <template>
+  <div class="q-pa-md" >
+    <q-banner inline-actions>
+      <div class="text-h6">
+        Events
+      </div>
+      <template v-slot:action>
+        <q-btn color="positive" label="Add Event" @click="showAddEventDialog()" no-caps/>
+      </template>
+    </q-banner>
+  </div>
   <div class="full-width" >
     <q-table
       title="Consumed Events"
@@ -17,13 +27,38 @@
           <q-td key="eventNumber" :props="props">{{ props.row.eventNumber }}</q-td>
           <q-td key="eventIndex" :props="props">{{ props.row.eventIndex }}</q-td>
           <q-td key="edit" :props="props">
-            <q-btn color="primary" flat rounded label="Edit" @click="editEvent(props.row.eventIndex)" no-caps/>
-            <q-btn color="negative" flat rounded label="Delete"
+            <q-btn outline rounded color="primary" label="Edit" @click="editEvent(props.row.eventIndex)" no-caps/>
+            <q-btn outline rounded color="negative" label="Delete"
                    @click="removeEvent(store.state.selected_node, props.row.eventIdentifier)" no-caps/>
           </q-td>
         </q-tr>
       </template>
     </q-table>
+
+    <q-dialog v-model="addEventDialog" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h4">Add new event</div>
+        </q-card-section>
+        <q-card-section>
+          <div class="text-h6">Producer Node Number</div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <q-input dense v-model="newNodeNumber" autofocus />
+        </q-card-section>
+        <q-card-section>
+          <div class="text-h6">Event Number</div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <q-input dense v-model="newEventNumber" autofocus />
+        </q-card-section>
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Add Event" v-close-popup @click="createEvent()"/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
   </div>
   <div class="q-pa-sm row" v-if="store.state.debug">
     <p>
@@ -47,6 +82,9 @@ const columns = [
 
 const store = inject('store')
 const rows = ref([])
+const addEventDialog = ref(false)
+const newNodeNumber = ref()
+const newEventNumber = ref()
 
 const nodeEvents = computed(() =>{
   return Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
@@ -86,6 +124,38 @@ const removeEvent = (nodeId, eventIndex) => {
   console.log(`removeEvent`)
   store.methods.remove_event(nodeId, eventIndex)
 }
+
+const showAddEventDialog = () => {
+  console.log(`addEventDialog`)
+  newNodeNumber.value = null
+  newEventNumber.value = null
+  addEventDialog.value = true
+}
+
+const createEvent = () => {
+  var eventIndex = getFreeEventIndex()
+  var eventID = parseInt(newNodeNumber.value).toString(16).toUpperCase().padStart(4, 0)
+               + parseInt(newEventNumber.value).toString(16).toUpperCase().padStart(4, 0)
+  console.log(`createEvent - index ` + eventIndex + ` eventID ` + eventID)
+  store.methods.teach_event(store.state.selected_node, eventID, eventIndex, )
+}
+
+const getFreeEventIndex = () => {
+      // need to find first free event index - node parameter [4]
+      var maxEventCount = store.state.nodes[store.state.selected_node].parameters[4]
+      var eventIndex = null
+      for (var i=1; i < maxEventCount; i++ ){
+        console.log('i ' + i)
+        if (store.state.nodes[store.state.selected_node].consumedEvents[i]) {
+          continue
+        } else {
+          eventIndex = i + 1
+          break
+        }        
+      }
+      return eventIndex
+    }
+
 
 </script>
 
