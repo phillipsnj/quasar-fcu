@@ -2,7 +2,7 @@
   <div class="q-pa-md" >
     <q-banner inline-actions>
       <div class="text-h6">
-        Events
+        Stored Events
       </div>
       <template v-slot:action>
         <q-btn color="positive" label="Add Event" @click="showAddEventDialog()" no-caps/>
@@ -26,6 +26,7 @@
           <q-td key="nodeNumber" :props="props">{{ props.row.nodeNumber }}</q-td>
           <q-td key="eventNumber" :props="props">{{ props.row.eventNumber }}</q-td>
           <q-td key="eventIndex" :props="props">{{ props.row.eventIndex }}</q-td>
+          <q-td key="eventType" :props="props">{{ props.row.eventType }}</q-td>
           <q-td key="edit" :props="props">
             <q-btn outline rounded color="primary" label="Edit" @click="editEvent(props.row.eventIndex)" no-caps/>
             <q-btn outline rounded color="negative" label="Delete"
@@ -77,6 +78,7 @@ const columns = [
   {name: 'nodeNumber', field: 'nodeNumber', required: true, label: 'Node', align: 'left', sortable: true},
   {name: 'eventNumber', field: 'eventNumber', required: true, label: 'Event', align: 'left', sortable: true},
   {name: 'eventIndex', field: 'eventIndex', required: true, label: 'Event Index', align: 'left', sortable: true},
+  {name: 'eventType', field: 'eventType', required: true, label: 'Event Type', align: 'left', sortable: true},
   {name: 'edit', field: 'edit', required: true, label: 'Edit', align: 'left', sortable: true}
 ]
 
@@ -98,15 +100,50 @@ const update_rows = () => {
   //console.log(`DefaultEventList Update Rows ${store.state.selected_node}`)
   rows.value = []
   nodeEvents.value.forEach(event => {
+    store.methods.request_all_event_variables(
+        store.state.selected_node,
+        event.eventIndex,
+        100,
+        store.state.nodes[store.state.selected_node].parameters[5]
+    )
+    var eventNodeNumber = parseInt(event.eventIdentifier.substr(0, 4), 16)
     let output = {}
     output['eventIdentifier'] = event.eventIdentifier
     output['eventName'] = store.getters.event_name(event.eventIdentifier)
     output['eventIndex'] = event.eventIndex
-    output['nodeNumber'] = parseInt(event.eventIdentifier.substr(0, 4), 16)
+    output['nodeNumber'] = eventNodeNumber
     output['eventNumber'] = parseInt(event.eventIdentifier.substr(4, 4), 16)
+    output['eventType'] = getEventType(event.eventIndex)
     rows.value.push(output)
   })
 }
+
+
+const getEventType = (eventIndex) =>{
+  if (parseProducedEvent(eventIndex)){
+    return "produced"
+  } else{
+    return "consumed"
+  }
+
+}
+
+const parseProducedEvent = (eventIndex) =>{
+  var result = false
+  var variableConfig = store.state.nodes[store.state.selected_node].variableConfig
+  var eventVariables = store.state.nodes[store.state.selected_node].consumedEvents[eventIndex]
+  console.log(`eventVariables ` + JSON.stringify(eventVariables))
+  if (variableConfig.producedEvent) {
+    if (variableConfig.producedEvent.condition == 'gthan'){
+      var ev = variableConfig.producedEvent.ev
+      if (eventVariables.variables[ev] > variableConfig.producedEvent.value)
+      return true
+
+    }
+  }
+  return result
+}
+
 
 onBeforeMount(() => {
   //console.log(`DefaultEventList Mounted ${store.state.selected_node}`)

@@ -10,7 +10,7 @@ import Default2EventsList from "components/modules/default2/Default2EventsList";
 import Default2EventVariables from "components/modules/default2/Default2EventVariables";
 
 export default {
-  name: "DefaultEvents",
+  name: "Default2Events",
   components: { Default2EventsList, Default2EventVariables},
   setup() {
     const store = inject('store')
