@@ -71,6 +71,7 @@
 <script setup>
 import {inject, onBeforeMount, computed, watch, ref} from "vue";
 import Default2EventVariables from "components/modules/default2/Default2EventVariables";
+import {parseProducedEvent} from "components/modules/default2/Default2LogicParsers.js";
 
 const columns = [
   {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'EventId', align: 'left', sortable: true},
@@ -120,28 +121,11 @@ const update_rows = () => {
 
 
 const getEventType = (eventIndex) =>{
-  if (parseProducedEvent(eventIndex)){
+  if (parseProducedEvent(eventIndex, store)){
     return "produced"
   } else{
     return "consumed"
   }
-
-}
-
-const parseProducedEvent = (eventIndex) =>{
-  var result = false
-  var variableConfig = store.state.nodes[store.state.selected_node].variableConfig
-  var eventVariables = store.state.nodes[store.state.selected_node].consumedEvents[eventIndex]
-  console.log(`eventVariables ` + JSON.stringify(eventVariables))
-  if (variableConfig.producedEvent) {
-    if (variableConfig.producedEvent.condition == 'gthan'){
-      var ev = variableConfig.producedEvent.ev
-      if (eventVariables.variables[ev] > variableConfig.producedEvent.value)
-      return true
-
-    }
-  }
-  return result
 }
 
 
