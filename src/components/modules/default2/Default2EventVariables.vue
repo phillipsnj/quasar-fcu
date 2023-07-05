@@ -13,7 +13,7 @@
   <div class="q-pa-none row">
 
     <div v-for="item in eventVariables" :key="item">
-      <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
+      <EventVariableBitArray v-if="(item.type=='EventVariableBitArray') && (isVisible(item))"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
@@ -21,7 +21,7 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitArray>
-      <EventVariableBitSingle v-if="item.type=='EventVariableBitSingle'"
+      <EventVariableBitSingle v-if="(item.type=='EventVariableBitSingle') && (isVisible(item))"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
@@ -29,10 +29,10 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitSingle>
-      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
+      <EventVariableGroup v-if="(item.type=='EventVariableGroup') && (isVisible(item))"
                     :configuration = item>
       </EventVariableGroup>
-      <EventVariableNumber v-if="item.type=='EventVariableNumber'"
+      <EventVariableNumber v-if="(item.type=='EventVariableNumber') && (isVisible(item))"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
                   :eventVariableIndex= "item.eventVariableIndex"
@@ -45,7 +45,7 @@
                   :max = "item.max"
                   :configuration = item>
       </EventVariableNumber>
-      <EventVariableSelect v-if="item.type=='EventVariableSelect'"
+      <EventVariableSelect v-if="(item.type=='EventVariableSelect') && (isVisible(item))"
                         :nodeNumber="store.state.selected_node"
                         :eventIndex = "store.state.selected_event_index"
                         :eventVariableIndex= "item.eventVariableIndex"
@@ -54,7 +54,7 @@
                         :displaySubTitle="item.displaySubTitle"
                         :options= "item.options">
       </EventVariableSelect>
-      <EventVariableSlider v-if="item.type=='EventVariableSlider'"
+      <EventVariableSlider v-if="(item.type=='EventVariableSlider') && (isVisible(item))"
                             :node-number="store.state.selected_node"
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
@@ -68,7 +68,7 @@
                             :startBit = "item.startBit"
                             :endBit = "item.endBit">
       </EventVariableSlider>
-      <EventVariableTabs v-if="item.type=='EventVariableTabs'"
+      <EventVariableTabs v-if="(item.type=='EventVariableTabs') && (isVisible(item))"
                   :configuration=item>
       </EventVariableTabs>
     </div>
@@ -97,6 +97,7 @@ import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import EventVariableSlider from "components/modules/common/EventVariableSlider"
 import EventVariableTabs from "components/modules/common/EventVariableTabs"
 import DefaultInfo from "components/modules/default/DefaultInfo"
+import {parseEventVariableVisibility} from "components/modules/default2/Default2LogicParsers.js";
 
 export default {
   name: "DefaultVariables",
@@ -150,8 +151,22 @@ export default {
       console.log(`showEventsList`)
       store.methods.update_event_component("Default2EventsList")
     }
+
+    function isVisible(item){
+//      console.log(`isVisible: ` + JSON.stringify(item))
+      return parseEventVariableVisibility(item, store)
+//      return true
+    }
       
-    return {store, EventVariableRaw, eventVariables, showEventsList, eventIdentifier, producerNode, eventNumber, Title}
+    return {store, 
+      EventVariableRaw, 
+      eventVariables, 
+      showEventsList, 
+      eventIdentifier, 
+      producerNode, 
+      eventNumber, 
+      Title,
+      isVisible}
   }
 }
 
