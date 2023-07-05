@@ -6,10 +6,10 @@ export function parseProducedEvent (eventIndex, store) {
     var variableConfig = store.state.nodes[store.state.selected_node].variableConfig
     var eventVariables = store.state.nodes[store.state.selected_node].consumedEvents[eventIndex]
 //    console.log(`eventVariables ` + JSON.stringify(eventVariables))
-    if (variableConfig.producedEvent) {
-        if (variableConfig.producedEvent.condition == 'gthan'){
-            var ev = variableConfig.producedEvent.ev
-            if (eventVariables.variables[ev] > variableConfig.producedEvent.value)
+    if (variableConfig.producedEventLogic) {
+        if (variableConfig.producedEventLogic.condition == 'gthan'){
+            var ev = variableConfig.producedEventLogic.ev
+            if (eventVariables.variables[ev] > variableConfig.producedEventLogic.value)
             return true
         }
     }
