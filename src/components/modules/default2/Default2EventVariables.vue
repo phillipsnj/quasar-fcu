@@ -131,9 +131,9 @@ export default {
         100,
         store.state.nodes[store.state.selected_node].parameters[5]
       )
-      console.log(`Default2EventVariables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]))
-      console.log(`Default2EventVariables: config: ` + JSON.stringify(eventVariables.value))
-      console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
+//      console.log(`Default2EventVariables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]))
+//      console.log(`Default2EventVariables: config: ` + JSON.stringify(eventVariables.value))
+//      console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
     })
 
 
@@ -153,9 +153,9 @@ export default {
     }
 
     function isVisible(item){
-//      console.log(`isVisible: ` + JSON.stringify(item))
-      return parseEventVariableVisibility(item, store)
-//      return true
+      var result = parseEventVariableVisibility(item, store)
+      console.log(`isVisible: ` + result + ' ' + item.type)
+      return result
     }
       
     return {store, 

@@ -40,19 +40,42 @@
       <q-card style="min-width: 350px">
         <q-card-section>
           <div class="text-h4">Add new event</div>
+          <div class="q-gutter-sm">
+            <q-radio v-model="eventType" val='long' label="Long event" />
+            <q-radio v-model="eventType" val='short' label="Short event" />
+          </div>
         </q-card-section>
-        <q-card-section>
-          <div class="text-h6">Producer Node Number</div>
-        </q-card-section>
-        <q-card-section class="q-pt-none">
-          <q-input dense v-model="newNodeNumber" autofocus />
-        </q-card-section>
-        <q-card-section>
-          <div class="text-h6">Event Number</div>
-        </q-card-section>
-        <q-card-section class="q-pt-none">
-          <q-input dense v-model="newEventNumber" autofocus />
-        </q-card-section>
+        <div v-if="(eventType == 'long')">
+          <q-card-section>
+            <div class="text-h4">Node Number</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input dense v-model="newNodeNumber" autofocus />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h6">Consumed events will need the number of the node that produces the event</div>
+            <div class="text-h6">Events produced by this node will need the number of this node, as well as editing the event variables</div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h4">Event Number</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input dense v-model="newEventNumber" autofocus />
+          </q-card-section>
+        </div>
+        <div v-if="(eventType == 'short')">
+          <q-card-section>
+            <div class="text-h4">Device Number</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input dense v-model="newEventNumber" autofocus />
+          </q-card-section>
+        </div>
+        <div v-if="(eventType != null)">
+          <q-card-section>
+            <div class="text-h6">Once event is added, select edit for the event from the event list to modify event variables</div>
+          </q-card-section>
+        </div>
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
           <q-btn flat label="Add Event" v-close-popup @click="createEvent()"/>
@@ -88,6 +111,7 @@ const rows = ref([])
 const addEventDialog = ref(false)
 const newNodeNumber = ref()
 const newEventNumber = ref()
+var eventType = ref()
 
 const nodeEvents = computed(() =>{
   return Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
@@ -150,11 +174,13 @@ const showAddEventDialog = () => {
   console.log(`addEventDialog`)
   newNodeNumber.value = null
   newEventNumber.value = null
+  eventType.value = null
   addEventDialog.value = true
 }
 
 const createEvent = () => {
   var eventIndex = getFreeEventIndex()
+  if (eventType.value == 'short'){newNodeNumber.value = 0}
   var eventID = parseInt(newNodeNumber.value).toString(16).toUpperCase().padStart(4, 0)
                + parseInt(newEventNumber.value).toString(16).toUpperCase().padStart(4, 0)
   console.log(`createEvent - index ` + eventIndex + ` eventID ` + eventID)

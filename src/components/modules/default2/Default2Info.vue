@@ -39,8 +39,8 @@
 
     <q-card class="q-pa-sm" style="max-width: 300px">
       <q-card-section>
-        <div class="text-h6">Node Info Default 2</div>
-        <div class="text-subtitle2">Node Information</div>
+        <div class="text-h6">Node Information</div>
+        <div class="text-subtitle2">Node Specific</div>
       </q-card-section>
       <q-card-section>
         <node-parameter Name="Node Number"
@@ -49,21 +49,18 @@
         <node-parameter Name="Component"
                         :Value="store.state.nodes[store.state.selected_node].component">
         </node-parameter>
-        <node-parameter Name="Node Variables"
-                        :Value="store.state.nodes[store.state.selected_node].parameters[6]">
-        </node-parameter>
-        <node-parameter Name="Event Variables"
-                        :Value="store.state.nodes[store.state.selected_node].parameters[5]">
-        </node-parameter>
-        <node-parameter Name="Events Stored"
+        <node-parameter Name="Events Currently Stored"
                         :Value="store.state.nodes[store.state.selected_node].eventCount">
+        </node-parameter>
+        <node-parameter Name="Filename"
+                        :Value="moduleDescriptorFilename">
         </node-parameter>
       </q-card-section>
     </q-card>
     <q-card class="q-pa-sm" style="max-width: 300px">
       <q-card-section>
-        <div class="text-h6">Module Info</div>
-        <div class="text-subtitle2">Node Information</div>
+        <div class="text-h6">Module Information</div>
+        <div class="text-subtitle2">Node Parameters</div>
       </q-card-section>
       <q-card-section>
         <node-parameter Name="Manufacturer"
@@ -81,13 +78,22 @@
         <node-parameter Name="Consume own Events"
                         :Value="store.state.nodes[store.state.selected_node].coe">
         </node-parameter>
+        <node-parameter Name="Node Variables"
+                        :Value="store.state.nodes[store.state.selected_node].parameters[6]">
+        </node-parameter>
+        <node-parameter Name="Events Supported"
+                        :Value="store.state.nodes[store.state.selected_node].parameters[4]">
+        </node-parameter>
+        <node-parameter Name="Event Variables"
+                        :Value="store.state.nodes[store.state.selected_node].parameters[5]">
+        </node-parameter>
 
       </q-card-section>
     </q-card>
     <q-card class="q-pa-sm" style="max-width: 300px">
       <q-card-section>
-        <div class="text-h6">Hardware Info</div>
-        <div class="text-subtitle2">Node Information</div>
+        <div class="text-h6">Hardware Information</div>
+        <div class="text-subtitle2">Node Parameters</div>
       </q-card-section>
       <q-card-section>
         <node-parameter Name="CPU Name"

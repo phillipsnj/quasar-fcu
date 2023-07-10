@@ -18,16 +18,9 @@ export function parseProducedEvent (eventIndex, store) {
 export function parseEventVariableVisibility (item, store) {
     var result = true    
     var eventVariables = store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]
-    console.log(`eventVariables ` + JSON.stringify(eventVariables))
+//    console.log(`eventVariables ` + JSON.stringify(eventVariables))
     var isProducedEvent = parseProducedEvent(store.state.selected_event_index, store)
     if (item.visibilityLogic) {
-        /*
-        if (variableConfig.producedEventLogic.condition == 'gthan'){
-            var ev = variableConfig.producedEventLogic.ev
-            if (eventVariables.variables[ev] > variableConfig.producedEventLogic.value)
-            return true
-        }
-        */
         if (item.visibilityLogic.condition == 'false') {
             if(item.visibilityLogic.item == 'producedEvent'){
                 result = !isProducedEvent
@@ -39,7 +32,7 @@ export function parseEventVariableVisibility (item, store) {
             }
         }
     }
-    console.log(`isVisible: ` + result)
+//    console.log(`isVisible: ` + result)
     return result
 }
 
