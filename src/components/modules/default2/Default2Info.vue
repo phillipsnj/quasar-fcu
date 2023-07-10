@@ -69,6 +69,9 @@
         <node-parameter Name="Module"
                         :Value="store.state.nodes[store.state.selected_node].moduleName">
         </node-parameter>
+        <node-parameter Name="Module Identifier"
+                        :Value="store.state.nodes[store.state.selected_node].moduleIdentifier">
+        </node-parameter>
         <node-parameter Name="Producer"
                         :Value="store.state.nodes[store.state.selected_node].producer">
         </node-parameter>
@@ -102,11 +105,9 @@
         <node-parameter Name="Interface"
                         :Value="store.state.nodes[store.state.selected_node].interfaceName">
         </node-parameter>
-        <node-parameter Name="Major Version"
-                        :Value="store.state.nodes[store.state.selected_node].parameters[7]">
-        </node-parameter>
-        <node-parameter Name="Minor Version"
-                        :Value="String.fromCharCode(store.state.nodes[store.state.selected_node].parameters[2])">
+        <node-parameter Name="Firmware Version"
+                        :Value="store.state.nodes[store.state.selected_node].parameters[7] +
+							String.fromCharCode(store.state.nodes[store.state.selected_node].parameters[2])">
         </node-parameter>
         <node-parameter Name="Beta Version"
                         :Value="store.state.nodes[store.state.selected_node].parameters[20]">
