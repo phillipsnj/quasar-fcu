@@ -8,8 +8,12 @@ export function parseProducedEvent (eventIndex, store) {
     if (variableConfig.producedEventLogic) {
         if (variableConfig.producedEventLogic.condition == 'gthan'){
             var ev = variableConfig.producedEventLogic.ev
-            if (eventVariables.variables[ev] > variableConfig.producedEventLogic.value)
-            return true
+            if (eventVariables.variables[ev] != undefined) {
+                if (eventVariables.variables[ev] > variableConfig.producedEventLogic.value)
+                return true
+            } else {
+                return undefined
+            }
         }
     }
     return result

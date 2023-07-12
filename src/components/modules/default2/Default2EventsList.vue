@@ -6,12 +6,12 @@
       </div>
       <template v-slot:action>
         <q-btn color="positive" label="Add Event" @click="showAddEventDialog()" no-caps/>
+        <q-btn color="positive" label="Refresh Events" @click="refreshEvents()" no-caps/>
       </template>
     </q-banner>
   </div>
   <div class="full-width" >
     <q-table
-      title="Consumed Events"
       :rows=rows
       :columns="columns"
       row-key="eventIdentifier"
@@ -124,13 +124,8 @@ watch(nodeEvents, () => {
 const update_rows = () => {
   //console.log(`DefaultEventList Update Rows ${store.state.selected_node}`)
   rows.value = []
-  nodeEvents.value.forEach(event => {
-    store.methods.request_all_event_variables(
-        store.state.selected_node,
-        event.eventIndex,
-        100,
-        store.state.nodes[store.state.selected_node].parameters[5]
-    )
+
+   nodeEvents.value.forEach(event => {
     var eventNodeNumber = parseInt(event.eventIdentifier.substr(0, 4), 16)
     let output = {}
     output['eventIdentifier'] = event.eventIdentifier
@@ -141,13 +136,16 @@ const update_rows = () => {
     output['eventType'] = getEventType(event.eventIndex)
     rows.value.push(output)
   })
+  rows.value.sort(function(a, b){return a.eventIdentifier > b.eventIdentifier;});
 }
 
 
 const getEventType = (eventIndex) =>{
   if (parseProducedEvent(eventIndex, store)){
     return "produced"
-  } else{
+  } else if (parseProducedEvent(eventIndex, store) == undefined){
+    return ""
+  } else {
     return "consumed"
   }
 }
@@ -155,7 +153,8 @@ const getEventType = (eventIndex) =>{
 
 onBeforeMount(() => {
   //console.log(`DefaultEventList Mounted ${store.state.selected_node}`)
-  store.methods.request_all_node_events(store.state.selected_node)
+//  store.methods.request_all_node_events(store.state.selected_node)
+  refreshEvents()
   update_rows()
 })
 
@@ -178,6 +177,26 @@ const showAddEventDialog = () => {
   addEventDialog.value = true
 }
 
+const refreshEvents = () => {
+  // refresh event list
+  console.log(`refresh Events`)
+  store.methods.request_all_node_events(store.state.selected_node)
+  var timeout = 0
+  nodeEvents.value.forEach(event => {
+    timeout += 200
+    setTimeout(()=>{
+        store.methods.request_all_event_variables(
+          store.state.selected_node,
+          event.eventIndex,
+          100,
+          store.state.nodes[store.state.selected_node].parameters[5]
+        );
+			} , timeout
+    );
+  });
+}
+
+
 const createEvent = () => {
   var eventIndex = getFreeEventIndex()
   if (eventType.value == 'short'){newNodeNumber.value = 0}
@@ -185,6 +204,8 @@ const createEvent = () => {
                + parseInt(newEventNumber.value).toString(16).toUpperCase().padStart(4, 0)
   console.log(`createEvent - index ` + eventIndex + ` eventID ` + eventID)
   store.methods.teach_event(store.state.selected_node, eventID, eventIndex, )
+  // refresh event list
+  store.methods.request_all_node_events(store.state.selected_node)
 }
 
 const getFreeEventIndex = () => {
