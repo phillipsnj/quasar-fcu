@@ -177,7 +177,7 @@ const methods = {
     console.log(`REQUEST_ALL_NODE_EVENTS`)
   },
   request_all_event_variables(nodeId, eventIndex, delay, variables) {
-    console.log(`REQUEST_ALL_EVENT_VARIABLES`)
+    console.log(`REQUEST_ALL_EVENT_VARIABLES: eventIndex ` + eventIndex)
     socket.emit('REQUEST_ALL_EVENT_VARIABLES', {
       "nodeId": nodeId,
       "eventIndex": eventIndex,

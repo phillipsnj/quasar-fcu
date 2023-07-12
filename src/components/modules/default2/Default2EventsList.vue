@@ -136,7 +136,8 @@ const update_rows = () => {
     output['eventType'] = getEventType(event.eventIndex)
     rows.value.push(output)
   })
-  rows.value.sort(function(a, b){return a.eventIdentifier > b.eventIdentifier;});
+  // sort rows by eventIdentifier, not eventIndex
+  rows.value.sort(function(a, b){return (a.eventIdentifier < b.eventIdentifier)? -1 : 1;});
 }
 
 
