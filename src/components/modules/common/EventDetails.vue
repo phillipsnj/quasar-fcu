@@ -142,7 +142,7 @@ watch(nodeList, () => {
   //console.log(`WATCH Nodes`)
   update_taught_nodes()
   updateGroupList()
-  //taughtNodes.value = nodeList.value.find(o => o.consumedEvents === props.eventIdentifier)
+  //taughtNodes.value = nodeList.value.find(o => o.storedEvents === props.eventIdentifier)
   //availableNodes.value = nodeList.value.find(o => o.flim === true)
   availableNodes.value = []
   nodeList.value.forEach(node => {
@@ -156,8 +156,8 @@ watch(nodeList, () => {
 const update_taught_nodes = () => {
   taughtNodes.value = []
   nodeList.value.forEach(node => {
-    if (Object.values(node.consumedEvents).length > 0) {
-      let events = Object.values(node.consumedEvents)
+    if (Object.values(node.storedEvents).length > 0) {
+      let events = Object.values(node.storedEvents)
       events.forEach(event => {
         if (event.eventIdentifier == props.eventIdentifier) {
           //console.log(`Consumed Event ${props.eventIdentifier} ${event.node}`)

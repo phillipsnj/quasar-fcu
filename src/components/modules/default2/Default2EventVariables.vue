@@ -114,7 +114,7 @@ export default {
   setup() {
     const store = inject('store')
     const eventVariables = ref()
-    const eventIdentifier = store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index].eventIdentifier
+    const eventIdentifier = store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index].eventIdentifier
     const producerNode = parseInt(eventIdentifier.substr(0, 4), 16)
     const eventNumber = parseInt(eventIdentifier.substr(4, 4), 16)
     const Title = createTitle();
@@ -131,7 +131,7 @@ export default {
         100,
         store.state.nodes[store.state.selected_node].parameters[5]
       )
-//      console.log(`Default2EventVariables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]))
+//      console.log(`Default2EventVariables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index]))
 //      console.log(`Default2EventVariables: config: ` + JSON.stringify(eventVariables.value))
 //      console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
     })

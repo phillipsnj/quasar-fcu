@@ -75,7 +75,7 @@ const label = props.name ? props.name : "Event Variable " + props.eventVariableI
 const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
-let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+let eventIdentifier = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].eventIdentifier
 console.log(`EventVariableSlider Props : ${JSON.stringify(props)}`)
 const bitMask = computed(() => {
   var bitMask = 0;
@@ -88,11 +88,11 @@ console.log(`EventVariableSlider: bitMask : ${bitMask.value}`)
 
 const sliderValue = computed({
   get() {
-    return ((store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitMask.value) >> props.startBit)
+    return ((store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitMask.value) >> props.startBit)
   },
   set(newValue) {
     // get previous value, as starting point for updated byte value
-    let newByteValue = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+    let newByteValue = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
     console.log(`OldByteValue : ${newByteValue}`)
     console.log(`NewValue : ${newValue}`)
     // not sure we need to do a range check as the slider control uses max & min anyway...

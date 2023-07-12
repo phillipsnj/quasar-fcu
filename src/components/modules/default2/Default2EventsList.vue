@@ -114,7 +114,7 @@ const newEventNumber = ref()
 var eventType = ref()
 
 const nodeEvents = computed(() =>{
-  return Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
+  return Object.values(store.state.nodes[store.state.selected_node].storedEvents)
 })
 
 watch(nodeEvents, () => {
@@ -215,7 +215,7 @@ const getFreeEventIndex = () => {
       var eventIndex = null
       for (var i=1; i < maxEventCount; i++ ){
         console.log('i ' + i)
-        if (store.state.nodes[store.state.selected_node].consumedEvents[i]) {
+        if (store.state.nodes[store.state.selected_node].storedEvents[i]) {
           continue
         } else {
           eventIndex = i + 1

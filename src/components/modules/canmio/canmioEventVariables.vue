@@ -11,7 +11,7 @@
         :eventVariableIndex="0"
         :eventIndex=store.state.selected_event_index
         :nodeNumber="store.state.selected_node"
-        :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
+        :eventName="store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index]"
       >
       </EventVariable>
       <EventVariable
@@ -19,7 +19,7 @@
         :eventVariableIndex="1"
         :eventIndex=store.state.selected_event_index
         :nodeNumber="store.state.selected_node"
-        :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
+        :eventName="store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index]"
       >
       </EventVariable>
       </q-card-section>
@@ -42,7 +42,7 @@
         :eventVariableIndex="n"
         :eventIndex=store.state.selected_event_index
         :nodeNumber="store.state.selected_node"
-        :eventName="store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]"
+        :eventName="store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index]"
         v-for="n in store.state.nodes[store.state.selected_node].parameters[5]"
         :key="n">
       </EventVariable>

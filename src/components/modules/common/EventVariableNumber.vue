@@ -71,7 +71,7 @@ const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
 const eventValue = ref()
-let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+let eventIdentifier = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].eventIdentifier
 console.log(`EventVariableNumber: Props : ${JSON.stringify(props)}`)
 const bitMask = computed(() => {
   var bitMask = 0;
@@ -84,7 +84,7 @@ console.log(`EventVariableNumber: bitMask2 : ${bitMask.value}`)
 
 
 const eventVariableValue = computed(() => {
-  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  return store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 watch(eventVariableValue, () => {
@@ -120,7 +120,7 @@ const update_event = (newValue) => {
 
 onMounted(() => {
   console.log(`EventVariableNumber: onMounted`)
-  let startValue = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  let startValue = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
   eventValue.value = ((startValue  & bitMask.value)  >> props.startBit) + props.displayOffset
   //eventValue.value = ((startValue & bitMask.value) >> props.startBit) + props.displayOffset
 })

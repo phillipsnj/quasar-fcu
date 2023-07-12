@@ -58,10 +58,10 @@ const props = defineProps({
 const label = props.name ? props.name : "Variable" + props.eventVariableIndex
 const store = inject('store')
 const selectVariable = ref()
-let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+let eventIdentifier = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].eventIdentifier
 
 const variableValue = computed(() =>{
-  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  return store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 watch(variableValue, () => {

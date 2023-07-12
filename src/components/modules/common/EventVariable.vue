@@ -66,12 +66,12 @@ const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
 const eventValue = ref()
-let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+let eventIdentifier = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].eventIdentifier
 console.log(`Event Variable Props : ${JSON.stringify(props)}`)
 
 
 const eventVariableValue = computed(() => {
-  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  return store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 //store.state.nodes[store.state.selected_node].variableConfig.nodeVariables"
@@ -97,7 +97,7 @@ const update_event = (newValue) => {
 
 onMounted(() => {
   //console.log(`EventVariable onMounted` + props.nodeNumber + ' : ' + props.eventIndex + ' : ' + props.eventVariableIndex)
-  eventValue.value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  eventValue.value = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 </script>
