@@ -183,7 +183,7 @@ const refreshEvents = () => {
   store.methods.request_all_node_events(store.state.selected_node)
   var timeout = 0
   nodeEvents.value.forEach(event => {
-    timeout += 200
+    timeout += 100
     setTimeout(()=>{
         store.methods.request_all_event_variables(
           store.state.selected_node,
