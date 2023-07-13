@@ -42,11 +42,11 @@ const store = inject('store')
 const error = ref(false)
 const error_message = ref('')
 const eventValue = ref()
-let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+let eventIdentifier = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].eventIdentifier
 
 
 const eventVariableValue = computed(() => {
-  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  return store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 
@@ -67,7 +67,7 @@ const update_event = (newValue) => {
 
 
 onMounted(() => {
-  eventValue.value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  eventValue.value = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 </script>

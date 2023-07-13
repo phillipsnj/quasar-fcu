@@ -45,17 +45,17 @@ const bitArray = {0: 1, 1: 2, 2: 4, 3: 8, 4: 16, 5: 32, 6: 64, 7: 128}
 const checked = ref(false)
 
 //console.log(`eventIdentifier ${props.nodeNumber} ${props.eventIndex} ${props.eventVariableIndex}`)
-let eventIdentifier = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].eventIdentifier
+let eventIdentifier = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].eventIdentifier
 //console.log(`EventVariableBit: eventIdentifier: ${eventIdentifier}`)
 //console.log(`EventVariableBit: props: ${JSON.stringify(props)}`)
 
 
 const eventVariableValue = computed(() => {
-  return store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex]
+  return store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex]
 })
 
 watch(eventVariableValue, () => {
-  checked.value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitArray[props.bit] ? true : false
+  checked.value = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitArray[props.bit] ? true : false
 })
 
 const update_checked = () => {
@@ -76,7 +76,7 @@ const update_checked = () => {
 
 onMounted(() => {
   //console.log(`NodeVariableBit onMounted: `+store.state.nodes[props.NodeNumber].nodeVariables[props.VariableIndex])
-  const checked_value = store.state.nodes[props.nodeNumber].consumedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitArray[props.bit] ? true : false
+  const checked_value = store.state.nodes[props.nodeNumber].storedEvents[props.eventIndex].variables[props.eventVariableIndex] & bitArray[props.bit] ? true : false
   //this.checked.set( store.state.nodes[props.NodeNumber].nodeVariables[props.VariableIndex] & bitArray[props.Bit] ? true : false)
   //console.log(`EventVariableBit onMounted: Checked ${props.nodeNumber} ${checked_value}`)
   checked.value = checked_value

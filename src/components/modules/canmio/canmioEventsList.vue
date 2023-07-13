@@ -59,7 +59,7 @@ const event_actions = ref([])
 const happenings = ref({})
 
 const nodeEvents = computed(() => {
-  return Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
+  return Object.values(store.state.nodes[store.state.selected_node].storedEvents)
 })
 
 watch(nodeEvents, () => {
@@ -75,7 +75,7 @@ const update_rows = () => {
     output['eventIndex'] = event.eventIndex
     output['nodeNumber'] = parseInt(event.eventIdentifier.substr(0, 4), 16)
     output['eventNumber'] = parseInt(event.eventIdentifier.substr(4, 4), 16)
-    output['happening'] = happenings.value[store.state.nodes[store.state.selected_node].consumedEvents[event.eventIndex].variables[1]]
+    output['happening'] = happenings.value[store.state.nodes[store.state.selected_node].storedEvents[event.eventIndex].variables[1]]
     rows.value.push(output)
   })
 }

@@ -23,7 +23,7 @@
             </template>
           </q-input>
           <q-space/>
-          <q-btn color="negative" label="Check Nodes" @click="store.methods.QNN()" no-caps/>
+          <q-btn color="negative" label="Check Nodes" @click="checkNodes()" no-caps/>
         </template>
         <template v-slot:body="props">
           <q-tr :props="props">
@@ -101,6 +101,10 @@ const update_rows = () => {
     output['mode'] = node.flim
     rows.value.push(output)
   })
+}
+
+const checkNodes = () => {
+  store.methods.QNN()
 }
 
 

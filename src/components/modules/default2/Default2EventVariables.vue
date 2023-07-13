@@ -1,8 +1,19 @@
 <template>
+  <div class="q-pa-md" >
+    <q-banner inline-actions>
+      <div class="text-h6">
+        {{Title}}
+      </div>
+      <template v-slot:action>
+        <q-btn color="negative" label="<Back" @click="showEventsList" no-caps/>
+      </template>
+    </q-banner>
+  </div>
+  
   <div class="q-pa-none row">
 
     <div v-for="item in eventVariables" :key="item">
-      <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
+      <EventVariableBitArray v-if="(item.type=='EventVariableBitArray') && (isVisible(item))"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
@@ -10,7 +21,7 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitArray>
-      <EventVariableBitSingle v-if="item.type=='EventVariableBitSingle'"
+      <EventVariableBitSingle v-if="(item.type=='EventVariableBitSingle') && (isVisible(item))"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
@@ -18,10 +29,10 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitSingle>
-      <EventVariableGroup v-if="item.type=='EventVariableGroup'"
+      <EventVariableGroup v-if="(item.type=='EventVariableGroup') && (isVisible(item))"
                     :configuration = item>
       </EventVariableGroup>
-      <EventVariableNumber v-if="item.type=='EventVariableNumber'"
+      <EventVariableNumber v-if="(item.type=='EventVariableNumber') && (isVisible(item))"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
                   :eventVariableIndex= "item.eventVariableIndex"
@@ -34,7 +45,7 @@
                   :max = "item.max"
                   :configuration = item>
       </EventVariableNumber>
-      <EventVariableSelect v-if="item.type=='EventVariableSelect'"
+      <EventVariableSelect v-if="(item.type=='EventVariableSelect') && (isVisible(item))"
                         :nodeNumber="store.state.selected_node"
                         :eventIndex = "store.state.selected_event_index"
                         :eventVariableIndex= "item.eventVariableIndex"
@@ -43,7 +54,7 @@
                         :displaySubTitle="item.displaySubTitle"
                         :options= "item.options">
       </EventVariableSelect>
-      <EventVariableSlider v-if="item.type=='EventVariableSlider'"
+      <EventVariableSlider v-if="(item.type=='EventVariableSlider') && (isVisible(item))"
                             :node-number="store.state.selected_node"
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
@@ -57,7 +68,7 @@
                             :startBit = "item.startBit"
                             :endBit = "item.endBit">
       </EventVariableSlider>
-      <EventVariableTabs v-if="item.type=='EventVariableTabs'"
+      <EventVariableTabs v-if="(item.type=='EventVariableTabs') && (isVisible(item))"
                   :configuration=item>
       </EventVariableTabs>
     </div>
@@ -86,6 +97,7 @@ import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import EventVariableSlider from "components/modules/common/EventVariableSlider"
 import EventVariableTabs from "components/modules/common/EventVariableTabs"
 import DefaultInfo from "components/modules/default/DefaultInfo"
+import {parseEventVariableVisibility} from "components/modules/default2/Default2LogicParsers.js";
 
 export default {
   name: "DefaultVariables",
@@ -102,6 +114,10 @@ export default {
   setup() {
     const store = inject('store')
     const eventVariables = ref()
+    const eventIdentifier = store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index].eventIdentifier
+    const producerNode = parseInt(eventIdentifier.substr(0, 4), 16)
+    const eventNumber = parseInt(eventIdentifier.substr(4, 4), 16)
+    const Title = createTitle();
     onBeforeMount(() => {
       console.log('Default2EventVariables')
       if (store.state.nodes[store.state.selected_node].variableConfig != undefined) {
@@ -115,14 +131,46 @@ export default {
         100,
         store.state.nodes[store.state.selected_node].parameters[5]
       )
-      console.log(`Default2EventVariables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].consumedEvents[store.state.selected_event_index]))
-      console.log(`Default2EventVariables: config: ` + JSON.stringify(eventVariables.value))
-      console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
+//      console.log(`Default2EventVariables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index]))
+//      console.log(`Default2EventVariables: config: ` + JSON.stringify(eventVariables.value))
+//      console.log(`Default2EventVariables: number of event variables: ` + JSON.stringify(store.state.nodes[store.state.selected_node].parameters[5]))
     })
+
+
+    function createTitle(){
+      var title=""
+      if (producerNode == store.state.selected_node) {
+        title = 'produced event: event ' + eventNumber
+      } else {
+        title = 'consumed event: node ' + producerNode + ' event ' + eventNumber
+      }
+      return title
+    }
+
+    function showEventsList () {
+      console.log(`showEventsList`)
+      store.methods.update_event_component("Default2EventsList")
+    }
+
+    function isVisible(item){
+      var result = parseEventVariableVisibility(item, store)
+      console.log(`isVisible: ` + result + ' ' + item.type)
+      return result
+    }
       
-    return {store, EventVariableRaw, eventVariables}
+    return {store, 
+      EventVariableRaw, 
+      eventVariables, 
+      showEventsList, 
+      eventIdentifier, 
+      producerNode, 
+      eventNumber, 
+      Title,
+      isVisible}
   }
 }
+
+
 </script>
 
 <style scoped>

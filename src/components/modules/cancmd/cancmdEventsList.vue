@@ -47,7 +47,7 @@ const store = inject('store')
 const rows = ref([])
 
 const nodeEvents = computed(() =>{
-  return Object.values(store.state.nodes[store.state.selected_node].consumedEvents)
+  return Object.values(store.state.nodes[store.state.selected_node].storedEvents)
 })
 
 watch(nodeEvents, () => {

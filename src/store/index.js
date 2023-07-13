@@ -65,9 +65,10 @@ const methods = {
     console.log(`Request Service Discovery : ` + nodeNumber)
     socket.emit('REQUEST_SERVICE_DISCOVERY', {"nodeId":nodeNumber})
   },
-  request_diagnostics(nodeNumber) {
-    console.log(`Request Service Discovery : ` + nodeNumber)
-    socket.emit('REQUEST_DIAGNOSTICS', {"nodeId":nodeNumber})
+  request_diagnostics(nodeNumber, serviceIndex) {
+    if (serviceIndex == undefined){serviceIndex = 0;}
+    console.log(`Request Service Diagnostics : node ` + nodeNumber + ' Service Index ' + serviceIndex )
+    socket.emit('REQUEST_DIAGNOSTICS', {"nodeId":nodeNumber, "serviceIndex":serviceIndex})
   },
   update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue
@@ -103,7 +104,7 @@ const methods = {
   },
   update_event_variable(nodeNumber, eventName, eventIndex, eventVariableIndex, eventVariableValue) {
     console.log(`MAIN Update Event Variable : ${eventIndex} : ${eventVariableIndex} : ${eventVariableValue} `)
-    state.nodes[nodeNumber].consumedEvents[eventIndex].variables[eventVariableIndex] = eventVariableValue
+    state.nodes[nodeNumber].storedEvents[eventIndex].variables[eventVariableIndex] = eventVariableValue
     socket.emit('UPDATE_EVENT_VARIABLE',{
       "nodeId": nodeNumber,
       "eventName": eventName,
@@ -177,7 +178,7 @@ const methods = {
     console.log(`REQUEST_ALL_NODE_EVENTS`)
   },
   request_all_event_variables(nodeId, eventIndex, delay, variables) {
-    console.log(`REQUEST_ALL_EVENT_VARIABLES`)
+    console.log(`REQUEST_ALL_EVENT_VARIABLES: eventIndex ` + eventIndex)
     socket.emit('REQUEST_ALL_EVENT_VARIABLES', {
       "nodeId": nodeId,
       "eventIndex": eventIndex,
