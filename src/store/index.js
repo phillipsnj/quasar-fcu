@@ -65,9 +65,10 @@ const methods = {
     console.log(`Request Service Discovery : ` + nodeNumber)
     socket.emit('REQUEST_SERVICE_DISCOVERY', {"nodeId":nodeNumber})
   },
-  request_diagnostics(nodeNumber) {
-    console.log(`Request Service Discovery : ` + nodeNumber)
-    socket.emit('REQUEST_DIAGNOSTICS', {"nodeId":nodeNumber})
+  request_diagnostics(nodeNumber, serviceIndex) {
+    if (serviceIndex == undefined){serviceIndex = 0;}
+    console.log(`Request Service Diagnostics : node ` + nodeNumber + ' Service Index ' + serviceIndex )
+    socket.emit('REQUEST_DIAGNOSTICS', {"nodeId":nodeNumber, "serviceIndex":serviceIndex})
   },
   update_node_variable(nodeNumber, nodeVariableIndex, nodeVariableValue) {
     state.nodes[nodeNumber].nodeVariables[nodeVariableIndex] = nodeVariableValue

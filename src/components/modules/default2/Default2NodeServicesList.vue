@@ -72,7 +72,7 @@ onBeforeMount(() => {
 
 const showDiagnostics = (serviceIndex) => {
   console.log(`showDiagnostics for index ${serviceIndex}`)
-  store.methods.request_diagnostics(store.state.selected_node)
+  store.methods.request_diagnostics(store.state.selected_node, serviceIndex)
   store.state.selected_service_index = serviceIndex
   store.methods.update_services_component("Default2NodeServiceDiagnostics")
 }

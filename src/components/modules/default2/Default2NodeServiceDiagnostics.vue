@@ -5,6 +5,7 @@
         Service Index {{nodeService.ServiceIndex}} : {{nodeService.ServiceName}}
       </div>
       <template v-slot:action>
+        <q-btn color="positive" label="Refresh" @click="refreshDiagnostics()" no-caps/>
         <q-btn color="negative" label="<Back" @click="showServicesList()" no-caps/>
       </template>
     </q-banner>
@@ -72,6 +73,12 @@ onBeforeMount(() => {
   update_rows()
   console.log(`Default2ServiceDiagnostics: OnBeforeMount`)
 })
+
+const refreshDiagnostics = () => {
+  console.log(`refreshDiagnostics`)
+  store.methods.request_diagnostics(store.state.selected_node, store.state.selected_service_index)
+}
+
 
 const showServicesList = () => {
   console.log(`showServicesList`)
