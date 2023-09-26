@@ -94,7 +94,7 @@
 <script setup>
 import {inject, onBeforeMount, computed, watch, ref} from "vue";
 import Default2EventVariables from "components/modules/default2/Default2EventVariables";
-import {parseProducedEvent} from "components/modules/default2/Default2LogicParsers.js";
+import {parseEventVariableLogic} from "components/modules/default2/Default2LogicParsers.js";
 
 const columns = [
   {name: 'eventIdentifier', field: 'eventIdentifier', required: true, label: 'EventId', align: 'left', sortable: true},
@@ -142,10 +142,13 @@ const update_rows = () => {
 
 
 const getEventType = (eventIndex) =>{
-  if (parseProducedEvent(eventIndex, store)){
-    return "produced"
-  } else if (parseProducedEvent(eventIndex, store) == undefined){
+  var logic = store.state.nodes[store.state.selected_node].variableConfig.producedEventLogic
+  if (logic == undefined){
     return ""
+  }
+  var isProduced = parseEventVariableLogic(eventIndex, logic, store)
+  if (isProduced){
+    return "produced"
   } else {
     return "consumed"
   }

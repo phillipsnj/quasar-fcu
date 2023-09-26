@@ -97,7 +97,7 @@ import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import EventVariableSlider from "components/modules/common/EventVariableSlider"
 import EventVariableTabs from "components/modules/common/EventVariableTabs"
 import DefaultInfo from "components/modules/default/DefaultInfo"
-import {parseEventVariableVisibility} from "components/modules/default2/Default2LogicParsers.js";
+import {parseEventVariableLogic} from "components/modules/default2/Default2LogicParsers.js";
 
 export default {
   name: "DefaultVariables",
@@ -138,12 +138,7 @@ export default {
 
 
     function createTitle(){
-      var title=""
-      if (producerNode == store.state.selected_node) {
-        title = 'produced event: event ' + eventNumber
-      } else {
-        title = 'consumed event: node ' + producerNode + ' event ' + eventNumber
-      }
+      var title = 'event: node ' + producerNode + ' event ' + eventNumber
       return title
     }
 
@@ -153,7 +148,10 @@ export default {
     }
 
     function isVisible(item){
-      var result = parseEventVariableVisibility(item, store)
+      var result = true
+      if (item.visibilityLogic) {
+        result = parseEventVariableLogic(store.state.selected_event_index, item.visibilityLogic, store)
+      }
       console.log(`isVisible: ` + result + ' ' + item.type)
       return result
     }

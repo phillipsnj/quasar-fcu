@@ -1,47 +1,29 @@
 
-export function dummy1 () {}
 
-export function parseProducedEvent (eventIndex, store) {
-    var result = false
-    var variableConfig = store.state.nodes[store.state.selected_node].variableConfig
-    if (variableConfig) {
-        var eventVariables = store.state.nodes[store.state.selected_node].storedEvents[eventIndex]
-        if (variableConfig.producedEventLogic) {
-            if (variableConfig.producedEventLogic.condition == 'gthan'){
-                var ev = variableConfig.producedEventLogic.ev
-                if (eventVariables.variables[ev] != undefined) {
-                    if (eventVariables.variables[ev] > variableConfig.producedEventLogic.value)
-                    return true
-                } else {
-                    return undefined
-                }
-            }
-        }
-        return result
-    }
+
+export function parseEventVariableLogic (selected_event_index, logic, store) {
+  var result = true    
+  var eventVariables = store.state.nodes[store.state.selected_node].storedEvents[selected_event_index]
+  if (logic.evBit != undefined){
+    var value = eventVariables.variables[logic.evBit.index]
+    //console.log('parseEventVariableLogic: ev ' + logic.evBit.index + ' value = ' + value)
+    //console.log('parseEventVariableLogic: ev bit ' + logic.evBit.bit)
+    value = (value & 2 ** logic.evBit.bit) >> logic.evBit.bit
+    //console.log(`parseEventVariableLogic: evBit value = ` + value)
+    result = testCondition(value, logic)
+  }
+  console.log(`parseEventVariableLogic: result = ` + result)
+  return result
 }
 
-export function parseEventVariableVisibility (item, store) {
-    var result = true    
-    var eventVariables = store.state.nodes[store.state.selected_node].storedEvents[store.state.selected_event_index]
-//    console.log(`eventVariables ` + JSON.stringify(eventVariables))
-    var isProducedEvent = parseProducedEvent(store.state.selected_event_index, store)
-    if (item.visibilityLogic) {
-        if (item.visibilityLogic.condition == 'false') {
-            if(item.visibilityLogic.item == 'producedEvent'){
-                result = !isProducedEvent
-            }
-        }
-        if (item.visibilityLogic.condition == 'true') {
-            if(item.visibilityLogic.item == 'producedEvent'){
-                result = isProducedEvent
-            }
-        }
-    }
-//    console.log(`isVisible: ` + result)
-    return result
+function testCondition(value, logic){
+  var result = true;
+  if (logic.equals != undefined){
+    console.log(`testCondition: equals ` + JSON.stringify(logic.equals))
+    if (logic.equals != value) {result = false}
+  }
+  return result
 }
 
-    export function dummy2 () {}
 
 
