@@ -97,7 +97,7 @@ import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import EventVariableSlider from "components/modules/common/EventVariableSlider"
 import EventVariableTabs from "components/modules/common/EventVariableTabs"
 import DefaultInfo from "components/modules/default/DefaultInfo"
-import {parseEventVariableLogic} from "components/modules/default2/Default2LogicParsers.js";
+import {parseEventVariableLogic} from "components/modules/common/CommonLogicParsers.js";
 
 export default {
   name: "DefaultVariables",

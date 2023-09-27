@@ -16,11 +16,26 @@ export function parseEventVariableLogic (selected_event_index, logic, store) {
   return result
 }
 
+export function parseNodeVariableLogic (logic, store) {
+  var result = true    
+  if (logic.nv != undefined){
+    var value = store.state.nodes[store.state.selected_node].nodeVariables[logic.nv]
+    console.log(`parseNodeVariableLogic: nv value = ` + value)
+    result = testCondition(value, logic)
+  }
+  console.log(`parseNodeVariableLogic: result = ` + result)
+  return result
+}
+
 function testCondition(value, logic){
   var result = true;
   if (logic.equals != undefined){
     console.log(`testCondition: equals ` + JSON.stringify(logic.equals))
     if (logic.equals != value) {result = false}
+  }
+  if (logic.notEqual != undefined){
+    console.log(`testCondition: notEqual ` + JSON.stringify(logic.notEqual))
+    if (logic.notEqual == value) {result = false}
   }
   return result
 }

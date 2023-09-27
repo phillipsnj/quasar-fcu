@@ -13,41 +13,41 @@
           <div class="q-pa-xs row"  style="border:1px solid grey">
             <div v-for="item in tab.items" :key="item">
 
-              <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
+              <NodeVariableNumber v-if="(item.type=='NodeVariableNumber') && (isVisible(item))"
                         :node-number=store.state.selected_node
                         :displayTitle="item.displayTitle"
                         :displaySubTitle = "item.displaySubTitle"
                         :node-variable-index=item.nodeVariableIndex>
               </NodeVariableNumber>
-              <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
+              <NodeVariableBitArray v-if="(item.type=='NodeVariableBitArray') && (isVisible(item))"
                                   :VariableIndex=item.nodeVariableIndex
                                   :bitCollection = item.bitCollection
                                   :displayTitle="item.displayTitle"
                                   :displaySubTitle="item.displaySubTitle"
                                   :learn="false"
               ></NodeVariableBitArray>
-              <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
+              <NodeVariableBitSingle v-if="(item.type=='NodeVariableBitSingle') && (isVisible(item))"
                                         :NodeNumber="store.state.selected_node"
                                         :VariableIndex=item.nodeVariableIndex
                                         :displayTitle="item.displayTitle"
                                         :displaySubTitle="item.displaySubTitle"
                                         :Bit=item.bit>
               </NodeVariableBitSingle>
-              <NodeVariableDual v-if="item.type=='NodeVariableDual'"
+              <NodeVariableDual v-if="(item.type=='NodeVariableDual') && (isVisible(item))"
                                 :NodeVariableIndexLow="item.nodeVariableIndexLow"
                                 :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
                                 :NodeNumber="store.state.selected_node"
                                 :displayTitle="item.displayTitle"
                                 :displaySubTitle="item.displaySubTitle">
               </NodeVariableDual>
-              <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
+              <NodeVariableSelect v-if="(item.type=='NodeVariableSelect') && (isVisible(item))"
                                   :nodeVariableIndex="item.nodeVariableIndex"
                                   :nodeNumber="store.state.selected_node"
                                   :displayTitle="item.displayTitle"
                                   :displaySubTitle="item.displaySubTitle"
                                   :options="item.options">
               </NodeVariableSelect>
-              <node-variable-slider v-if="item.type=='NodeVariableSlider'"
+              <node-variable-slider v-if="(item.type=='NodeVariableSlider') && (isVisible(item))"
                                   :node-number="store.state.selected_node"
                                   :nodeVariableIndex="item.nodeVariableIndex"
                                   :displayTitle="item.displayTitle"
@@ -60,7 +60,7 @@
                                   :startBit = "item.startBit"
                                   :endBit = "item.endBit">
               </node-variable-slider>
-              <NodeVariableTabGroup v-if="item.type=='group'"
+              <NodeVariableTabGroup v-if="(item.type=='group') && (isVisible(item))"
                       :configuration = item>
               </NodeVariableTabGroup>
 
@@ -85,6 +85,7 @@
   import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
   import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
   import NodeVariableTabGroup from "components/modules/common/NodeVariableTabGroup"
+  import {parseNodeVariableLogic} from "components/modules/common/CommonLogicParsers.js";
 
   export default {
     props: {
@@ -110,10 +111,20 @@
         selectedTab.value = tabPanels.value[0].displayTitle
       })
 
+      function isVisible(item){
+      var result = true
+      if (item.visibilityLogic) {
+        result = parseNodeVariableLogic(item.visibilityLogic, store)
+      }
+      console.log(`isVisible: ` + result + ' ' + item.type)
+      return result
+    }
+
       return {
         store,
         selectedTab,
-        tabPanels
+        tabPanels,
+        isVisible
       }
     }
   }

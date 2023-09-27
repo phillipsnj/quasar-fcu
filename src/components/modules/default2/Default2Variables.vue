@@ -2,14 +2,14 @@
   <div class="q-pa-xs row">
 
     <div v-for="item in nodeVariables" :key="item">
-      <NodeVariableBitArray v-if="item.type=='NodeVariableBitArray'"
+      <NodeVariableBitArray v-if="(item.type=='NodeVariableBitArray') && (isVisible(item))"
                             :VariableIndex=item.nodeVariableIndex
                             :bitCollection = item.bitCollection
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle"
                             :learn="false"
       ></NodeVariableBitArray>
-      <NodeVariableBitSingle v-if="item.type=='NodeVariableBitSingle'"
+      <NodeVariableBitSingle v-if="(item.type=='NodeVariableBitSingle') && (isVisible(item))"
                                 :NodeNumber="store.state.selected_node"
                                 :VariableIndex=item.nodeVariableIndex
                                 :displayTitle="item.displayTitle"
@@ -17,30 +17,30 @@
                                 :Bit=item.bit
       >
       </NodeVariableBitSingle>
-      <NodeVariableDual v-if="item.type=='NodeVariableDual'"
+      <NodeVariableDual v-if="(item.type=='NodeVariableDual') && (isVisible(item))"
                         :NodeVariableIndexLow="item.nodeVariableIndexLow"
                         :NodeVariableIndexHigh="item.nodeVariableIndexHigh"
                         :NodeNumber="store.state.selected_node"
                         :displayTitle="item.displayTitle"
                         :displaySubTitle="item.displaySubTitle">
       </NodeVariableDual>
-      <NodeVariableGroup v-if="item.type=='group'"
+      <NodeVariableGroup v-if="(item.type=='group') && (isVisible(item))"
                     :configuration = item>
       </NodeVariableGroup>
-      <NodeVariableNumber v-if="item.type=='NodeVariableNumber'"
+      <NodeVariableNumber v-if="(item.type=='NodeVariableNumber') && (isVisible(item))"
                     :node-number=store.state.selected_node
                     :displayTitle="item.displayTitle"
                     :displaySubTitle="item.displaySubTitle"
                     :node-variable-index=item.nodeVariableIndex>
       </NodeVariableNumber>
-      <NodeVariableSelect v-if="item.type=='NodeVariableSelect'"
+      <NodeVariableSelect v-if="(item.type=='NodeVariableSelect') && (isVisible(item))"
                           :nodeVariableIndex="item.nodeVariableIndex"
                           :nodeNumber="store.state.selected_node"
                           :displayTitle="item.displayTitle"
                           :displaySubTitle="item.displaySubTitle"
                           :options="item.options">
       </NodeVariableSelect>
-      <node-variable-slider v-if="item.type=='NodeVariableSlider'"
+      <node-variable-slider v-if="(item.type=='NodeVariableSlider') && (isVisible(item))"
                             :node-number="store.state.selected_node"
                             :nodeVariableIndex="item.nodeVariableIndex"
                             :displayTitle="item.displayTitle"
@@ -53,7 +53,7 @@
                             :startBit = "item.startBit"
                             :endBit = "item.endBit">
       </node-variable-slider>
-      <NodeVariableTabs v-if="item.type=='NodeVariableTabs'"
+      <NodeVariableTabs v-if="(item.type=='NodeVariableTabs') && (isVisible(item))"
                   :configuration=item>
       </NodeVariableTabs>
       <div v-if="store.state.debug">
@@ -83,6 +83,7 @@ import NodeVariableRaw from "components/modules/common/NodeVariableRaw"
 import NodeVariableSelect from "components/modules/common/NodeVariableSelect"
 import NodeVariableSlider from "components/modules/common/NodeVariableSlider"
 import NodeVariableTabs from "components/modules/common/NodeVariableTabs"
+import {parseNodeVariableLogic} from "components/modules/common/CommonLogicParsers.js";
 
 export default {
   name: "DefaultVariables",
@@ -108,7 +109,17 @@ export default {
       }
       store.methods.request_all_node_variables(store.state.selected_node, store.state.nodes[store.state.selected_node].parameters[6], 100, 1)
     })
-    return {store, nodeVariables}
+
+    function isVisible(item){
+      var result = true
+      if (item.visibilityLogic) {
+        result = parseNodeVariableLogic(item.visibilityLogic, store)
+      }
+      console.log(`isVisible: ` + result + ' ' + item.type)
+      return result
+    }
+
+    return {store, nodeVariables, isVisible}
   }
 }
 </script>
