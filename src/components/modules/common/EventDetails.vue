@@ -156,8 +156,8 @@ watch(nodeList, () => {
 const update_taught_nodes = () => {
   taughtNodes.value = []
   nodeList.value.forEach(node => {
-    if (Object.values(node.storedEvents).length > 0) {
-      let events = Object.values(node.storedEvents)
+    if (Object.values(node.consumedEvents).length > 0) {
+      let events = Object.values(node.consumedEvents)
       events.forEach(event => {
         if (event.eventIdentifier == props.eventIdentifier) {
           //console.log(`Consumed Event ${props.eventIdentifier} ${event.node}`)
