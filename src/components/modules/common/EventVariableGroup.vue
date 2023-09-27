@@ -6,7 +6,7 @@
     <div class="q-pa-xs row">
       <div v-for="item in configuration.groupItems" :key="item" >
 
-        <EventVariableBitArray v-if="item.type=='EventVariableBitArray'"
+        <EventVariableBitArray v-if="(item.type=='EventVariableBitArray') && (isVisible(item))"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
@@ -14,7 +14,7 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitArray>
-      <EventVariableBitSingle v-if="item.type=='EventVariableBitSingle'"
+      <EventVariableBitSingle v-if="(item.type=='EventVariableBitSingle') && (isVisible(item))"
                             :nodeNumber = "store.state.selected_node"
                             :eventIndex = store.state.selected_event_index
                             :eventVariableIndex=item.eventVariableIndex
@@ -22,7 +22,7 @@
                             :displayTitle="item.displayTitle"
                             :displaySubTitle="item.displaySubTitle">
       </EventVariableBitSingle>
-      <EventVariableNumber v-if="item.type=='EventVariableNumber'"
+      <EventVariableNumber v-if="(item.type=='EventVariableNumber') && (isVisible(item))"
                   :node-number=store.state.selected_node
                   :eventIndex = store.state.selected_event_index
                   :eventVariableIndex= "item.eventVariableIndex"
@@ -34,7 +34,7 @@
                   :min = "item.min"
                   :max = "item.max">
       </EventVariableNumber>
-      <EventVariableSelect v-if="item.type=='EventVariableSelect'"
+      <EventVariableSelect v-if="(item.type=='EventVariableSelect') && (isVisible(item))"
                         :nodeNumber="store.state.selected_node"
                         :eventIndex = "store.state.selected_event_index"
                         :eventVariableIndex= "item.eventVariableIndex"
@@ -43,7 +43,7 @@
                         :displaySubTitle="item.displaySubTitle"
                         :options= "item.options">
       </EventVariableSelect>
-      <EventVariableSlider v-if="item.type=='EventVariableSlider'"
+      <EventVariableSlider v-if="(item.type=='EventVariableSlider') && (isVisible(item))"
       :node-number="store.state.selected_node"
                             :eventIndex = "store.state.selected_event_index"
                             :eventVariableIndex= "item.eventVariableIndex"
@@ -57,7 +57,7 @@
                             :startBit = "item.startBit"
                             :endBit = "item.endBit">
       </EventVariableSlider>
-      <EventVariableTabs v-if="item.type=='EventVariableTabs'"
+      <EventVariableTabs v-if="(item.type=='EventVariableTabs') && (isVisible(item))"
                   :configuration=item>
       </EventVariableTabs>
  
@@ -75,6 +75,7 @@ import EventVariableNumber from "components/modules/common/EventVariableNumber"
 import EventVariableSelect from "components/modules/common/EventVariableSelect"
 import EventVariableSlider from "components/modules/common/EventVariableSlider"
 import EventVariableTabs from "components/modules/common/EventVariableTabs"
+import {parseEventVariableLogic} from "components/modules/common/CommonLogicParsers.js";
 
 export default {
 
@@ -96,7 +97,17 @@ export default {
       console.log("Event Group onMounted")
       console.log('Event Group props: ' + JSON.stringify(props))
     })
-    return {store }
+
+    function isVisible(item){
+      var result = true
+      if (item.visibilityLogic) {
+        result = parseEventVariableLogic(store.state.selected_event_index, item.visibilityLogic, store)
+      }
+      console.log(`isVisible: ` + result + ' ' + item.type)
+      return result
+    }
+
+    return {store, isVisible }
   }
 }
 </script>

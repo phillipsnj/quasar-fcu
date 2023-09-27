@@ -3,7 +3,7 @@
                 v-model="checked"
                 :label="Name"
                 @click = "update_checked"
-                left-label
+                right-label
     ></q-checkbox>
 </template>
 
